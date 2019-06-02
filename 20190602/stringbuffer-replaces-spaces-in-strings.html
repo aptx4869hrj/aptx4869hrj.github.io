@@ -20,9 +20,9 @@
     <meta name="theme-color" content="#3F51B5">
     
     
-    <meta name="keywords" content="剑指Offer,算法,字符串">
+    <meta name="keywords" content="剑指Offer,字符串,算法">
     <meta name="description" content="题目描述： 1234567将一个字符串中的空格替换成 &amp;quot;%20&amp;quot;。Input:&amp;quot;A B&amp;quot;Output:&amp;quot;A%20B&amp;quot;  解法一：将String Buffer转换为String类型，再进行操作1234567public class Solution &amp;#123;    public String replaceSpace(StringBuf">
-<meta name="keywords" content="剑指Offer,算法,字符串">
+<meta name="keywords" content="剑指Offer,字符串,算法">
 <meta property="og:type" content="article">
 <meta property="og:title" content="StringBuffer 替换字符串中的空格">
 <meta property="og:url" content="http://www.duanmuxu.top/20190602/stringbuffer-replaces-spaces-in-strings.html">
@@ -325,6 +325,30 @@
 
 
 
+
+    <!-- Valine Comments -->
+    <div class="comments vcomment" id="comments"></div>
+    <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+    <script src="//unpkg.com/valine@latest/dist/Valine.min.js"></script>
+    <!-- Valine Comments script -->
+    <script>
+        var GUEST_INFO = ['nick','mail','link'];
+        var guest_info = 'nick,mail,link'.split(',').filter(function(item){
+          return GUEST_INFO.indexOf(item) > -1
+        });
+        new Valine({
+            el: '#comments',
+            notify: 'false' == 'true',
+            verify: 'false' == 'true',
+            appId: "TkNx8qQrs1R3XrIeuTt3bIvD-gzGzoHsz",
+            appKey: "1rYKcKGqfnSVtHTn1uyOKqhw",
+            avatar: "mm",
+            placeholder: "Just commit",
+            guest_info: guest_info.length == 0 ? GUEST_INFO : guest_info,
+            pageSize: "10"
+        })
+    </script>
+    <!-- Valine Comments end -->
 
 
 

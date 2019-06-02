@@ -20,9 +20,9 @@
     <meta name="theme-color" content="#3F51B5">
     
     
-    <meta name="keywords" content="数据结构,算法,leetcode">
+    <meta name="keywords" content="算法,数据结构,leetcode">
     <meta name="description" content="题目描述：  Given a string containing just the characters ‘(‘, ‘)’, ‘{‘, ‘}’, ‘[‘ and ‘]’, determine if the input string is valid. An input string is valid if:  Open brackets must be closed by the same typ">
-<meta name="keywords" content="数据结构,算法,leetcode">
+<meta name="keywords" content="算法,数据结构,leetcode">
 <meta property="og:type" content="article">
 <meta property="og:title" content="括号匹配消除">
 <meta property="og:url" content="http://www.duanmuxu.top/20190602/bracket-matching-elimination.html">
@@ -351,6 +351,30 @@
 
 
 
+
+    <!-- Valine Comments -->
+    <div class="comments vcomment" id="comments"></div>
+    <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+    <script src="//unpkg.com/valine@latest/dist/Valine.min.js"></script>
+    <!-- Valine Comments script -->
+    <script>
+        var GUEST_INFO = ['nick','mail','link'];
+        var guest_info = 'nick,mail,link'.split(',').filter(function(item){
+          return GUEST_INFO.indexOf(item) > -1
+        });
+        new Valine({
+            el: '#comments',
+            notify: 'false' == 'true',
+            verify: 'false' == 'true',
+            appId: "TkNx8qQrs1R3XrIeuTt3bIvD-gzGzoHsz",
+            appKey: "1rYKcKGqfnSVtHTn1uyOKqhw",
+            avatar: "mm",
+            placeholder: "Just commit",
+            guest_info: guest_info.length == 0 ? GUEST_INFO : guest_info,
+            pageSize: "10"
+        })
+    </script>
+    <!-- Valine Comments end -->
 
 
 
