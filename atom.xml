@@ -564,11 +564,11 @@
   </entry>
   
   <entry>
-    <title>关于Storm（一）Storm简介</title>
-    <link href="http://www.duanmuxu.top/20190602/about-storm-1.html"/>
-    <id>http://www.duanmuxu.top/20190602/about-storm-1.html</id>
+    <title>Storm学习01：Storm简介</title>
+    <link href="http://www.duanmuxu.top/20190602/storm-learning-01-introduction-to.html"/>
+    <id>http://www.duanmuxu.top/20190602/storm-learning-01-introduction-to.html</id>
     <published>2019-06-02T04:28:32.198Z</published>
-    <updated>2019-06-11T08:28:15.079Z</updated>
+    <updated>2019-06-11T08:34:36.616Z</updated>
     
     <content type="html"><![CDATA[<h1 id="什么是Storm"><a href="#什么是Storm" class="headerlink" title="什么是Storm"></a>什么是Storm</h1><p>Apache Storm是Apache与基金会的开源的分布式实时计算系统。与Hadoop的批处理相类似，Storm可以对大量的数据流进行可靠的实时处理，这一过程也称为“流式处理”，是分布式大数据处理的一个重要方向。Storm支持多种类型的应用，包括：实时分析、在线机器学习、连续计算、分布式 RPC（ DRPC）、ETL等。Strom的一个重要特点就是“快速”的数据处理，有benchmark示显示Storm级能够达到单个节点每秒百万级tuple处理（tuple是Storm的最小数据单元）的速度。快速的数据是处理、优秀的可扩展性与容错性、便捷的可操作性与维护性、活跃的社区技术支持，这就是 Storm 。</p><hr><h1 id="Hadoop与Storm的比较"><a href="#Hadoop与Storm的比较" class="headerlink" title="Hadoop与Storm的比较"></a>Hadoop与Storm的比较</h1><h3 id="相似之处"><a href="#相似之处" class="headerlink" title="相似之处"></a>相似之处</h3><table><thead><tr><th></th><th>Hadoop</th><th>Storm</th></tr></thead><tbody><tr><td>系统角色</td><td>JobTracker</td><td>Nimbus</td></tr><tr><td></td><td>TaskTracker</td><td>Supervisor</td></tr><tr><td></td><td>Child</td><td>Worker</td></tr><tr><td>应用名称</td><td>Job</td><td>Topology</td></tr><tr><td>组件接口</td><td>Mapper/Reducer</td><td>Spout/Bolt</td></tr><tr><td>- <strong>Nimbus</strong>：Nimbus在Storm中用于资源分配和作业调度，类比Hadoop中的Job Tracker</td><td></td><td></td></tr><tr><td>- <strong>Supervisor</strong>：Supervisor在Storm中用于接收Nimbus分配的任务，并且启动和停止用于完成这些任务对的Worker进程。Supervisor类比Hadoop中的TaskTracker</td><td></td><td></td></tr><tr><td>- <strong>Worker</strong>：运行Storm中具体组件逻辑的进程。这里的组件指的是Spout或者Bolt，对比Hadoop.x的Child进程。</td><td></td><td></td></tr><tr><td>- <strong>Topology</strong>：Topology是Storm中运行的一个任务，类比Hadoop.x中的一个作业（Job）</td><td></td><td></td></tr><tr><td>- <strong>Spout</strong>：在一个Topology中产生源数据流的组件</td><td></td><td></td></tr><tr><td>- <strong>Bolt</strong>：在一个Topology中接收数据，并进行逻辑处理的组件，称为Transformation</td><td></td><td></td></tr></tbody></table><h3 id="不同之处"><a href="#不同之处" class="headerlink" title="不同之处"></a>不同之处</h3><table><thead><tr><th></th><th>Hadoop</th><th>Storm</th></tr></thead><tbody><tr><td>数据来源</td><td>Hadoop处理的是HDFS上TB级别的数据（历史数据）</td><td>Storm处理的是实时新增的某一笔数据（实时数据）</td></tr><tr><td>处理过程</td><td>Hadoop是分Map阶段和Reduce阶段</td><td>Storm是由用户定义处理流程，流程中可以包含多个步骤，每个步骤可以是数据源（Spout）或处理逻辑（Bolt）</td></tr><tr><td>是否结束</td><td>Hadoop最后是要结束的</td><td>Storm没有结束状态，到最后一步时，就停在那，直到有新数据进入时再从头开始</td></tr><tr><td>处理速度</td><td>Hadoop是以处理HDFS上大量数据为目的的，处理速度慢</td><td>Storm是只要处理新增的某一笔数据即可，可以做到很快</td></tr><tr><td>适用场景</td><td>Hadoop是在要处理批量数据时用的，不讲究时效性</td><td>Storm是要处理某一新增数据时使用的，讲究时效性</td></tr></tbody></table><p>ps：在Hadoop集群上运行MapReduce jobs，在Storm集群上运行topologies。jobs和topologies有很大的不同。一个关键区别是：一个Map Reduce jobs最终可以完成，而topologies处理过程将永远执行（除非Kill it）</p><hr><h1 id="Storm组件"><a href="#Storm组件" class="headerlink" title="Storm组件"></a>Storm组件</h1><figure class="image-bubble">                <div class="img-lightbox">                    <div class="overlay"></div>                    <img src="https://img-blog.csdnimg.cn/20190611162336868.jpg?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MjU4NjM3Mw==,size_16,color_FFFFFF,t_70" alt="image" title>                </div>                <div class="image-caption">image</div>            </figure><h5 id="Storm集群中包含两类节点：主控节点（Master-Node）和工作节点（Work-Node）"><a href="#Storm集群中包含两类节点：主控节点（Master-Node）和工作节点（Work-Node）" class="headerlink" title="Storm集群中包含两类节点：主控节点（Master Node）和工作节点（Work Node）"></a>Storm集群中包含两类节点：主控节点（Master Node）和工作节点（Work Node）</h5><ul><li>主控节点上运行着Nimbus，负责在Storm集群内分发代码，分配任务给工作机器，并且负责监控集群运行状态</li><li>工作节点上运行着Supervisor，负责监听从Nimbus分配给它执行的任务，据此启动或停止任务的工作进程。</li><li><strong>每一个工作进程执行一个Topology的子集；一个运行中的Topology由分布在不同工作节点上的多个工作进程组成。</strong></li><li>Nimbus 和和 Supervisor节点之间所有的协调工作是通过<strong>Zookeeper集群</strong>来实现的。此外，Nimbus 和Supervisor进程都是<strong>快速失败（fail-fast)</strong> 和 <strong>无状态（stateless）</strong> 的；<strong>Storm集群所有的状态要么在Zookeeper集群中，要么存储在本地磁盘上</strong>。这意味着我们可以用kill-9来杀死Nimbus和Supervisor进程，它们在重启后可以继续工作。这个设计使得Storm集群拥有极强的<strong>稳定性</strong>。</li></ul>]]></content>
     
@@ -581,7 +581,7 @@
     
     </summary>
     
-      <category term="Storm学习" scheme="http://www.duanmuxu.top/categories/Storm%E5%AD%A6%E4%B9%A0/"/>
+      <category term="Storm" scheme="http://www.duanmuxu.top/categories/Storm/"/>
     
     
       <category term="Storm" scheme="http://www.duanmuxu.top/tags/Storm/"/>
