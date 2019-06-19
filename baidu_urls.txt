@@ -1,3 +1,4 @@
+http://www.duanmuxu.top/20190619/shell-learning-02-variables.html
 http://www.duanmuxu.top/20190618/shell-learning-01-creating-and-executing-script-files.html
 http://www.duanmuxu.top/20190611/storm-learning-02-eight-grouping-strategies.html
 http://www.duanmuxu.top/20190604/ambari-cluster-setup-hdp-offline-installation.html
@@ -7,4 +8,3 @@ http://www.duanmuxu.top/20190602/the-kth-node-in-list.html
 http://www.duanmuxu.top/20190602/bracket-matching-elimination.html
 http://www.duanmuxu.top/20190602/reverse-list.html
 http://www.duanmuxu.top/20190602/salary-for-all-employees-is-ranked-according-to-1n-in.html
-http://www.duanmuxu.top/20190602/oneway-linked-list.html
