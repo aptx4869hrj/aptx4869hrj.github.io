@@ -1,4 +1,4 @@
-http://www.duanmuxu.top/20190620/shell-learning-02-expect-to-automatically-enter-the-password-log-in-server.html
+http://www.duanmuxu.top/20190620/shell-learning-03-expect-to-automatically-enter-the-password-log-in-server.html
 http://www.duanmuxu.top/20190619/shell-learning-02-variables.html
 http://www.duanmuxu.top/20190618/shell-learning-01-creating-and-executing-script-files.html
 http://www.duanmuxu.top/20190611/storm-learning-02-eight-grouping-strategies.html
