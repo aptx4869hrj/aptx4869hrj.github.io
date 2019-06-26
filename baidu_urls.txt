@@ -1,3 +1,4 @@
+http://www.duanmuxu.top/20190626/shell-learning-05-parameter-passing.html
 http://www.duanmuxu.top/20190625/shell-learning-04-data-type.html
 http://www.duanmuxu.top/20190620/shell-learning-03-expect-to-automatically-enter-the-password-log-in-server.html
 http://www.duanmuxu.top/20190619/shell-learning-02-variables.html
@@ -7,4 +8,3 @@ http://www.duanmuxu.top/20190604/ambari-cluster-setup-hdp-offline-installation.h
 http://www.duanmuxu.top/20190602/roman-numerals-are-converted-to-arabic.html
 http://www.duanmuxu.top/20190602/several-solutions-for-identical-characters-in-two-strings.html
 http://www.duanmuxu.top/20190602/the-kth-node-in-list.html
-http://www.duanmuxu.top/20190602/bracket-matching-elimination.html

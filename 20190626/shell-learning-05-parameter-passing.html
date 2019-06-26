@@ -1,0 +1,557 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+    
+
+    
+
+    
+
+
+
+    <meta charset="utf-8">
+    
+    
+    
+    
+    <title>Shell学习05：参数传递 | 端木胥的个人博客</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="Shell">
+    <meta name="description" content="概述执行脚本时，可以向脚本里面传递参数，脚本可以根据传递的参数进行进一步操作。 脚本内获取参数的格式为：$n。n代表一个数字，比如 $1 表示传进来的第一个参数，$2 表示传进来的第二个参数，以此类推。 实例创建脚本并添加内容 12touch chuancan.shvim chuancan.sh  1234567#!/bin/bashecho &amp;quot;Shell 传递参数&amp;quot;;echo">
+<meta name="keywords" content="Shell">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Shell学习05：参数传递">
+<meta property="og:url" content="http://www.duanmuxu.top/20190626/shell-learning-05-parameter-passing.html">
+<meta property="og:site_name" content="端木胥的个人博客">
+<meta property="og:description" content="概述执行脚本时，可以向脚本里面传递参数，脚本可以根据传递的参数进行进一步操作。 脚本内获取参数的格式为：$n。n代表一个数字，比如 $1 表示传进来的第一个参数，$2 表示传进来的第二个参数，以此类推。 实例创建脚本并添加内容 12touch chuancan.shvim chuancan.sh  1234567#!/bin/bashecho &amp;quot;Shell 传递参数&amp;quot;;echo">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2019-06-26T15:46:30.270Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Shell学习05：参数传递">
+<meta name="twitter:description" content="概述执行脚本时，可以向脚本里面传递参数，脚本可以根据传递的参数进行进一步操作。 脚本内获取参数的格式为：$n。n代表一个数字，比如 $1 表示传进来的第一个参数，$2 表示传进来的第二个参数，以此类推。 实例创建脚本并添加内容 12touch chuancan.shvim chuancan.sh  1234567#!/bin/bashecho &amp;quot;Shell 传递参数&amp;quot;;echo">
+    
+        <link rel="alternate" type="application/atom+xml" title="端木胥的个人博客" href="/atom.xml">
+    
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="stylesheet" href="//unpkg.com/hexo-theme-material-indigo@latest/css/style.css">
+    <script>window.lazyScripts=[]</script>
+
+    <!-- custom head -->
+    
+
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu" class="hide">
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap" style="background-image:url(/img/brand.jpg)">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/avatar.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">端木胥</h5>
+          <a href="mailto:157170555@qq.com" title="157170555@qq.com" class="mail">157170555@qq.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/">
+                <i class="icon icon-lg icon-home"></i>
+                Home
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives">
+                <i class="icon icon-lg icon-archives"></i>
+                Archives
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags">
+                <i class="icon icon-lg icon-tags"></i>
+                Tags
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/categories">
+                <i class="icon icon-lg icon-th-list"></i>
+                Categories
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/aptx4869hrj" target="_blank">
+                <i class="icon icon-lg icon-github"></i>
+                Github
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://weibo.com/u/3454630080" target="_blank">
+                <i class="icon icon-lg icon-weibo"></i>
+                Weibo
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">Shell学习05：参数传递</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">Shell学习05：参数传递</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2019-06-26T15:44:57.067Z" itemprop="datePublished" class="page-time">
+  2019-06-26
+</time>
+
+
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/Shell/">Shell</a></li></ul>
+
+            
+        </h5>
+    </div>
+
+    
+
+
+</header>
+
+
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#概述"><span class="post-toc-number">1.</span> <span class="post-toc-text">概述</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#实例"><span class="post-toc-number">2.</span> <span class="post-toc-text">实例</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#参数处理"><span class="post-toc-number">3.</span> <span class="post-toc-text">参数处理</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#参数处理实例"><span class="post-toc-number">3.1.</span> <span class="post-toc-text">参数处理实例</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#与-详解"><span class="post-toc-number">4.</span> <span class="post-toc-text">$* 与 $@ 详解</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#参数校验"><span class="post-toc-number">5.</span> <span class="post-toc-text">参数校验</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#概述-1"><span class="post-toc-number">5.1.</span> <span class="post-toc-text">概述</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#简单实例"><span class="post-toc-number">5.2.</span> <span class="post-toc-text">简单实例</span></a></li></ol></li></ol>
+        </nav>
+    </aside>
+
+
+<article id="post-Shell学习05：参数传递" class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">Shell学习05：参数传递</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2019-06-26 23:44:57" datetime="2019-06-26T15:44:57.067Z" itemprop="datePublished">2019-06-26</time>
+
+            
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/Shell/">Shell</a></li></ul>
+
+
+
+            
+<span id="busuanzi_container_page_pv" title="文章总阅读量" style="display:none">
+    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>
+</span>
+
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <h2 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h2><p>执行脚本时，可以向脚本里面传递参数，脚本可以根据传递的参数进行进一步操作。</p>
+<p>脚本内获取参数的格式为：$n。n代表一个数字，比如 $1 表示传进来的第一个参数，$2 表示传进来的第二个参数，以此类推。</p>
+<h2 id="实例"><a href="#实例" class="headerlink" title="实例"></a>实例</h2><p>创建脚本并添加内容</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">touch chuancan.sh</span><br><span class="line">vim chuancan.sh</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">#!/bin/bash</span><br><span class="line"></span><br><span class="line">echo &quot;Shell 传递参数&quot;;</span><br><span class="line">echo &quot;执行的文件名：$0&quot;;</span><br><span class="line">echo &quot;第一个参数为：$1&quot;;</span><br><span class="line">echo &quot;第二个参数为：$2&quot;;</span><br><span class="line">echo &quot;第三个参数为：$3&quot;;</span><br></pre></td></tr></table></figure>
+
+<p>设置可执行权限，并执行脚本：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"># 设置可执行权限</span><br><span class="line">chmod +x chuancan.sh</span><br><span class="line"></span><br><span class="line"># 执行文件</span><br><span class="line">./chuancan.sh 参数一 参数二 参数三</span><br><span class="line"></span><br><span class="line"># 输出结果</span><br><span class="line">Shell 传递参数</span><br><span class="line">执行的文件名：./chuancan.sh</span><br><span class="line">第一个参数为：参数一</span><br><span class="line">第二个参数为：参数二</span><br><span class="line">第三个参数为：参数三</span><br></pre></td></tr></table></figure>
+
+<h2 id="参数处理"><a href="#参数处理" class="headerlink" title="参数处理"></a>参数处理</h2><ul>
+<li>$# : 表示传递参数的个数</li>
+<li>$* : 字符串形式展示传递给脚本的所有参数</li>
+<li>$$ : 当前脚本运行的当前进程ID号</li>
+<li>$@ : 与$* 相同，但是使用时会给每个参数加引号，在引号中返回每个参数</li>
+<li>$? : 显示最后命令的退出状态，0表示没有错误，其他值都表示有错误。</li>
+</ul>
+<h3 id="参数处理实例"><a href="#参数处理实例" class="headerlink" title="参数处理实例"></a>参数处理实例</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">#!/bin/bash</span><br><span class="line"></span><br><span class="line">echo &quot;Shell 传递参数&quot;;</span><br><span class="line">echo &quot;执行的文件名：$0&quot;;</span><br><span class="line">echo &quot;第一个参数为：$1&quot;;</span><br><span class="line">echo &quot;第二个参数为：$2&quot;;</span><br><span class="line">echo &quot;第三个参数为：$3&quot;;</span><br><span class="line"></span><br><span class="line">echo &quot;$#&quot;</span><br><span class="line">echo &quot;$*&quot;</span><br><span class="line">echo &quot;$$&quot;</span><br><span class="line">echo &quot;$@&quot;</span><br><span class="line">echo &quot;$?&quot;</span><br><span class="line"></span><br><span class="line"># 输出结果为：</span><br><span class="line">Shell 传递参数</span><br><span class="line">执行的文件名：./chuancan.sh</span><br><span class="line">第一个参数为：参数一</span><br><span class="line">第二个参数为：参数二</span><br><span class="line">第三个参数为：参数三</span><br><span class="line">3</span><br><span class="line">参数一 参数二 参数三</span><br><span class="line">2437</span><br><span class="line">参数一 参数二 参数三</span><br><span class="line">0</span><br></pre></td></tr></table></figure>
+
+<h2 id="与-详解"><a href="#与-详解" class="headerlink" title="$* 与 $@ 详解"></a>$* 与 $@ 详解</h2><ul>
+<li>相同点：都是引用所有参数</li>
+<li>不同点：$* 是直接以字符串的形式输出参数字符串，$@ 则是将参数先用双引号包含，再引用双引号中的所有参数</li>
+</ul>
+<hr>
+<p>实例：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">#! /bin/bash</span><br><span class="line"></span><br><span class="line">echo &quot;-- \$* 测试 ---&quot;</span><br><span class="line">for i in &quot;$*&quot;; do</span><br><span class="line">  echo &quot;$i&quot;</span><br><span class="line">done</span><br><span class="line"></span><br><span class="line">echo &quot;-- \$@ 测试 ---&quot;</span><br><span class="line">for i in &quot;$@&quot;; do</span><br><span class="line">  echo &quot;$i&quot;</span><br><span class="line">done</span><br><span class="line"></span><br><span class="line"># 输出结果</span><br><span class="line"></span><br><span class="line">-- $* 测试 ---</span><br><span class="line">参数一 参数二 参数三</span><br><span class="line">-- $@ 测试 ---</span><br><span class="line">参数一</span><br><span class="line">参数二</span><br><span class="line">参数三</span><br></pre></td></tr></table></figure>
+
+<h2 id="参数校验"><a href="#参数校验" class="headerlink" title="参数校验"></a>参数校验</h2><h3 id="概述-1"><a href="#概述-1" class="headerlink" title="概述"></a>概述</h3><p>有时候我们执行带参数的脚本可能只是为了某种特殊情况才需要传入参数进行执行，比如说有个脚本作用是转移每一天的数据，执行一段时间后发现某一天的数据给没了，或者某一天执行失败但是没被发现，那么就需要传入特定的天数参数去执行脚本。</p>
+<p>那么问题来了，既然有时候会用到参数，那么我们怎么判断脚本里是否有参数传递呢？</p>
+<p>其实想一想就能知道，可以用判断，如果传进来的参数不为空，那么就用传进来的参数作为执行条件，若为空，则无事发生，继续执行脚本。</p>
+<h3 id="简单实例"><a href="#简单实例" class="headerlink" title="简单实例"></a>简单实例</h3><p>创建脚本</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"># 创建脚本</span><br><span class="line">touch getTime.sh</span><br><span class="line"></span><br><span class="line"># 给脚本赋权</span><br><span class="line">chmod +x getTime.sh</span><br><span class="line"></span><br><span class="line"># 编辑脚本</span><br><span class="line">vim getTime.sh</span><br></pre></td></tr></table></figure>
+
+<p>输入脚本内容</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">#!/bin/bash</span><br><span class="line"></span><br><span class="line">now_time=$(date +%Y%m%d)</span><br><span class="line"></span><br><span class="line">if [ $1 ];then</span><br><span class="line">	echo &quot;现在时间为$1&quot;</span><br><span class="line">else</span><br><span class="line">	echo &quot;现在时间为$&#123;now_time&#125;&quot;</span><br><span class="line">fi</span><br></pre></td></tr></table></figure>
+
+<p>不带参数运行：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"># 运行脚本</span><br><span class="line">$  ./getTime.sh</span><br><span class="line"></span><br><span class="line"># 运行结果</span><br><span class="line">现在时间为20190626</span><br></pre></td></tr></table></figure>
+
+<p>带参数运行：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"># 运行脚本</span><br><span class="line">$  ./getTime.sh 20190505</span><br><span class="line"></span><br><span class="line"># 运行结果</span><br><span class="line">现在时间为20190505</span><br></pre></td></tr></table></figure>
+
+<p>脚本内容使用if进行判断，这里注意两点：一是获取时间，$(date +%Y%m%d) 中，date 与 + 号要用空格隔开，二是判断语句中if与大括号间要用空格隔开，否则会执行失败。具体函数后面会讲，这里不做过多介绍。</p>
+
+        </div>
+
+        <blockquote class="post-copyright">
+    
+    <div class="content">
+        
+<span class="post-time">
+    最后更新时间：<time datetime="2019-06-26T15:46:30.270Z" itemprop="dateUpdated">2019-06-26 23:46:30</time>
+</span><br>
+
+
+        
+        转载联系1571170555@qq.com
+        
+    </div>
+    
+    <footer>
+        <a href="http://www.duanmuxu.top">
+            <img src="/img/avatar.jpg" alt="端木胥">
+            端木胥
+        </a>
+    </footer>
+</blockquote>
+
+        
+<div class="page-reward">
+    <a id="rewardBtn" href="javascript:;" class="page-reward-btn waves-effect waves-circle waves-light">赏</a>
+</div>
+
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Shell/">Shell</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://www.duanmuxu.top/20190626/shell-learning-05-parameter-passing.html&title=《Shell学习05：参数传递》 — 端木胥的个人博客&pic=http://www.duanmuxu.top/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://www.duanmuxu.top/20190626/shell-learning-05-parameter-passing.html&title=《Shell学习05：参数传递》 — 端木胥的个人博客&source=" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://www.duanmuxu.top/20190626/shell-learning-05-parameter-passing.html" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Shell学习05：参数传递》 — 端木胥的个人博客&url=http://www.duanmuxu.top/20190626/shell-learning-05-parameter-passing.html&via=http://www.duanmuxu.top" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://www.duanmuxu.top/20190626/shell-learning-05-parameter-passing.html" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between flex-row-reverse">
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/20190625/shell-learning-04-data-type.html" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">Shell学习04：Shell数据类型</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+    <!-- Valine Comments -->
+    <div class="comments vcomment" id="comments"></div>
+    <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+    <script src="//unpkg.com/valine@latest/dist/Valine.min.js"></script>
+    <!-- Valine Comments script -->
+    <script>
+        var GUEST_INFO = ['nick','mail','link'];
+        var guest_info = 'nick,mail,link'.split(',').filter(function(item){
+          return GUEST_INFO.indexOf(item) > -1
+        });
+        new Valine({
+            el: '#comments',
+            notify: 'false' == 'true',
+            verify: 'false' == 'true',
+            appId: "TkNx8qQrs1R3XrIeuTt3bIvD-gzGzoHsz",
+            appKey: "1rYKcKGqfnSVtHTn1uyOKqhw",
+            avatar: "mm",
+            placeholder: "Just commit",
+            guest_info: guest_info.length == 0 ? GUEST_INFO : guest_info,
+            pageSize: "10"
+        })
+    </script>
+    <!-- Valine Comments end -->
+
+
+
+
+
+
+
+
+
+
+</article>
+
+<div id="reward" class="page-modal reward-lay">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <h3 class="reward-title">
+        <i class="icon icon-quote-left"></i>
+        谢谢大爷~
+        <i class="icon icon-quote-right"></i>
+    </h3>
+    <div class="reward-content">
+        
+        <div class="reward-code">
+            <img id="rewardCode" src="/img/wechat.jpg" alt="打赏二维码">
+        </div>
+        
+        <label class="reward-toggle">
+            <input id="rewardToggle" type="checkbox" class="reward-toggle-check" data-wechat="/img/wechat.jpg" data-alipay="/img/alipay.jpg">
+            <div class="reward-toggle-ctrol">
+                <span class="reward-toggle-item wechat">微信</span>
+                <span class="reward-toggle-label"></span>
+                <span class="reward-toggle-item alipay">支付宝</span>
+            </div>
+        </label>
+        
+    </div>
+</div>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="top">
+        
+<p>
+    <span id="busuanzi_container_site_uv" style="display:none">
+        站点总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style="display:none">
+        站点总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+        <p>
+            
+                <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
+            
+            <span>博客内容遵循 <a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">知识共享 署名 - 非商业性 - 相同方式共享 4.0 国际协议</a></span>
+        </p>
+    </div>
+    <div class="bottom">
+        <p><span>端木胥 &copy; 2018 - 2019</span>
+            <span>
+                
+                Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a>
+            </span>
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://www.duanmuxu.top/20190626/shell-learning-05-parameter-passing.html&title=《Shell学习05：参数传递》 — 端木胥的个人博客&pic=http://www.duanmuxu.top/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://www.duanmuxu.top/20190626/shell-learning-05-parameter-passing.html&title=《Shell学习05：参数传递》 — 端木胥的个人博客&source=" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://www.duanmuxu.top/20190626/shell-learning-05-parameter-passing.html" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Shell学习05：参数传递》 — 端木胥的个人博客&url=http://www.duanmuxu.top/20190626/shell-learning-05-parameter-passing.html&via=http://www.duanmuxu.top" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://www.duanmuxu.top/20190626/shell-learning-05-parameter-passing.html" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAN4AAADeCAAAAAB3DOFrAAACpklEQVR42u3a0W7CQAwEQP7/p+lrpTbp2j4DqiZPCGhyk0oXs/bjER/Pb8f9O1d/e/Wdq0/z8x848PDw8AZL/3nk37ladH7F+1vQXA8eHh7eGi/f0PNTV29E9ZvRbcXDw8P7AF5SwSbvV4tyPDw8vP/EewZHNT3IX+Ph4eG9i5cHBEmk21tuUpovZi14eHh4Z3bp5ma9/Xqlv4eHh4c37qrnD4k86u0NKDRXi4eHh7fAyzfcXrsrKbWTmKO3Tjw8PLwNXr7oeVw7iTmaAwR4eHh4y7wkTp2UuckAQTWKLeTTeHh4eId41a25Fz1Um2d5kV34H+Lh4eEd5eUDWL3YYt7sP9bZw8PDw1vj9eKJajhbHdKqFvR4eHh427x80fdFbW9Pvmf0Sm08PDy8PV7eZEpg1fI3jyeawwp4eHh4R3l5JDqp0yeNsdGneHh4eAu86rbbq1d7C50EwXh4eHjbvN7wU2+s6kDS3GuM4eHh4a313HvjUHkx3Ysnqg0wPDw8vD3efEQgb/znIezkBv0S4+Lh4eEd5U3aUfMAojouUC3N8fDw8PZ4zWD00BBAtZHWHLrCw8PDO8Srbs3Vojnf0KOCuBhD4+Hh4W3welt8Hhwk58nj4Dx6fkyeYHh4eHgBL9/QJ0f1BlXD3z/CCDw8PLw13jxgrV5+Puw1mobAw8PDG/DyxlJ1Q69W9JNiHQ8PD++VvFOF8qQ4nq+q8IsBDw8Pr8U7VQRXW1BJ/HHg/Hh4eHgLvNHzZLz0PNpo9vHw8PDw1njVn/r5GNb86vOxAzw8PLw9XtIYmwcTeXgxeYDh4eHhfRpvXl7nV6k+ivDw8PA+mTdvkvU+TR4zeHh4eK/hzUve+QDB/bWqV8fDw8Pb41V/5OcDo/mCqg+GauGOh4eHd4j3Bf6Mpku5fEZnAAAAAElFTkSuQmCC" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: true };
+
+
+</script>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/main.min.js"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/search.min.js" async></script>
+
+
+
+
+
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+<script>
+(function() {
+    var OriginTitile = document.title, titleTime;
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+            document.title = '快回来！';
+            clearTimeout(titleTime);
+        } else {
+            document.title = '(つェ⊂)咦!又好了!';
+            titleTime = setTimeout(function() {
+                document.title = OriginTitile;
+            },2000);
+        }
+    });
+})();
+</script>
+
+
+
+</body>
+</html>
