@@ -1,0 +1,573 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+    
+
+    
+
+    
+
+
+
+    <meta charset="utf-8">
+    
+    
+    
+    
+    <title>Shell学习07：read、echo和printf命令 | 端木胥的个人博客</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="Shell">
+    <meta name="description" content="readread 命令用于一个一个词组地接收输入的参数，每个词组需要使用空格进行分隔；如果输入的词组个数大于需要的参数个数，则多出的词组将被作为整体为最后一个参数接收。 实例及参数说明： 123456789101112# 脚本 test.sh 内容read firstStr secondStrecho &amp;quot;第一个参数:$&amp;#123;firstStr&amp;#125;  第二个参数:$&amp;#123;">
+<meta name="keywords" content="Shell">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Shell学习07：read、echo和printf命令">
+<meta property="og:url" content="http://www.duanmuxu.top/20190630/shell-learning-07-read-echo-and-printf-commands.html">
+<meta property="og:site_name" content="端木胥的个人博客">
+<meta property="og:description" content="readread 命令用于一个一个词组地接收输入的参数，每个词组需要使用空格进行分隔；如果输入的词组个数大于需要的参数个数，则多出的词组将被作为整体为最后一个参数接收。 实例及参数说明： 123456789101112# 脚本 test.sh 内容read firstStr secondStrecho &amp;quot;第一个参数:$&amp;#123;firstStr&amp;#125;  第二个参数:$&amp;#123;">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2019-06-29T16:48:11.538Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Shell学习07：read、echo和printf命令">
+<meta name="twitter:description" content="readread 命令用于一个一个词组地接收输入的参数，每个词组需要使用空格进行分隔；如果输入的词组个数大于需要的参数个数，则多出的词组将被作为整体为最后一个参数接收。 实例及参数说明： 123456789101112# 脚本 test.sh 内容read firstStr secondStrecho &amp;quot;第一个参数:$&amp;#123;firstStr&amp;#125;  第二个参数:$&amp;#123;">
+    
+        <link rel="alternate" type="application/atom+xml" title="端木胥的个人博客" href="/atom.xml">
+    
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="stylesheet" href="//unpkg.com/hexo-theme-material-indigo@latest/css/style.css">
+    <script>window.lazyScripts=[]</script>
+
+    <!-- custom head -->
+    
+
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu" class="hide">
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap" style="background-image:url(/img/brand.jpg)">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/avatar.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">端木胥</h5>
+          <a href="mailto:157170555@qq.com" title="157170555@qq.com" class="mail">157170555@qq.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/">
+                <i class="icon icon-lg icon-home"></i>
+                Home
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives">
+                <i class="icon icon-lg icon-archives"></i>
+                Archives
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags">
+                <i class="icon icon-lg icon-tags"></i>
+                Tags
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/categories">
+                <i class="icon icon-lg icon-th-list"></i>
+                Categories
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/aptx4869hrj" target="_blank">
+                <i class="icon icon-lg icon-github"></i>
+                Github
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://weibo.com/u/3454630080" target="_blank">
+                <i class="icon icon-lg icon-weibo"></i>
+                Weibo
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">Shell学习07：read、echo和printf命令</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">Shell学习07：read、echo和printf命令</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2019-06-29T16:47:14.861Z" itemprop="datePublished" class="page-time">
+  2019-06-30
+</time>
+
+
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/Shell/">Shell</a></li></ul>
+
+            
+        </h5>
+    </div>
+
+    
+
+
+</header>
+
+
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#read"><span class="post-toc-number">1.</span> <span class="post-toc-text">read</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#echo"><span class="post-toc-number">2.</span> <span class="post-toc-text">echo</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#显示普通字符串"><span class="post-toc-number">2.0.1.</span> <span class="post-toc-text">显示普通字符串</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#显示转义字符"><span class="post-toc-number">2.0.2.</span> <span class="post-toc-text">显示转义字符</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#显示变量"><span class="post-toc-number">2.0.3.</span> <span class="post-toc-text">显示变量</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#显示命令执行结果"><span class="post-toc-number">2.0.4.</span> <span class="post-toc-text">显示命令执行结果</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#输出结果到文件中"><span class="post-toc-number">2.0.5.</span> <span class="post-toc-text">输出结果到文件中</span></a></li></ol></li></ol><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#printf"><span class="post-toc-number">3.</span> <span class="post-toc-text">printf</span></a></li>
+        </nav>
+    </aside>
+
+
+<article id="post-Shell学习07：read、echo和printf命令" class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">Shell学习07：read、echo和printf命令</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2019-06-30 00:47:14" datetime="2019-06-29T16:47:14.861Z" itemprop="datePublished">2019-06-30</time>
+
+            
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/Shell/">Shell</a></li></ul>
+
+
+
+            
+<span id="busuanzi_container_page_pv" title="文章总阅读量" style="display:none">
+    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>
+</span>
+
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <h2 id="read"><a href="#read" class="headerlink" title="read"></a>read</h2><p>read 命令用于一个一个词组地接收输入的参数，每个词组需要使用空格进行分隔；如果输入的词组个数大于需要的参数个数，则多出的词组将被作为整体为最后一个参数接收。</p>
+<p>实例及参数说明：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"># 脚本 test.sh 内容</span><br><span class="line"></span><br><span class="line">read firstStr secondStr</span><br><span class="line">echo &quot;第一个参数:$&#123;firstStr&#125;  第二个参数:$&#123;secondStr&#125;&quot;</span><br><span class="line"></span><br><span class="line"># 执行脚本 test.sh</span><br><span class="line">sh test.sh </span><br><span class="line">one two three</span><br><span class="line"></span><br><span class="line"># 输出</span><br><span class="line"></span><br><span class="line">第一个参数:one 第二个参数:two three</span><br></pre></td></tr></table></figure>
+
+<p>read 参数说明：</p>
+<ul>
+<li>-p 输入提示文字</li>
+<li>-n 输入字符长度限制(达到6位，自动结束)</li>
+<li>-t 输入限时</li>
+<li>-s 隐藏输入内容<br>实例：</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"># 脚本 test.sh 内容</span><br><span class="line"></span><br><span class="line">read -p &quot;请输入一段文字:&quot; -n 6 -t 5 -s password</span><br><span class="line">echo -e &quot;\npassword is $password&quot;</span><br><span class="line"></span><br><span class="line"># 执行脚本 test.sh</span><br><span class="line">sh test.sh </span><br><span class="line">请输入一段文字:</span><br><span class="line">123456789</span><br><span class="line"># 输出</span><br><span class="line"></span><br><span class="line">password is 123456789</span><br></pre></td></tr></table></figure>
+
+<h2 id="echo"><a href="#echo" class="headerlink" title="echo"></a>echo</h2><p>从之前学习的例子看来，echo就是用于字符串的输出，这个字符串可以直接是字符串，也可以是变量。</p>
+<p>具体的功能有以下几种：</p>
+<h4 id="显示普通字符串"><a href="#显示普通字符串" class="headerlink" title="显示普通字符串"></a>显示普通字符串</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"># 这里字符串加不加双引号结果都是一样的</span><br><span class="line"></span><br><span class="line">echo &quot;It is a test&quot;</span><br><span class="line">echo It is a test</span><br><span class="line"></span><br><span class="line"># 输出： </span><br><span class="line"></span><br><span class="line">It is a test</span><br></pre></td></tr></table></figure>
+
+<h4 id="显示转义字符"><a href="#显示转义字符" class="headerlink" title="显示转义字符"></a>显示转义字符</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">echo &quot;\&quot;It is a test\&quot;&quot;</span><br><span class="line">echo \&quot;It is a test\&quot; # 双引号也可以省略</span><br><span class="line"></span><br><span class="line"># 输出： </span><br><span class="line"></span><br><span class="line">It is a test</span><br></pre></td></tr></table></figure>
+
+<h4 id="显示变量"><a href="#显示变量" class="headerlink" title="显示变量"></a>显示变量</h4><p>有两种情况，一种是通过read命令读取用户输入的变量，然后输出；一种是脚本内部的变量，相当于字符串。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"># 用户输入变量</span><br><span class="line">#! /bin/sh</span><br><span class="line">read name </span><br><span class="line">echo &quot;My name is $&#123;name&#125;&quot;</span><br><span class="line"></span><br><span class="line"># 执行</span><br><span class="line">sh test.sh</span><br><span class="line">Jerry</span><br><span class="line"></span><br><span class="line"># 输出</span><br><span class="line"></span><br><span class="line">My name is Jerry</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"># 脚本内部变量</span><br><span class="line">#! /bin/sh</span><br><span class="line">time=$(date) </span><br><span class="line">echo &quot;time is $&#123;time&#125;&quot;</span><br><span class="line"></span><br><span class="line"># 直接执行脚本并输出：</span><br><span class="line"></span><br><span class="line">Sat Jun 29 15:41:38 UTC 2019</span><br></pre></td></tr></table></figure>
+
+<h4 id="显示命令执行结果"><a href="#显示命令执行结果" class="headerlink" title="显示命令执行结果"></a>显示命令执行结果</h4><p>以上通过变量获取时间再输出的方式，可以直接把获取时间的命令放在echo中输出：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"># 脚本内容</span><br><span class="line">echo `date`</span><br><span class="line"></span><br><span class="line"># 输出 </span><br><span class="line">Sat Jun 29 15:41:38 UTC 2019</span><br></pre></td></tr></table></figure>
+
+<h4 id="输出结果到文件中"><a href="#输出结果到文件中" class="headerlink" title="输出结果到文件中"></a>输出结果到文件中</h4><p>通常用在写日志里</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"># 脚本内容</span><br><span class="line">echo &quot;time is `date`&quot; &gt; filename</span><br><span class="line">echo &quot;time is `date`&quot; &gt;&gt; filename</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><blockquote>
+<p>表示将echo的内容写进 filename文件中，若文件中已有内容，先删除后添加</p>
+</blockquote>
+</li>
+<li><blockquote>
+<blockquote>
+<p>表示将echo 的内容追加到 filename 文件中，不删除文件原有内容</p>
+</blockquote>
+</blockquote>
+</li>
+</ul>
+<h2 id="printf"><a href="#printf" class="headerlink" title="printf"></a>printf</h2><p>学过C语言的应该都知道C的输出命令最常用的就是printf了，Shell中的printf也差不多，可以给输出的内容指定类型，具体语法如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">printf  format-string  [arguments...]</span><br><span class="line"></span><br><span class="line">- format-string: 为格式控制字符串</span><br><span class="line">- arguments: 为参数列表</span><br></pre></td></tr></table></figure>
+
+<p>举个例子</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">#！ /bin/bash</span><br><span class="line"></span><br><span class="line">printf &quot;%-10s %-8s %-4.2f\n&quot; Jerry 男 62.2223</span><br><span class="line"></span><br><span class="line"># 输出为：</span><br><span class="line">Jerry     男      62.22</span><br></pre></td></tr></table></figure>
+
+<p>%s %c %d %f都是格式替代符</p>
+<ul>
+<li>d: Decimal 十进制整数 – 对应位置参数必须是十进制整数</li>
+<li>s: String 字符串 – 对应位置参数必须是字符串或者字符型</li>
+<li>c: Char 字符 – 对应位置参数必须是字符串或者字符型</li>
+<li>f: Float 浮点 – 对应位置参数必须是数字型</li>
+</ul>
+<p>例子中的%-10s 指一个宽度为10个字符（-表示左对齐，没有则表示右对齐），任何字符都会被显示在10个字符宽的字符内，如果不足则自动以空格填充，超过也会将内容全部显示出来；%-4.2f 指格式化为小数，其中.2指保留2位小数。</p>
+<p>更多实例说明：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"># 1.格式只指定了一个参数，但多出的参数仍然会按照该格式输出，format-string 被重用</span><br><span class="line">printf &quot;%s %s %s\n&quot; a b c d e f g h i j</span><br><span class="line"></span><br><span class="line"># 输出为</span><br><span class="line">a b c</span><br><span class="line">d e f</span><br><span class="line">g h i</span><br><span class="line">j </span><br><span class="line"></span><br><span class="line"></span><br><span class="line"># 2.如果没有 arguments，那么 %s 用NULL代替，%d 用 0 代替</span><br><span class="line"></span><br><span class="line">printf &quot;%s and %d \n&quot; </span><br><span class="line"></span><br><span class="line"># 输出为</span><br><span class="line"> and 0</span><br></pre></td></tr></table></figure>
+
+
+        </div>
+
+        <blockquote class="post-copyright">
+    
+    <div class="content">
+        
+<span class="post-time">
+    最后更新时间：<time datetime="2019-06-29T16:48:11.538Z" itemprop="dateUpdated">2019-06-30 00:48:11</time>
+</span><br>
+
+
+        
+        转载联系1571170555@qq.com
+        
+    </div>
+    
+    <footer>
+        <a href="http://www.duanmuxu.top">
+            <img src="/img/avatar.jpg" alt="端木胥">
+            端木胥
+        </a>
+    </footer>
+</blockquote>
+
+        
+<div class="page-reward">
+    <a id="rewardBtn" href="javascript:;" class="page-reward-btn waves-effect waves-circle waves-light">赏</a>
+</div>
+
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Shell/">Shell</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://www.duanmuxu.top/20190630/shell-learning-07-read-echo-and-printf-commands.html&title=《Shell学习07：read、echo和printf命令》 — 端木胥的个人博客&pic=http://www.duanmuxu.top/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://www.duanmuxu.top/20190630/shell-learning-07-read-echo-and-printf-commands.html&title=《Shell学习07：read、echo和printf命令》 — 端木胥的个人博客&source=" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://www.duanmuxu.top/20190630/shell-learning-07-read-echo-and-printf-commands.html" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Shell学习07：read、echo和printf命令》 — 端木胥的个人博客&url=http://www.duanmuxu.top/20190630/shell-learning-07-read-echo-and-printf-commands.html&via=http://www.duanmuxu.top" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://www.duanmuxu.top/20190630/shell-learning-07-read-echo-and-printf-commands.html" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between flex-row-reverse">
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/20190628/shell-learning-06-operator-summary.html" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">Shell学习06：运算符汇总</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+    <!-- Valine Comments -->
+    <div class="comments vcomment" id="comments"></div>
+    <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+    <script src="//unpkg.com/valine@latest/dist/Valine.min.js"></script>
+    <!-- Valine Comments script -->
+    <script>
+        var GUEST_INFO = ['nick','mail','link'];
+        var guest_info = 'nick,mail,link'.split(',').filter(function(item){
+          return GUEST_INFO.indexOf(item) > -1
+        });
+        new Valine({
+            el: '#comments',
+            notify: 'false' == 'true',
+            verify: 'false' == 'true',
+            appId: "TkNx8qQrs1R3XrIeuTt3bIvD-gzGzoHsz",
+            appKey: "1rYKcKGqfnSVtHTn1uyOKqhw",
+            avatar: "mm",
+            placeholder: "Just commit",
+            guest_info: guest_info.length == 0 ? GUEST_INFO : guest_info,
+            pageSize: "10"
+        })
+    </script>
+    <!-- Valine Comments end -->
+
+
+
+
+
+
+
+
+
+
+</article>
+
+<div id="reward" class="page-modal reward-lay">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <h3 class="reward-title">
+        <i class="icon icon-quote-left"></i>
+        谢谢大爷~
+        <i class="icon icon-quote-right"></i>
+    </h3>
+    <div class="reward-content">
+        
+        <div class="reward-code">
+            <img id="rewardCode" src="/img/wechat.jpg" alt="打赏二维码">
+        </div>
+        
+        <label class="reward-toggle">
+            <input id="rewardToggle" type="checkbox" class="reward-toggle-check" data-wechat="/img/wechat.jpg" data-alipay="/img/alipay.jpg">
+            <div class="reward-toggle-ctrol">
+                <span class="reward-toggle-item wechat">微信</span>
+                <span class="reward-toggle-label"></span>
+                <span class="reward-toggle-item alipay">支付宝</span>
+            </div>
+        </label>
+        
+    </div>
+</div>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="top">
+        
+<p>
+    <span id="busuanzi_container_site_uv" style="display:none">
+        站点总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style="display:none">
+        站点总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+        <p>
+            
+                <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
+            
+            <span>博客内容遵循 <a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">知识共享 署名 - 非商业性 - 相同方式共享 4.0 国际协议</a></span>
+        </p>
+    </div>
+    <div class="bottom">
+        <p><span>端木胥 &copy; 2018 - 2019</span>
+            <span>
+                
+                Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a>
+            </span>
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://www.duanmuxu.top/20190630/shell-learning-07-read-echo-and-printf-commands.html&title=《Shell学习07：read、echo和printf命令》 — 端木胥的个人博客&pic=http://www.duanmuxu.top/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://www.duanmuxu.top/20190630/shell-learning-07-read-echo-and-printf-commands.html&title=《Shell学习07：read、echo和printf命令》 — 端木胥的个人博客&source=" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://www.duanmuxu.top/20190630/shell-learning-07-read-echo-and-printf-commands.html" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Shell学习07：read、echo和printf命令》 — 端木胥的个人博客&url=http://www.duanmuxu.top/20190630/shell-learning-07-read-echo-and-printf-commands.html&via=http://www.duanmuxu.top" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://www.duanmuxu.top/20190630/shell-learning-07-read-echo-and-printf-commands.html" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAPYAAAD2CAAAAADAeSUUAAADNUlEQVR42u3aQW6EQAwEwP3/p5MHRLDdHjZahuIUJQSmuFht+/WKr58/19/fn//v+f3t84/uv/jCxsbGvgn75/Q6P/r5788B5/cn70rOdvhpsLGxsbdjJ4Xn6P7zQ+d35oDkc7wxYmNjY2MHwSMvQutFCxsbGxt7pRmU39+CV86AjY2N/TR2/so8ciRhIw8e7ae5rJeGjY2N/fXsfCr6/T9/ZL6NjY2N/cXslRZ8G2DaGDMrcpECGxsbeyP2bGXnqpFw8pbZSaLWEjY2NvYW7KSozJpBs8CQLPS0BfKwbmNjY2Nvwc7HunkBa7s37bC2LXvY2NjYT2Anr7kqTqx8gra8vQkn2NjY2Fuw80KVt/jbAUMyfnhTe9uSiY2Njb0dO39ZfqD2abOGUdv8KlIXNjY29k3YeVMpKW9tkKgzU9l+ioofNjY29s3Zs2gxa+ivlMyrFoBe5w/CxsbGviE7b9m8ecRVCzTBlRfLeucUGxsbewt22wBqW0V5Ec0/SlLkXnl1xcbGxr4hO99jyUntODbnFWHjqodiY2NjfzE7OXp+z0pEmY0QZsNmbGxs7P3Yn1vfyUtU+/Z2mIGNjY29KztvyswWetbx+XJPHZywsbGxt2Dnrfn8BbMPsdJayiMQNjY29hPYbajIA8m1f20jymECw8bGxt6I3Tbx19do1ld/Lste2NjY2Ddn1wUgWKD5nyZUux6EjY2NvSt7pUE/awm1Y9rkr8WyJjY2NvZG7HZdMi8wsxHsShRpAxI2Njb2TuxrA0AebxJY3qLKz4aNjY39HHZbqNpmUxty2g/35oNiY2Njb8ReKU5XLfdEA9p4OJ2XNGxsbOw92DNAvsqzUpwScFtcsbGxsZ/Abhn5IdoR7PpoeWlfCRsbG/vr2bNoMcs3sxKVN6qKZ2JjY2NvxF6pe7Nh7az4zSINNjY29nPY7dD0E4eYDQ/yAhYlMGxsbOybs/Pw0DaPZgs0xarNqOxhY2NjP5ldv6CMJe04OWk5HUYRbGxs7Eeyk7FB2zz6RD/sTcMLGxsbezt221Rqx7ezQUI7xC1WfLCxsbE3YretmWRlJ1+yacfAM+qwRYWNjY397exfvwedCA0bnt8AAAAASUVORK5CYII=" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: true };
+
+
+</script>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/main.min.js"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/search.min.js" async></script>
+
+
+
+
+
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+<script>
+(function() {
+    var OriginTitile = document.title, titleTime;
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+            document.title = '快回来！';
+            clearTimeout(titleTime);
+        } else {
+            document.title = '(つェ⊂)咦!又好了!';
+            titleTime = setTimeout(function() {
+                document.title = OriginTitile;
+            },2000);
+        }
+    });
+})();
+</script>
+
+
+
+</body>
+</html>
