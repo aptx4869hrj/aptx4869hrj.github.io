@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://www.duanmuxu.top/"/>
-  <updated>2019-06-30T03:59:19.007Z</updated>
+  <updated>2019-06-30T08:27:15.471Z</updated>
   <id>http://www.duanmuxu.top/</id>
   
   <author>
@@ -17,11 +17,37 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>Shell学习10：输入、输出重定向</title>
+    <link href="http://www.duanmuxu.top/20190630/shell-learning-10-input-output-redirection.html"/>
+    <id>http://www.duanmuxu.top/20190630/shell-learning-10-input-output-redirection.html</id>
+    <published>2019-06-30T08:26:34.401Z</published>
+    <updated>2019-06-30T08:27:15.471Z</updated>
+    
+    <content type="html"><![CDATA[<p>大多数 UNIX 系统命令从你的终端接受输入并将所产生的输出发送回到你的终端。一个命令通常从一个叫标准输入的地方读取输入，默认情况下，这恰好是你的终端。同样，一个命令通常将其输出写入到标准输出，默认情况下，这也是你的终端。</p><h2 id="重定向命令列表"><a href="#重定向命令列表" class="headerlink" title="重定向命令列表"></a>重定向命令列表</h2><table><thead><tr><th>命令</th><th>说明</th></tr></thead><tbody><tr><td>command &gt; file</td><td>将输出重定向到 file</td></tr><tr><td>command &lt; file</td><td>将输入重定向到 file</td></tr><tr><td>command &gt;&gt; file</td><td>将输出以追加的方式重定向到 file</td></tr><tr><td>n &gt; file</td><td>将文件描述符为 n 的文件重定向到 file</td></tr><tr><td>n &gt;&gt; file</td><td>将文件描述符为 n 的文件以追加的方式重定向到 file</td></tr><tr><td>n &gt;&amp; m</td><td>将输出文件 m 和 n 合并</td></tr><tr><td>n &lt;&amp; m</td><td>将输入文件 m 和 n 合并</td></tr><tr><td>&lt;&lt; tag</td><td>将开始标记 tag 和结束标记 tag 之间的内容作为输入</td></tr><tr><td><strong>文件描述符 0 通常是标准输入（STDIN），1 是标准输出（STDOUT），2 是标准错误输出（STDERR）</strong></td><td></td></tr><tr><td>## 输出重定向</td><td></td></tr><tr><td>前面讲echo命令的时候有提到过 &gt; 与 &gt;&gt; 的区别。现在清楚了，这就是输出重定向的命令。 &gt; 表示将 conmand 的执行结果存入file中，文件覆盖，&gt;&gt; 表示文件内容追加，不覆盖。</td><td></td></tr><tr><td>## 输入重定向</td><td></td></tr><tr><td>与输出重定向相反，输入重定向就是从文件获取输入</td><td></td></tr></tbody></table><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">command &lt; file</span><br></pre></td></tr></table></figure><p>这样，本来需要从键盘获取输入的命令会转移到文件读取内容。</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"># 统计文件行数</span><br><span class="line">wc -l users</span><br><span class="line"></span><br><span class="line"># 输出为</span><br><span class="line">2 users</span><br><span class="line"></span><br><span class="line"># 统计文件行数</span><br><span class="line">wc -l &lt; users</span><br><span class="line"></span><br><span class="line"># 输出</span><br><span class="line">2</span><br></pre></td></tr></table></figure><p>以上两个例子都是为了统计users 文件中的行数，区别在于加了 &lt; 符号的例子仅仅从标准输入读取内容，不读取文件名称。</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">command &lt; infile &gt; outfile</span><br></pre></td></tr></table></figure><p>以上命令可以同时替换输入和输出，执行command1，从文件infile读取内容，然后将输出写入到outfile中。</p><h2 id="标准文件重定向"><a href="#标准文件重定向" class="headerlink" title="标准文件重定向"></a>标准文件重定向</h2><p>上面刚讲过，一般情况下，每个 Unix/Linux 命令运行时都会打开三个文件</p><ul><li>标准输入文件(stdin)：stdin的文件描述符为0</li><li>标准输出文件(stdout)：stdout 的文件描述符为1</li><li>标准错误文件(stderr)：stderr的文件描述符为2<br>默认情况下，command &gt; file 将 stdout 重定向到 file，command &lt; file 将stdin 重定向到 file，这两个也是常用的，那么如果想把标准错误文件重定向该怎么办呢？</li></ul><p>可以通过以下命令实现：</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"># stderr 重定向到 file</span><br><span class="line">command 2 &gt; file</span><br><span class="line"></span><br><span class="line">#  stderr 追加到 file 文件末尾</span><br><span class="line">command 2 &gt;&gt; file</span><br><span class="line"></span><br><span class="line"># stdout 和 stderr 合并后重定向到 file</span><br><span class="line">command &gt; file 2&gt;&amp;1</span><br><span class="line">command &gt;&gt; file 2&gt;&amp;1</span><br><span class="line"></span><br><span class="line"># 对 stdin 和 stdout 都重定向</span><br><span class="line">command &lt; file1 &gt;file2</span><br></pre></td></tr></table></figure><h2 id="Here-Document"><a href="#Here-Document" class="headerlink" title="Here Document"></a>Here Document</h2><p>Here Document 是 Shell 中的一种特殊的重定向方式，用来将输入重定向到一个交互式 Shell 脚本或程序。基本形式如下：</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">command &lt;&lt; delimiter</span><br><span class="line">    document</span><br><span class="line">delimiter</span><br></pre></td></tr></table></figure><p>它的作用是将两个 delimiter 之间的内容(document) 作为输入传递给 command</p><p>直接上例子：</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"># 通过 wc -l 计算文件行数</span><br><span class="line">#! /bin/bash</span><br><span class="line"></span><br><span class="line">wc -l &lt;&lt; EOF</span><br><span class="line">    一别都门三改火，天涯踏尽红尘。</span><br><span class="line">    依然一笑作春温。</span><br><span class="line">    无波真古井，有节是秋筠。</span><br><span class="line">    惆怅孤帆连夜发，送行淡月微云。</span><br><span class="line">    尊前不用翠眉颦。</span><br><span class="line">    人生如逆旅，我亦是行人。</span><br><span class="line">EOF</span><br><span class="line"></span><br><span class="line"># 输出为</span><br><span class="line">6</span><br></pre></td></tr></table></figure><h2 id="dev-null-文件"><a href="#dev-null-文件" class="headerlink" title="/dev/null 文件"></a>/dev/null 文件</h2><p>如果希望执行某个命令，但又不希望在屏幕上显示输出结果，那么可以将输出重定向到 /dev/null</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">command &gt; /dev/null</span><br></pre></td></tr></table></figure><p>/dev/null 是一个特殊的文件，写入到它的内容都会被丢弃；如果尝试从该文件读取内容，那么什么也读不到。但是 /dev/null 文件非常有用，将命令的输出重定向到它，会起到”禁止输出”的效果</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"># 屏蔽 stdout 和 stderr</span><br><span class="line"></span><br><span class="line">command &gt; /dev/null 2&gt;&amp;1</span><br></pre></td></tr></table></figure><p>最重要的就是要记住<strong>文件描述符 0 是标准输入（STDIN），1 是标准输出（STDOUT），2 是标准错误输出（STDERR）</strong></p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;大多数 UNIX 系统命令从你的终端接受输入并将所产生的输出发送回到你的终端。一个命令通常从一个叫标准输入的地方读取输入，默认情况下，这恰好是你的终端。同样，一个命令通常将其输出写入到标准输出，默认情况下，这也是你的终端。&lt;/p&gt;
+&lt;h2 id=&quot;重定向命令列表&quot;&gt;&lt;a h
+      
+    
+    </summary>
+    
+      <category term="Shell" scheme="http://www.duanmuxu.top/categories/Shell/"/>
+    
+    
+      <category term="Shell" scheme="http://www.duanmuxu.top/tags/Shell/"/>
+    
+  </entry>
+  
+  <entry>
     <title>Shell学习09：函数</title>
     <link href="http://www.duanmuxu.top/20190630/shell-learning-09-function.html"/>
     <id>http://www.duanmuxu.top/20190630/shell-learning-09-function.html</id>
     <published>2019-06-30T03:58:08.965Z</published>
-    <updated>2019-06-30T03:59:19.007Z</updated>
+    <updated>2019-06-30T03:59:34.194Z</updated>
     
     <content type="html"><![CDATA[<h2 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h2><p>shell 中可以用户定义函数，然后在shell脚本中可以随便调用。<br>函数定义格式：</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">[ function ] funname [()]</span><br><span class="line"></span><br><span class="line">&#123;</span><br><span class="line"></span><br><span class="line">    action;</span><br><span class="line"></span><br><span class="line">    [return int;]</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><ul><li>可以带function fun() 定义，也可以直接fun() 定义,不带任何参数</li><li>参数返回，可以显示加：return 返回，如果不加，将以最后一条命令运行结果，作为返回值。 return后跟数值n(0-255)</li></ul><h2 id="实例"><a href="#实例" class="headerlink" title="实例"></a>实例</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"># 定义函数并调用</span><br><span class="line">#! /bin/bash</span><br><span class="line"></span><br><span class="line">demoFun()&#123;</span><br><span class="line">    echo &quot;这是我的第一个 shell 函数!&quot;</span><br><span class="line">&#125;</span><br><span class="line">echo &quot;-----函数开始执行-----&quot;</span><br><span class="line">demoFun</span><br><span class="line">echo &quot;-----函数执行完毕-----&quot;</span><br><span class="line"></span><br><span class="line"># 执行脚本结果：</span><br><span class="line"></span><br><span class="line">-----函数开始执行-----</span><br><span class="line">这是我的第一个 shell 函数!</span><br><span class="line">-----函数执行完毕-----</span><br></pre></td></tr></table></figure><p>带有返回参数的例子：</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">#!/bin/bash</span><br><span class="line"></span><br><span class="line">funWithReturn()&#123;</span><br><span class="line">    echo &quot;这个函数会对输入的两个数字进行相加运算...&quot;</span><br><span class="line">    echo &quot;输入第一个数字: &quot;</span><br><span class="line">    read aNum</span><br><span class="line">    echo &quot;输入第二个数字: &quot;</span><br><span class="line">    read anotherNum</span><br><span class="line">    echo &quot;两个数字分别为 $aNum 和 $anotherNum !&quot;</span><br><span class="line">    return $(($aNum+$anotherNum))</span><br><span class="line">&#125;</span><br><span class="line">funWithReturn</span><br><span class="line">echo &quot;输入的两个数字之和为 $? !&quot;</span><br></pre></td></tr></table></figure><p>输出结果为</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">这个函数会对输入的两个数字进行相加运算...</span><br><span class="line">输入第一个数字: </span><br><span class="line">1</span><br><span class="line">输入第二个数字: </span><br><span class="line">2</span><br><span class="line">两个数字分别为 1 和 2 !</span><br><span class="line">输入的两个数字之和为 3 !</span><br></pre></td></tr></table></figure><p>函数返回值在调用该函数后通过 $? 来获得。</p><p><strong>所有函数在使用前必须定义。这意味着必须将函数放在脚本开始部分，直至shell解释器首次发现它时，才可以使用。调用函数仅使用其函数名即可。</strong></p><h2 id="函数参数"><a href="#函数参数" class="headerlink" title="函数参数"></a>函数参数</h2><p>在Shell中，调用函数时可以向其传递参数。在函数体内部，通过 $n 的形式来获取参数的值，例如，$1表示第一个参数，$2表示第二个参数…</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">#! /bin/bash</span><br><span class="line"></span><br><span class="line">funWithParam()&#123;</span><br><span class="line">    echo &quot;第一个参数为 $1 !&quot;</span><br><span class="line">    echo &quot;第二个参数为 $2 !&quot;</span><br><span class="line">    echo &quot;第十个参数为 $10 !&quot;</span><br><span class="line">    echo &quot;第十个参数为 $&#123;10&#125; !&quot;</span><br><span class="line">    echo &quot;第十一个参数为 $&#123;11&#125; !&quot;</span><br><span class="line">    echo &quot;参数总数有 $# 个!&quot;</span><br><span class="line">    echo &quot;作为一个字符串输出所有参数 $* !&quot;</span><br><span class="line">&#125;</span><br><span class="line">funWithParam 1 2 3 4 5 6 7 8 9 34 73</span><br></pre></td></tr></table></figure><p>输出结果为：</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">第一个参数为 1 !</span><br><span class="line">第二个参数为 2 !</span><br><span class="line">第十个参数为 10 !</span><br><span class="line">第十个参数为 34 !</span><br><span class="line">第十一个参数为 73 !</span><br><span class="line">参数总数有 11 个!</span><br><span class="line">作为一个字符串输出所有参数 1 2 3 4 5 6 7 8 9 34 73 !</span><br></pre></td></tr></table></figure><p>值得注意的是，<strong>$10 不能获取第十个参数，获取第十个参数需要${10}</strong>。当n&gt;=10时，需要使用${n}来获取参数。</p>]]></content>
     
@@ -331,9 +357,9 @@
       <category term="数据结构与算法" scheme="http://www.duanmuxu.top/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/"/>
     
     
-      <category term="算法" scheme="http://www.duanmuxu.top/tags/%E7%AE%97%E6%B3%95/"/>
-    
       <category term="数据结构" scheme="http://www.duanmuxu.top/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/"/>
+    
+      <category term="算法" scheme="http://www.duanmuxu.top/tags/%E7%AE%97%E6%B3%95/"/>
     
       <category term="leetcode" scheme="http://www.duanmuxu.top/tags/leetcode/"/>
     
@@ -362,9 +388,9 @@
       <category term="数据结构与算法" scheme="http://www.duanmuxu.top/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/"/>
     
     
-      <category term="算法" scheme="http://www.duanmuxu.top/tags/%E7%AE%97%E6%B3%95/"/>
-    
       <category term="数据结构" scheme="http://www.duanmuxu.top/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/"/>
+    
+      <category term="算法" scheme="http://www.duanmuxu.top/tags/%E7%AE%97%E6%B3%95/"/>
     
       <category term="字符串" scheme="http://www.duanmuxu.top/tags/%E5%AD%97%E7%AC%A6%E4%B8%B2/"/>
     
@@ -398,9 +424,9 @@
       <category term="数据结构与算法" scheme="http://www.duanmuxu.top/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/"/>
     
     
-      <category term="算法" scheme="http://www.duanmuxu.top/tags/%E7%AE%97%E6%B3%95/"/>
-    
       <category term="数据结构" scheme="http://www.duanmuxu.top/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/"/>
+    
+      <category term="算法" scheme="http://www.duanmuxu.top/tags/%E7%AE%97%E6%B3%95/"/>
     
       <category term="leetcode" scheme="http://www.duanmuxu.top/tags/leetcode/"/>
     
@@ -429,9 +455,9 @@
       <category term="数据结构与算法" scheme="http://www.duanmuxu.top/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/"/>
     
     
-      <category term="算法" scheme="http://www.duanmuxu.top/tags/%E7%AE%97%E6%B3%95/"/>
-    
       <category term="数据结构" scheme="http://www.duanmuxu.top/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/"/>
+    
+      <category term="算法" scheme="http://www.duanmuxu.top/tags/%E7%AE%97%E6%B3%95/"/>
     
       <category term="leetcode" scheme="http://www.duanmuxu.top/tags/leetcode/"/>
     
@@ -462,11 +488,11 @@
       <category term="数据结构与算法" scheme="http://www.duanmuxu.top/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/"/>
     
     
-      <category term="算法" scheme="http://www.duanmuxu.top/tags/%E7%AE%97%E6%B3%95/"/>
-    
       <category term="剑指Offer" scheme="http://www.duanmuxu.top/tags/%E5%89%91%E6%8C%87Offer/"/>
     
       <category term="数据结构" scheme="http://www.duanmuxu.top/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/"/>
+    
+      <category term="算法" scheme="http://www.duanmuxu.top/tags/%E7%AE%97%E6%B3%95/"/>
     
   </entry>
   
@@ -521,9 +547,9 @@
       <category term="数据结构与算法" scheme="http://www.duanmuxu.top/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/"/>
     
     
-      <category term="算法" scheme="http://www.duanmuxu.top/tags/%E7%AE%97%E6%B3%95/"/>
-    
       <category term="数据结构" scheme="http://www.duanmuxu.top/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/"/>
+    
+      <category term="算法" scheme="http://www.duanmuxu.top/tags/%E7%AE%97%E6%B3%95/"/>
     
   </entry>
   
@@ -549,9 +575,9 @@
       <category term="数据结构与算法" scheme="http://www.duanmuxu.top/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/"/>
     
     
-      <category term="算法" scheme="http://www.duanmuxu.top/tags/%E7%AE%97%E6%B3%95/"/>
-    
       <category term="剑指Offer" scheme="http://www.duanmuxu.top/tags/%E5%89%91%E6%8C%87Offer/"/>
+    
+      <category term="算法" scheme="http://www.duanmuxu.top/tags/%E7%AE%97%E6%B3%95/"/>
     
       <category term="字符串" scheme="http://www.duanmuxu.top/tags/%E5%AD%97%E7%AC%A6%E4%B8%B2/"/>
     
@@ -580,9 +606,9 @@
       <category term="数据结构与算法" scheme="http://www.duanmuxu.top/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/"/>
     
     
-      <category term="算法" scheme="http://www.duanmuxu.top/tags/%E7%AE%97%E6%B3%95/"/>
-    
       <category term="数据结构" scheme="http://www.duanmuxu.top/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/"/>
+    
+      <category term="算法" scheme="http://www.duanmuxu.top/tags/%E7%AE%97%E6%B3%95/"/>
     
   </entry>
   
@@ -609,9 +635,9 @@
       <category term="数据结构与算法" scheme="http://www.duanmuxu.top/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/"/>
     
     
-      <category term="PAT" scheme="http://www.duanmuxu.top/tags/PAT/"/>
-    
       <category term="算法" scheme="http://www.duanmuxu.top/tags/%E7%AE%97%E6%B3%95/"/>
+    
+      <category term="PAT" scheme="http://www.duanmuxu.top/tags/PAT/"/>
     
   </entry>
   
@@ -724,11 +750,11 @@
       <category term="数据结构与算法" scheme="http://www.duanmuxu.top/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/"/>
     
     
-      <category term="算法" scheme="http://www.duanmuxu.top/tags/%E7%AE%97%E6%B3%95/"/>
-    
       <category term="剑指Offer" scheme="http://www.duanmuxu.top/tags/%E5%89%91%E6%8C%87Offer/"/>
     
       <category term="数据结构" scheme="http://www.duanmuxu.top/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/"/>
+    
+      <category term="算法" scheme="http://www.duanmuxu.top/tags/%E7%AE%97%E6%B3%95/"/>
     
   </entry>
   
@@ -756,11 +782,11 @@
       <category term="数据结构与算法" scheme="http://www.duanmuxu.top/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/"/>
     
     
-      <category term="算法" scheme="http://www.duanmuxu.top/tags/%E7%AE%97%E6%B3%95/"/>
-    
       <category term="剑指Offer" scheme="http://www.duanmuxu.top/tags/%E5%89%91%E6%8C%87Offer/"/>
     
       <category term="数据结构" scheme="http://www.duanmuxu.top/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/"/>
+    
+      <category term="算法" scheme="http://www.duanmuxu.top/tags/%E7%AE%97%E6%B3%95/"/>
     
   </entry>
   
@@ -787,11 +813,11 @@
       <category term="数据结构与算法" scheme="http://www.duanmuxu.top/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/"/>
     
     
-      <category term="算法" scheme="http://www.duanmuxu.top/tags/%E7%AE%97%E6%B3%95/"/>
-    
       <category term="剑指Offer" scheme="http://www.duanmuxu.top/tags/%E5%89%91%E6%8C%87Offer/"/>
     
       <category term="数据结构" scheme="http://www.duanmuxu.top/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/"/>
+    
+      <category term="算法" scheme="http://www.duanmuxu.top/tags/%E7%AE%97%E6%B3%95/"/>
     
   </entry>
   
