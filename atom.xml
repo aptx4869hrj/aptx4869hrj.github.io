@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://www.duanmuxu.top/"/>
-  <updated>2019-06-30T08:27:36.161Z</updated>
+  <updated>2019-06-30T09:11:32.591Z</updated>
   <id>http://www.duanmuxu.top/</id>
   
   <author>
@@ -15,6 +15,31 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Shell学习11：Shell小记</title>
+    <link href="http://www.duanmuxu.top/20190630/shell-learning-11-notes.html"/>
+    <id>http://www.duanmuxu.top/20190630/shell-learning-11-notes.html</id>
+    <published>2019-06-30T09:10:27.777Z</published>
+    <updated>2019-06-30T09:11:32.591Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="echo-e-参数"><a href="#echo-e-参数" class="headerlink" title="echo -e 参数"></a>echo -e 参数</h2><p>若echo的字符串参数中出现以下字符，则特别加以处理，而不会将它当成一般文字输出：</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">\a 发出警告声； </span><br><span class="line">\b 删除前一个字符； </span><br><span class="line">\c 最后不加上换行符号； </span><br><span class="line">\f 换行但光标仍旧停留在原来的位置； </span><br><span class="line">\n 换行且光标移至行首； </span><br><span class="line">\r 光标移至行首，但不换行； </span><br><span class="line">\t 插入tab； </span><br><span class="line">\v 与\f相同； </span><br><span class="line">\ 插入\字符； </span><br><span class="line">\nnn 插入nnn（八进制）所代表的ASCII字符；</span><br></pre></td></tr></table></figure><h4 id="echo-e实例"><a href="#echo-e实例" class="headerlink" title="echo -e实例"></a>echo -e实例</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">str1=&quot;test1\n&quot;</span><br><span class="line">str2=&quot;test2&quot;</span><br><span class="line">echo $str1$str2</span><br></pre></td></tr></table></figure><p>没有 -e 输出为</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">test1\ntest2</span><br></pre></td></tr></table></figure><p>带 -e 输出为</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">test1</span><br><span class="line">test2</span><br></pre></td></tr></table></figure><h2 id="关于-r与-n-以及-r-n-的区别"><a href="#关于-r与-n-以及-r-n-的区别" class="headerlink" title="关于/r与/n 以及 /r/n 的区别"></a>关于/r与/n 以及 /r/n 的区别</h2><h4 id="来源"><a href="#来源" class="headerlink" title="来源"></a>来源</h4><p>在计算机还没有出现之前，有一种叫做电传打字机（Teletype Model 33）的玩意，每秒钟可以打10个字符。但是它有一个问题，就是打完一行换行的时候，要用去0.2秒，正好可以打两个字符。要是在这0.2秒里面，又有新的字符传过来，那么这个字符将丢失。</p><p>于是，研制人员想了个办法解决这个问题，就是在每行后面加两个表示结束的字符。一个叫做“回车”，告诉打字机把打印头定位在左边界；另一个叫做“换行”，告诉打字机把纸向下移一行。</p><h4 id="区别"><a href="#区别" class="headerlink" title="区别"></a>区别</h4><p>\r就是回到行首，\n就是到下一行的，但是一般我们输出程序时，看不到明显的差别的</p><p>‘\r’是回车，’\n’是换行，前者使光标到行首，后者使光标下移一格。通常用的Enter是两个加起来。</p><p>对于cprintf和sprintf来说，你如果要换行的话，你要输入”\r\n”<br>而对于printf不说，换行只要”\r”就可以了。<br>一个是回车，一个是换行<br>ASCII码一个是10一个是13。</p><p>\r\n与\n是有区别的。<br>如果要通用的则是\r\n，因为有些编辑器它不认\n</p><h2 id="echo-中-c-命令"><a href="#echo-中-c-命令" class="headerlink" title="echo 中 -c 命令"></a>echo 中 -c 命令</h2><p>表示不换行，搭配 -e 使用</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"># 脚本内容</span><br><span class="line">#!/bin/sh</span><br><span class="line">echo -e &quot;first line！ \c&quot; # -e 开启转义 \c 不换行</span><br><span class="line">echo &quot;second line！&quot;</span><br><span class="line"></span><br><span class="line"># 输出结果</span><br><span class="line">first line！second line！</span><br><span class="line"></span><br><span class="line"># 若没有 -c ,则输出结果为</span><br><span class="line">first line！</span><br><span class="line">second line！</span><br></pre></td></tr></table></figure><h2 id="文件检测命令"><a href="#文件检测命令" class="headerlink" title="文件检测命令"></a>文件检测命令</h2><table><thead><tr><th>命令</th><th>作用</th></tr></thead><tbody><tr><td>-b file</td><td>检测文件是否是块设备文件，如果是，则返回 true。</td></tr><tr><td>-c file</td><td>检测文件是否是字符设备文件，如果是，则返回 true。</td></tr><tr><td>-d file</td><td>检测文件是否是目录，如果是，则返回 true。</td></tr><tr><td>-f file</td><td>检测文件是否是普通文件（既不是目录，也不是设备文件），如果是，则返回 true</td></tr><tr><td>-g file</td><td>检测文件是否设置了 SGID 位，如果是，则返回 true。</td></tr><tr><td>-k file</td><td>检测文件是否设置了粘着位(Sticky Bit)，如果是，则返回 true</td></tr><tr><td>-p file</td><td>检测文件是否是有名管道，如果是，则返回 true</td></tr><tr><td>-u file</td><td>检测文件是否设置了 SUID 位，如果是，则返回 true</td></tr><tr><td>-r file</td><td>检测文件是否可读，如果是，则返回 true</td></tr><tr><td>-w file</td><td>检测文件是否可写，如果是，则返回 true</td></tr><tr><td>-x file</td><td>检测文件是否可执行，如果是，则返回 true</td></tr><tr><td>-s file</td><td>检测文件是否为空（文件大小是否大于0），不为空返回 true</td></tr><tr><td>-e file</td><td>检测文件（包括目录）是否存在，如果是，则返回 true</td></tr><tr><td>-S</td><td>判断某文件是否 socket。</td></tr><tr><td>-L</td><td>检测文件是否存在并且是一个符号链接。</td></tr><tr><td>## test 命令</td><td></td></tr><tr><td>test命令用于检查某个条件是否成立，它可以进行数值、字符和文件三个方面的测试</td><td></td></tr><tr><td>#### 数值与字符检测</td><td></td></tr><tr><td>参数与前面讲的运算符中关系运算符和字符串运算符一样，只是将表达式中外部的[] 换成了 test而已，如以下例子：</td><td></td></tr></tbody></table><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">#！ /bin/bash</span><br><span class="line"></span><br><span class="line">num1=100</span><br><span class="line">num2=100</span><br><span class="line">if test $[num1] -eq $[num2]</span><br><span class="line">then</span><br><span class="line">    echo &apos;两个数相等！&apos;</span><br><span class="line">else</span><br><span class="line">    echo &apos;两个数不相等！&apos;</span><br><span class="line">fi</span><br><span class="line"></span><br><span class="line"># 输出结果为</span><br><span class="line">两个数相等！</span><br><span class="line"></span><br><span class="line"># 执行结果与将 test 换成 [ ] 后一样</span><br><span class="line">num1=100</span><br><span class="line">num2=100</span><br><span class="line">if [ $[num1] -eq $[num2] ]</span><br><span class="line">then</span><br><span class="line">    echo &apos;两个数相等！&apos;</span><br><span class="line">else</span><br><span class="line">    echo &apos;两个数不相等！&apos;</span><br><span class="line">fi</span><br><span class="line"># 输出结果为</span><br><span class="line">两个数相等！</span><br></pre></td></tr></table></figure><h4 id="文件测试"><a href="#文件测试" class="headerlink" title="文件测试"></a>文件测试</h4><p>参数为上一条文件检测命令的参数，直接上例子</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">#！/bin/bash</span><br><span class="line"></span><br><span class="line">if test -e ./notFile -o -e ./bash</span><br><span class="line">then</span><br><span class="line">    echo &apos;至少有一个文件存在!&apos;</span><br><span class="line">else</span><br><span class="line">    echo &apos;两个文件都不存在&apos;</span><br><span class="line">fi</span><br></pre></td></tr></table></figure><p>文件测试中还支持 -o 与 -a 来连接多个表达式。优先级为：！&gt; -a &gt; -o</p><h2 id="let-命令"><a href="#let-命令" class="headerlink" title="let 命令"></a>let 命令</h2><p>let 命令是 BASH 中用于计算的工具，用于执行一个或多个表达式，变量计算中不需要加上 $ 来表示变量。如果表达式中包含了空格或其他特殊字符，则必须引起来。</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">a=5</span><br><span class="line">let &quot;a++&quot; # 这里的变量a加不加双引号都可以</span><br><span class="line">echo $a</span><br><span class="line"></span><br><span class="line"># 输出为</span><br><span class="line">6</span><br></pre></td></tr></table></figure><h2 id="文件包含"><a href="#文件包含" class="headerlink" title="文件包含"></a>文件包含</h2><p>简单说就是一个脚本中调用其他脚本，直接上例子：</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"># 脚本one.sh</span><br><span class="line">#!/bin/bash</span><br><span class="line"> </span><br><span class="line">one=&quot;the is one in file one.sh&quot;</span><br></pre></td></tr></table></figure><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"># 脚本two.sh</span><br><span class="line">#!/bin/bash</span><br><span class="line"> </span><br><span class="line">one=&quot;the is two in file two.sh&quot;</span><br></pre></td></tr></table></figure><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"># 脚本three.sh</span><br><span class="line">#!/bin/bash</span><br><span class="line"> </span><br><span class="line">#以下包含文件的两种方法等效，推荐使用source关键字</span><br><span class="line">. one.sh # 文件路径</span><br><span class="line">source two.sh</span><br><span class="line"> </span><br><span class="line">echo $one</span><br><span class="line">echo $two</span><br></pre></td></tr></table></figure><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"># 执行脚本 three.sh，输出为</span><br><span class="line">the is one in file one.sh</span><br><span class="line">this is two in file two.sh</span><br></pre></td></tr></table></figure><h2 id="连接FTP"><a href="#连接FTP" class="headerlink" title="连接FTP"></a>连接FTP</h2><p>直接上例子</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">ftp -i -n $&#123;HOST&#125; &lt;&lt;!</span><br><span class="line">user $&#123;user&#125; $&#123;passwd&#125;</span><br><span class="line">lcd $&#123;local_file&#125;</span><br><span class="line">cd $&#123;tar_file&#125;</span><br><span class="line">mput *</span><br><span class="line">quit</span><br><span class="line">!</span><br></pre></td></tr></table></figure><ul><li>-i 在多个文件传输期间关闭交互提示</li><li>使用 -n 选项连接ftp客户端以阻止ftp客户端立即登录.这样,ftp客户端就不要你输入一个用户名和密码了</li><li>HOST 是要连接的主机号</li><li>user user passwd 输入连接的主机用户名和相应密码</li><li>lcd 表示本地需要传输的文件路径</li><li>cd 表示目标主机需要接收文件的路径</li><li>mput 表示将本地文件路径下的所有文件都传输过去，如果只需要传输一个文件，则使用put命令</li><li>quit 退出本次连接</li></ul>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h2 id=&quot;echo-e-参数&quot;&gt;&lt;a href=&quot;#echo-e-参数&quot; class=&quot;headerlink&quot; title=&quot;echo -e 参数&quot;&gt;&lt;/a&gt;echo -e 参数&lt;/h2&gt;&lt;p&gt;若echo的字符串参数中出现以下字符，则特别加以处理，而不会将它当成一般文字输出
+      
+    
+    </summary>
+    
+      <category term="Shell" scheme="http://www.duanmuxu.top/categories/Shell/"/>
+    
+    
+      <category term="Shell" scheme="http://www.duanmuxu.top/tags/Shell/"/>
+    
+  </entry>
   
   <entry>
     <title>Shell学习10：输入、输出重定向</title>
@@ -357,9 +382,9 @@
       <category term="数据结构与算法" scheme="http://www.duanmuxu.top/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/"/>
     
     
-      <category term="数据结构" scheme="http://www.duanmuxu.top/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/"/>
-    
       <category term="算法" scheme="http://www.duanmuxu.top/tags/%E7%AE%97%E6%B3%95/"/>
+    
+      <category term="数据结构" scheme="http://www.duanmuxu.top/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/"/>
     
       <category term="leetcode" scheme="http://www.duanmuxu.top/tags/leetcode/"/>
     
@@ -388,9 +413,9 @@
       <category term="数据结构与算法" scheme="http://www.duanmuxu.top/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/"/>
     
     
-      <category term="数据结构" scheme="http://www.duanmuxu.top/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/"/>
-    
       <category term="算法" scheme="http://www.duanmuxu.top/tags/%E7%AE%97%E6%B3%95/"/>
+    
+      <category term="数据结构" scheme="http://www.duanmuxu.top/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/"/>
     
       <category term="字符串" scheme="http://www.duanmuxu.top/tags/%E5%AD%97%E7%AC%A6%E4%B8%B2/"/>
     
@@ -424,9 +449,9 @@
       <category term="数据结构与算法" scheme="http://www.duanmuxu.top/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/"/>
     
     
-      <category term="数据结构" scheme="http://www.duanmuxu.top/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/"/>
-    
       <category term="算法" scheme="http://www.duanmuxu.top/tags/%E7%AE%97%E6%B3%95/"/>
+    
+      <category term="数据结构" scheme="http://www.duanmuxu.top/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/"/>
     
       <category term="leetcode" scheme="http://www.duanmuxu.top/tags/leetcode/"/>
     
@@ -455,9 +480,9 @@
       <category term="数据结构与算法" scheme="http://www.duanmuxu.top/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/"/>
     
     
-      <category term="数据结构" scheme="http://www.duanmuxu.top/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/"/>
-    
       <category term="算法" scheme="http://www.duanmuxu.top/tags/%E7%AE%97%E6%B3%95/"/>
+    
+      <category term="数据结构" scheme="http://www.duanmuxu.top/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/"/>
     
       <category term="leetcode" scheme="http://www.duanmuxu.top/tags/leetcode/"/>
     
@@ -488,11 +513,11 @@
       <category term="数据结构与算法" scheme="http://www.duanmuxu.top/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/"/>
     
     
+      <category term="算法" scheme="http://www.duanmuxu.top/tags/%E7%AE%97%E6%B3%95/"/>
+    
       <category term="剑指Offer" scheme="http://www.duanmuxu.top/tags/%E5%89%91%E6%8C%87Offer/"/>
     
       <category term="数据结构" scheme="http://www.duanmuxu.top/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/"/>
-    
-      <category term="算法" scheme="http://www.duanmuxu.top/tags/%E7%AE%97%E6%B3%95/"/>
     
   </entry>
   
@@ -547,9 +572,9 @@
       <category term="数据结构与算法" scheme="http://www.duanmuxu.top/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/"/>
     
     
-      <category term="数据结构" scheme="http://www.duanmuxu.top/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/"/>
-    
       <category term="算法" scheme="http://www.duanmuxu.top/tags/%E7%AE%97%E6%B3%95/"/>
+    
+      <category term="数据结构" scheme="http://www.duanmuxu.top/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/"/>
     
   </entry>
   
@@ -575,9 +600,9 @@
       <category term="数据结构与算法" scheme="http://www.duanmuxu.top/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/"/>
     
     
-      <category term="剑指Offer" scheme="http://www.duanmuxu.top/tags/%E5%89%91%E6%8C%87Offer/"/>
-    
       <category term="算法" scheme="http://www.duanmuxu.top/tags/%E7%AE%97%E6%B3%95/"/>
+    
+      <category term="剑指Offer" scheme="http://www.duanmuxu.top/tags/%E5%89%91%E6%8C%87Offer/"/>
     
       <category term="字符串" scheme="http://www.duanmuxu.top/tags/%E5%AD%97%E7%AC%A6%E4%B8%B2/"/>
     
@@ -606,9 +631,9 @@
       <category term="数据结构与算法" scheme="http://www.duanmuxu.top/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/"/>
     
     
-      <category term="数据结构" scheme="http://www.duanmuxu.top/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/"/>
-    
       <category term="算法" scheme="http://www.duanmuxu.top/tags/%E7%AE%97%E6%B3%95/"/>
+    
+      <category term="数据结构" scheme="http://www.duanmuxu.top/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/"/>
     
   </entry>
   
@@ -635,9 +660,9 @@
       <category term="数据结构与算法" scheme="http://www.duanmuxu.top/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/"/>
     
     
-      <category term="算法" scheme="http://www.duanmuxu.top/tags/%E7%AE%97%E6%B3%95/"/>
-    
       <category term="PAT" scheme="http://www.duanmuxu.top/tags/PAT/"/>
+    
+      <category term="算法" scheme="http://www.duanmuxu.top/tags/%E7%AE%97%E6%B3%95/"/>
     
   </entry>
   
@@ -750,11 +775,11 @@
       <category term="数据结构与算法" scheme="http://www.duanmuxu.top/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/"/>
     
     
+      <category term="算法" scheme="http://www.duanmuxu.top/tags/%E7%AE%97%E6%B3%95/"/>
+    
       <category term="剑指Offer" scheme="http://www.duanmuxu.top/tags/%E5%89%91%E6%8C%87Offer/"/>
     
       <category term="数据结构" scheme="http://www.duanmuxu.top/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/"/>
-    
-      <category term="算法" scheme="http://www.duanmuxu.top/tags/%E7%AE%97%E6%B3%95/"/>
     
   </entry>
   
@@ -782,11 +807,11 @@
       <category term="数据结构与算法" scheme="http://www.duanmuxu.top/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/"/>
     
     
+      <category term="算法" scheme="http://www.duanmuxu.top/tags/%E7%AE%97%E6%B3%95/"/>
+    
       <category term="剑指Offer" scheme="http://www.duanmuxu.top/tags/%E5%89%91%E6%8C%87Offer/"/>
     
       <category term="数据结构" scheme="http://www.duanmuxu.top/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/"/>
-    
-      <category term="算法" scheme="http://www.duanmuxu.top/tags/%E7%AE%97%E6%B3%95/"/>
     
   </entry>
   
@@ -813,11 +838,11 @@
       <category term="数据结构与算法" scheme="http://www.duanmuxu.top/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/"/>
     
     
+      <category term="算法" scheme="http://www.duanmuxu.top/tags/%E7%AE%97%E6%B3%95/"/>
+    
       <category term="剑指Offer" scheme="http://www.duanmuxu.top/tags/%E5%89%91%E6%8C%87Offer/"/>
     
       <category term="数据结构" scheme="http://www.duanmuxu.top/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/"/>
-    
-      <category term="算法" scheme="http://www.duanmuxu.top/tags/%E7%AE%97%E6%B3%95/"/>
     
   </entry>
   
@@ -826,9 +851,9 @@
     <link href="http://www.duanmuxu.top/20190602/storm-learning-01-introduction-to.html"/>
     <id>http://www.duanmuxu.top/20190602/storm-learning-01-introduction-to.html</id>
     <published>2019-06-02T04:28:32.198Z</published>
-    <updated>2019-06-11T10:16:20.824Z</updated>
+    <updated>2019-06-30T08:47:45.146Z</updated>
     
-    <content type="html"><![CDATA[<h1 id="什么是Storm"><a href="#什么是Storm" class="headerlink" title="什么是Storm"></a>什么是Storm</h1><p>Apache Storm是Apache与基金会的开源的分布式实时计算系统。与Hadoop的批处理相类似，Storm可以对大量的数据流进行可靠的实时处理，这一过程也称为“流式处理”，是分布式大数据处理的一个重要方向。Storm支持多种类型的应用，包括：实时分析、在线机器学习、连续计算、分布式 RPC（ DRPC）、ETL等。Strom的一个重要特点就是“快速”的数据处理，有benchmark示显示Storm级能够达到单个节点每秒百万级tuple处理（tuple是Storm的最小数据单元）的速度。快速的数据是处理、优秀的可扩展性与容错性、便捷的可操作性与维护性、活跃的社区技术支持，这就是 Storm 。</p><hr><h1 id="Hadoop与Storm的比较"><a href="#Hadoop与Storm的比较" class="headerlink" title="Hadoop与Storm的比较"></a>Hadoop与Storm的比较</h1><h3 id="相似之处"><a href="#相似之处" class="headerlink" title="相似之处"></a>相似之处</h3><table><thead><tr><th></th><th>Hadoop</th><th>Storm</th></tr></thead><tbody><tr><td>系统角色</td><td>JobTracker</td><td>Nimbus</td></tr><tr><td></td><td>TaskTracker</td><td>Supervisor</td></tr><tr><td></td><td>Child</td><td>Worker</td></tr><tr><td>应用名称</td><td>Job</td><td>Topology</td></tr><tr><td>组件接口</td><td>Mapper/Reducer</td><td>Spout/Bolt</td></tr><tr><td>- <strong>Nimbus</strong>：Nimbus在Storm中用于资源分配和作业调度，类比Hadoop中的Job Tracker</td><td></td><td></td></tr><tr><td>- <strong>Supervisor</strong>：Supervisor在Storm中用于接收Nimbus分配的任务，并且启动和停止用于完成这些任务对的Worker进程。Supervisor类比Hadoop中的TaskTracker</td><td></td><td></td></tr><tr><td>- <strong>Worker</strong>：运行Storm中具体组件逻辑的进程。这里的组件指的是Spout或者Bolt，对比Hadoop.x的Child进程。</td><td></td><td></td></tr><tr><td>- <strong>Topology</strong>：Topology是Storm中运行的一个任务，类比Hadoop.x中的一个作业（Job）</td><td></td><td></td></tr><tr><td>- <strong>Spout</strong>：在一个Topology中产生源数据流的组件</td><td></td><td></td></tr><tr><td>- <strong>Bolt</strong>：在一个Topology中接收数据，并进行逻辑处理的组件，称为Transformation</td><td></td><td></td></tr></tbody></table><h3 id="不同之处"><a href="#不同之处" class="headerlink" title="不同之处"></a>不同之处</h3><table><thead><tr><th></th><th>Hadoop</th><th>Storm</th></tr></thead><tbody><tr><td>数据来源</td><td>Hadoop处理的是HDFS上TB级别的数据（历史数据）</td><td>Storm处理的是实时新增的某一笔数据（实时数据）</td></tr><tr><td>处理过程</td><td>Hadoop是分Map阶段和Reduce阶段</td><td>Storm是由用户定义处理流程，流程中可以包含多个步骤，每个步骤可以是数据源（Spout）或处理逻辑（Bolt）</td></tr><tr><td>是否结束</td><td>Hadoop最后是要结束的</td><td>Storm没有结束状态，到最后一步时，就停在那，直到有新数据进入时再从头开始</td></tr><tr><td>处理速度</td><td>Hadoop是以处理HDFS上大量数据为目的的，处理速度慢</td><td>Storm是只要处理新增的某一笔数据即可，可以做到很快</td></tr><tr><td>适用场景</td><td>Hadoop是在要处理批量数据时用的，不讲究时效性</td><td>Storm是要处理某一新增数据时使用的，讲究时效性</td></tr></tbody></table><p>ps：在Hadoop集群上运行MapReduce jobs，在Storm集群上运行topologies。jobs和topologies有很大的不同。一个关键区别是：一个Map Reduce jobs最终可以完成，而topologies处理过程将永远执行（除非Kill it）</p><hr><h1 id="Storm组件"><a href="#Storm组件" class="headerlink" title="Storm组件"></a>Storm组件</h1><figure class="image-bubble">                <div class="img-lightbox">                    <div class="overlay"></div>                    <img src="https://img-blog.csdnimg.cn/20190611162336868.jpg?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MjU4NjM3Mw==,size_16,color_FFFFFF,t_70" alt="image" title>                </div>                <div class="image-caption">image</div>            </figure><h5 id="Storm集群中包含两类节点：主控节点（Master-Node）和工作节点（Work-Node）"><a href="#Storm集群中包含两类节点：主控节点（Master-Node）和工作节点（Work-Node）" class="headerlink" title="Storm集群中包含两类节点：主控节点（Master Node）和工作节点（Work Node）"></a>Storm集群中包含两类节点：主控节点（Master Node）和工作节点（Work Node）</h5><ul><li>主控节点上运行着Nimbus，负责在Storm集群内分发代码，分配任务给工作机器，并且负责监控集群运行状态</li><li>工作节点上运行着Supervisor，负责监听从Nimbus分配给它执行的任务，据此启动或停止任务的工作进程。</li><li><strong>每一个工作进程执行一个Topology的子集；一个运行中的Topology由分布在不同工作节点上的多个工作进程组成。</strong></li><li>Nimbus 和和 Supervisor节点之间所有的协调工作是通过<strong>Zookeeper集群</strong>来实现的。此外，Nimbus 和Supervisor进程都是<strong>快速失败（fail-fast)</strong> 和 <strong>无状态（stateless）</strong> 的；<strong>Storm集群所有的状态要么在Zookeeper集群中，要么存储在本地磁盘上</strong>。这意味着我们可以用kill-9来杀死Nimbus和Supervisor进程，它们在重启后可以继续工作。这个设计使得Storm集群拥有极强的<strong>稳定性</strong>。</li></ul>]]></content>
+    <content type="html"><![CDATA[<h1 id="什么是Storm"><a href="#什么是Storm" class="headerlink" title="什么是Storm"></a>什么是Storm</h1><p>Apache Storm是Apache与基金会的开源的分布式实时计算系统。与Hadoop的批处理相类似，Storm可以对大量的数据流进行可靠的实时处理，这一过程也称为“流式处理”，是分布式大数据处理的一个重要方向。Storm支持多种类型的应用，包括：实时分析、在线机器学习、连续计算、分布式 RPC（ DRPC）、ETL等。Strom的一个重要特点就是“快速”的数据处理，有benchmark示显示Storm级能够达到单个节点每秒百万级tuple处理（tuple是Storm的最小数据单元）的速度。快速的数据是处理、优秀的可扩展性与容错性、便捷的可操作性与维护性、活跃的社区技术支持，这就是 Storm 。</p><hr><h1 id="Hadoop与Storm的比较"><a href="#Hadoop与Storm的比较" class="headerlink" title="Hadoop与Storm的比较"></a>Hadoop与Storm的比较</h1><h3 id="相似之处"><a href="#相似之处" class="headerlink" title="相似之处"></a>相似之处</h3><table><thead><tr><th></th><th>Hadoop</th><th>Storm</th></tr></thead><tbody><tr><td>系统角色</td><td>JobTracker</td><td>Nimbus</td></tr><tr><td></td><td>TaskTracker</td><td>Supervisor</td></tr><tr><td></td><td>Child</td><td>Worker</td></tr><tr><td>应用名称</td><td>Job</td><td>Topology</td></tr><tr><td>组件接口</td><td>Mapper/Reducer</td><td>Spout/Bolt</td></tr></tbody></table><ul><li><strong>Nimbus</strong>：Nimbus在Storm中用于资源分配和作业调度，类比Hadoop中的Job Tracker</li><li><strong>Supervisor</strong>：Supervisor在Storm中用于接收Nimbus分配的任务，并且启动和停止用于完成这些任务对的Worker进程。Supervisor类比Hadoop中的TaskTracker</li><li><strong>Worker</strong>：运行Storm中具体组件逻辑的进程。这里的组件指的是Spout或者Bolt，对比Hadoop.x的Child进程。</li><li><strong>Topology</strong>：Topology是Storm中运行的一个任务，类比Hadoop.x中的一个作业（Job）</li><li><strong>Spout</strong>：在一个Topology中产生源数据流的组件</li><li><strong>Bolt</strong>：在一个Topology中接收数据，并进行逻辑处理的组件，称为Transformation</li></ul><h3 id="不同之处"><a href="#不同之处" class="headerlink" title="不同之处"></a>不同之处</h3><table><thead><tr><th></th><th>Hadoop</th><th>Storm</th></tr></thead><tbody><tr><td>数据来源</td><td>Hadoop处理的是HDFS上TB级别的数据（历史数据）</td><td>Storm处理的是实时新增的某一笔数据（实时数据）</td></tr><tr><td>处理过程</td><td>Hadoop是分Map阶段和Reduce阶段</td><td>Storm是由用户定义处理流程，流程中可以包含多个步骤，每个步骤可以是数据源（Spout）或处理逻辑（Bolt）</td></tr><tr><td>是否结束</td><td>Hadoop最后是要结束的</td><td>Storm没有结束状态，到最后一步时，就停在那，直到有新数据进入时再从头开始</td></tr><tr><td>处理速度</td><td>Hadoop是以处理HDFS上大量数据为目的的，处理速度慢</td><td>Storm是只要处理新增的某一笔数据即可，可以做到很快</td></tr><tr><td>适用场景</td><td>Hadoop是在要处理批量数据时用的，不讲究时效性</td><td>Storm是要处理某一新增数据时使用的，讲究时效性</td></tr></tbody></table><p>ps：在Hadoop集群上运行MapReduce jobs，在Storm集群上运行topologies。jobs和topologies有很大的不同。一个关键区别是：一个Map Reduce jobs最终可以完成，而topologies处理过程将永远执行（除非Kill it）</p><hr><h1 id="Storm组件"><a href="#Storm组件" class="headerlink" title="Storm组件"></a>Storm组件</h1><figure class="image-bubble">                <div class="img-lightbox">                    <div class="overlay"></div>                    <img src="https://img-blog.csdnimg.cn/20190611162336868.jpg?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MjU4NjM3Mw==,size_16,color_FFFFFF,t_70" alt="image" title>                </div>                <div class="image-caption">image</div>            </figure><h5 id="Storm集群中包含两类节点：主控节点（Master-Node）和工作节点（Work-Node）"><a href="#Storm集群中包含两类节点：主控节点（Master-Node）和工作节点（Work-Node）" class="headerlink" title="Storm集群中包含两类节点：主控节点（Master Node）和工作节点（Work Node）"></a>Storm集群中包含两类节点：主控节点（Master Node）和工作节点（Work Node）</h5><ul><li>主控节点上运行着Nimbus，负责在Storm集群内分发代码，分配任务给工作机器，并且负责监控集群运行状态</li><li>工作节点上运行着Supervisor，负责监听从Nimbus分配给它执行的任务，据此启动或停止任务的工作进程。</li><li><strong>每一个工作进程执行一个Topology的子集；一个运行中的Topology由分布在不同工作节点上的多个工作进程组成。</strong></li><li>Nimbus 和和 Supervisor节点之间所有的协调工作是通过<strong>Zookeeper集群</strong>来实现的。此外，Nimbus 和Supervisor进程都是<strong>快速失败（fail-fast)</strong> 和 <strong>无状态（stateless）</strong> 的；<strong>Storm集群所有的状态要么在Zookeeper集群中，要么存储在本地磁盘上</strong>。这意味着我们可以用kill-9来杀死Nimbus和Supervisor进程，它们在重启后可以继续工作。这个设计使得Storm集群拥有极强的<strong>稳定性</strong>。</li></ul>]]></content>
     
     <summary type="html">
     
