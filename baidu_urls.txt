@@ -1,3 +1,4 @@
+http://www.duanmuxu.top/20190730/python-study-notes-01.html
 http://www.duanmuxu.top/20190630/shell-learning-11-notes.html
 http://www.duanmuxu.top/20190630/shell-learning-10-input-output-redirection.html
 http://www.duanmuxu.top/20190630/shell-learning-09-function.html
@@ -7,4 +8,3 @@ http://www.duanmuxu.top/20190628/shell-learning-06-operator-summary.html
 http://www.duanmuxu.top/20190626/shell-learning-05-parameter-passing.html
 http://www.duanmuxu.top/20190625/shell-learning-04-data-type.html
 http://www.duanmuxu.top/20190620/shell-learning-03-expect-to-automatically-enter-the-password-log-in-server.html
-http://www.duanmuxu.top/20190619/shell-learning-02-variables.html
