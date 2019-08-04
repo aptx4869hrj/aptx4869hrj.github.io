@@ -1,3 +1,4 @@
+http://www.duanmuxu.top/20190804/python-study-notes-05.html
 http://www.duanmuxu.top/20190802/python-study-notes-04.html
 http://www.duanmuxu.top/20190801/python-study-notes-03.html
 http://www.duanmuxu.top/20190731/python-study-notes-02.html
@@ -7,4 +8,3 @@ http://www.duanmuxu.top/20190630/shell-learning-10-input-output-redirection.html
 http://www.duanmuxu.top/20190630/shell-learning-09-function.html
 http://www.duanmuxu.top/20190630/shell-learning-08-process-control.html
 http://www.duanmuxu.top/20190630/shell-learning-07-read-echo-and-printf-commands.html
-http://www.duanmuxu.top/20190628/shell-learning-06-operator-summary.html
