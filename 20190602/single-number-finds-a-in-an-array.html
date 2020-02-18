@@ -1,0 +1,571 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+    
+
+    
+
+    
+
+
+
+    <meta charset="utf-8">
+    
+    
+    
+    
+    <title>Single Number 找出数组中的单一数字 | 端木胥的个人博客</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="数据结构,算法">
+    <meta name="description" content="题目描述：  Given a non-empty array of integers, every element appears twice except for one. Find that single one.给定一个非空的整数数组，除了一个元素外，每个元素都会出现两次。找出那个单一的整数。  最常规的思路就是进行循环，统计出现的数字，只出现一次的就是我们要的答案了 for循环统计数字出现">
+<meta name="keywords" content="数据结构,算法">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Single Number 找出数组中的单一数字">
+<meta property="og:url" content="http://www.duanmuxu.top/20190602/single-number-finds-a-in-an-array.html">
+<meta property="og:site_name" content="端木胥的个人博客">
+<meta property="og:description" content="题目描述：  Given a non-empty array of integers, every element appears twice except for one. Find that single one.给定一个非空的整数数组，除了一个元素外，每个元素都会出现两次。找出那个单一的整数。  最常规的思路就是进行循环，统计出现的数字，只出现一次的就是我们要的答案了 for循环统计数字出现">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2019-06-30T08:34:38.176Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Single Number 找出数组中的单一数字">
+<meta name="twitter:description" content="题目描述：  Given a non-empty array of integers, every element appears twice except for one. Find that single one.给定一个非空的整数数组，除了一个元素外，每个元素都会出现两次。找出那个单一的整数。  最常规的思路就是进行循环，统计出现的数字，只出现一次的就是我们要的答案了 for循环统计数字出现">
+    
+        <link rel="alternate" type="application/atom+xml" title="端木胥的个人博客" href="/atom.xml">
+    
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="stylesheet" href="//unpkg.com/hexo-theme-material-indigo@latest/css/style.css">
+    <script>window.lazyScripts=[]</script>
+
+    <!-- custom head -->
+    
+
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu" class="hide">
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap" style="background-image:url(/img/brand.jpg)">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/avatar.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">端木胥</h5>
+          <a href="mailto:157170555@qq.com" title="157170555@qq.com" class="mail">157170555@qq.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/">
+                <i class="icon icon-lg icon-home"></i>
+                Home
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives">
+                <i class="icon icon-lg icon-archives"></i>
+                Archives
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags">
+                <i class="icon icon-lg icon-tags"></i>
+                Tags
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/categories">
+                <i class="icon icon-lg icon-th-list"></i>
+                Categories
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/aptx4869hrj" target="_blank">
+                <i class="icon icon-lg icon-github"></i>
+                Github
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://weibo.com/u/3454630080" target="_blank">
+                <i class="icon icon-lg icon-weibo"></i>
+                Weibo
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">Single Number 找出数组中的单一数字</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">Single Number 找出数组中的单一数字</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2019-06-02T04:28:32.252Z" itemprop="datePublished" class="page-time">
+  2019-06-02
+</time>
+
+
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/数据结构与算法/">数据结构与算法</a></li></ul>
+
+            
+        </h5>
+    </div>
+
+    
+
+
+</header>
+
+
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#for循环统计数字出现次数"><span class="post-toc-number">1.</span> <span class="post-toc-text">for循环统计数字出现次数</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#Map实现"><span class="post-toc-number">2.</span> <span class="post-toc-text">Map实现</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#HashSet实现"><span class="post-toc-number">3.</span> <span class="post-toc-text">HashSet实现</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#XOR异或方法"><span class="post-toc-number">4.</span> <span class="post-toc-text">XOR异或方法</span></a></li></ol>
+        </nav>
+    </aside>
+
+
+<article id="post-Single Number 找出数组中的单一数字" class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">Single Number 找出数组中的单一数字</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2019-06-02 12:28:32" datetime="2019-06-02T04:28:32.252Z" itemprop="datePublished">2019-06-02</time>
+
+            
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/数据结构与算法/">数据结构与算法</a></li></ul>
+
+
+
+            
+<span id="busuanzi_container_page_pv" title="文章总阅读量" style="display:none">
+    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>
+</span>
+
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <p>题目描述：</p>
+<blockquote>
+<p>Given a non-empty array of integers, every element appears twice except for one. Find that single one.<br><br>给定一个非空的整数数组，除了一个元素外，每个元素都会出现两次。找出那个单一的整数。</p>
+</blockquote>
+<p>最常规的思路就是进行循环，统计出现的数字，只出现一次的就是我们要的答案了</p>
+<h4 id="for循环统计数字出现次数"><a href="#for循环统计数字出现次数" class="headerlink" title="for循环统计数字出现次数"></a>for循环统计数字出现次数</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">class Solution &#123;</span><br><span class="line">    public int singleNumber(int[] nums) &#123;</span><br><span class="line">        int[] result = new int[nums.length];</span><br><span class="line">        int count = 0;</span><br><span class="line">        for (int i = 0;i &lt; nums.length; i++)&#123;</span><br><span class="line">            for (int j = 0;j &lt;= count;j++)&#123;</span><br><span class="line">                if (j == count)&#123;</span><br><span class="line">                    result[j] = -1;</span><br><span class="line">                    count++;</span><br><span class="line">                    j = count +1;</span><br><span class="line">                &#125;else if (nums[i] == nums[j])&#123;</span><br><span class="line">                    result[j]++;</span><br><span class="line">                    count++;</span><br><span class="line">                    j = count + 1;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        for (int k = 0; k &lt; result.length ;k++)&#123;</span><br><span class="line">            if (result[k] == -1)</span><br><span class="line">                return nums[k];</span><br><span class="line">        &#125;</span><br><span class="line">        return 0;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>新建一个result数组用来存放统计的次数，初始值为-1，进行双重循环，以后每找到一个与nums数组中相同的数字，就在result数组中+1，即值变为0。最后根据result中值为-1（即在nums数组中没找到相同数值的数字）的数字就是我们要找的数字。</p>
+<p>这种方法逻辑很顺，但是<strong>时间复杂度为O(n^2)</strong>，运行时间会消费很多。<br>那么要降低时间复杂度，就得<strong>减少一层循环</strong>。怎么才能实现呢？既要实现统计次数，又要遍历数组，有应用过<strong>Map Reducer</strong>方法的同学应该很容易就能想到<strong>word count</strong>程序好像就是这么一个道理，因此我们可以使用Map进行存值判断。</p>
+<h4 id="Map实现"><a href="#Map实现" class="headerlink" title="Map实现"></a>Map实现</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">class Solution &#123;</span><br><span class="line">    public int singleNumber(int[] nums) &#123;</span><br><span class="line">        HashMap&lt;Integer, Integer&gt; result = new HashMap&lt;&gt;();</span><br><span class="line">        int resultNum = 0;</span><br><span class="line">        for(int i = 0; i &lt; nums.length; i++)&#123;</span><br><span class="line">            int num = nums[i];</span><br><span class="line">            if(result.containsKey(num))&#123;</span><br><span class="line">                result.remove(num);</span><br><span class="line">            &#125;else&#123;</span><br><span class="line">                result.put(num, i);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        for (int res : result.keySet()) &#123;</span><br><span class="line">            resultNum = res;</span><br><span class="line">        &#125;</span><br><span class="line">        return resultNum;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>因为nums数组中的重复数字只有两个，因此判断数字是否已经存在于Map中，若已经存在，则remove该数字，此时Map和nums数组中都已不存在该数字，若Map中不存在该数字，则put该数字。最后Map只剩下单一的数字，即我们想要的结果。</p>
+<p>Map中需要插入<strong>key-value</strong>两个值，但是value的值对我们没有什么帮助，因此可以使用HashSet进一步优化。</p>
+<h4 id="HashSet实现"><a href="#HashSet实现" class="headerlink" title="HashSet实现"></a>HashSet实现</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">class Solution &#123;</span><br><span class="line">    public int singleNumber(int[] nums) &#123;</span><br><span class="line">        HashSet&lt;Integer&gt; result = new HashSet&lt;&gt;();</span><br><span class="line">        for (int num : nums) &#123;</span><br><span class="line">            if(!result.add(num))</span><br><span class="line">                result.remove(num);</span><br><span class="line">        &#125;</span><br><span class="line">        Iterator&lt;Integer&gt; it = result.iterator();</span><br><span class="line">        return it.next();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>判断nums中的数字是否已经存在与HashSet中，若已经存在，则remove，若不存在，则直接add。这步与Map类似，不过只需要插入一个nums数组中的值就够了。</p>
+<p>上面都是常规的一些存储方法，可没想到还有一个<strong>更加简洁帅气</strong>的方法。就是使用异或 ^ 的方法。</p>
+<h4 id="XOR异或方法"><a href="#XOR异或方法" class="headerlink" title="XOR异或方法"></a>XOR异或方法</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">class Solution &#123;</span><br><span class="line">    public int singleNumber(int[] nums) &#123;</span><br><span class="line">        int result = 0;</span><br><span class="line">        for (int num : nums) &#123;</span><br><span class="line">            result = result ^ num;</span><br><span class="line">        &#125;</span><br><span class="line">        return result;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>什么意思呢，^ 异或满足下面的转化：</p>
+<table>
+<thead>
+<tr>
+<th>a</th>
+<th>b</th>
+<th>result</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr>
+<td>0</td>
+<td>1</td>
+<td>1</td>
+</tr>
+<tr>
+<td>1</td>
+<td>0</td>
+<td>1</td>
+</tr>
+<tr>
+<td>1</td>
+<td>1</td>
+<td>0</td>
+</tr>
+</tbody></table>
+<p>所以两个数字进行 ^ 运算时，先将数字转化为二进制，再进行 ^ 操作，<strong>当两个数字相同时，则对应的二进制数的位数也都相同，因此运算结果为0</strong>。当<strong>0与任意数字进行异或运算时，运算结果为该任意数字</strong>，因此最终的结果就是nums数组中出现的单一数字。</p>
+
+        </div>
+
+        <blockquote class="post-copyright">
+    
+    <div class="content">
+        
+<span class="post-time">
+    最后更新时间：<time datetime="2019-06-30T08:34:38.176Z" itemprop="dateUpdated">2019-06-30 16:34:38</time>
+</span><br>
+
+
+        
+        转载联系1571170555@qq.com
+        
+    </div>
+    
+    <footer>
+        <a href="http://www.duanmuxu.top">
+            <img src="/img/avatar.jpg" alt="端木胥">
+            端木胥
+        </a>
+    </footer>
+</blockquote>
+
+        
+<div class="page-reward">
+    <a id="rewardBtn" href="javascript:;" class="page-reward-btn waves-effect waves-circle waves-light">赏</a>
+</div>
+
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/数据结构/">数据结构</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/算法/">算法</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://www.duanmuxu.top/20190602/single-number-finds-a-in-an-array.html&title=《Single Number 找出数组中的单一数字》 — 端木胥的个人博客&pic=http://www.duanmuxu.top/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://www.duanmuxu.top/20190602/single-number-finds-a-in-an-array.html&title=《Single Number 找出数组中的单一数字》 — 端木胥的个人博客&source=" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://www.duanmuxu.top/20190602/single-number-finds-a-in-an-array.html" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Single Number 找出数组中的单一数字》 — 端木胥的个人博客&url=http://www.duanmuxu.top/20190602/single-number-finds-a-in-an-array.html&via=http://www.duanmuxu.top" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://www.duanmuxu.top/20190602/single-number-finds-a-in-an-array.html" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/20190602/stringbuffer-replaces-spaces-in-a-string.html" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">StringBuffer 替换字符串中的空格</h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/20190602/pat-blevel-questionsholmes-dating.html" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">PAT乙级真题—福尔摩斯的约会</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+    <!-- Valine Comments -->
+    <div class="comments vcomment" id="comments"></div>
+    <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+    <script src="//unpkg.com/valine@latest/dist/Valine.min.js"></script>
+    <!-- Valine Comments script -->
+    <script>
+        var GUEST_INFO = ['nick','mail','link'];
+        var guest_info = 'nick,mail,link'.split(',').filter(function(item){
+          return GUEST_INFO.indexOf(item) > -1
+        });
+        new Valine({
+            el: '#comments',
+            notify: 'false' == 'true',
+            verify: 'false' == 'true',
+            appId: "TkNx8qQrs1R3XrIeuTt3bIvD-gzGzoHsz",
+            appKey: "1rYKcKGqfnSVtHTn1uyOKqhw",
+            avatar: "mm",
+            placeholder: "Just commit",
+            guest_info: guest_info.length == 0 ? GUEST_INFO : guest_info,
+            pageSize: "10"
+        })
+    </script>
+    <!-- Valine Comments end -->
+
+
+
+
+
+
+
+
+
+
+</article>
+
+<div id="reward" class="page-modal reward-lay">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <h3 class="reward-title">
+        <i class="icon icon-quote-left"></i>
+        谢谢大爷~
+        <i class="icon icon-quote-right"></i>
+    </h3>
+    <div class="reward-content">
+        
+        <div class="reward-code">
+            <img id="rewardCode" src="/img/wechat.jpg" alt="打赏二维码">
+        </div>
+        
+        <label class="reward-toggle">
+            <input id="rewardToggle" type="checkbox" class="reward-toggle-check" data-wechat="/img/wechat.jpg" data-alipay="/img/alipay.jpg">
+            <div class="reward-toggle-ctrol">
+                <span class="reward-toggle-item wechat">微信</span>
+                <span class="reward-toggle-label"></span>
+                <span class="reward-toggle-item alipay">支付宝</span>
+            </div>
+        </label>
+        
+    </div>
+</div>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="top">
+        
+<p>
+    <span id="busuanzi_container_site_uv" style="display:none">
+        站点总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style="display:none">
+        站点总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+        <p>
+            
+                <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
+            
+            <span>博客内容遵循 <a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">知识共享 署名 - 非商业性 - 相同方式共享 4.0 国际协议</a></span>
+        </p>
+    </div>
+    <div class="bottom">
+        <p><span>端木胥 &copy; 2018 - 2020</span>
+            <span>
+                
+                Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a>
+            </span>
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://www.duanmuxu.top/20190602/single-number-finds-a-in-an-array.html&title=《Single Number 找出数组中的单一数字》 — 端木胥的个人博客&pic=http://www.duanmuxu.top/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://www.duanmuxu.top/20190602/single-number-finds-a-in-an-array.html&title=《Single Number 找出数组中的单一数字》 — 端木胥的个人博客&source=" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://www.duanmuxu.top/20190602/single-number-finds-a-in-an-array.html" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Single Number 找出数组中的单一数字》 — 端木胥的个人博客&url=http://www.duanmuxu.top/20190602/single-number-finds-a-in-an-array.html&via=http://www.duanmuxu.top" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://www.duanmuxu.top/20190602/single-number-finds-a-in-an-array.html" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAN4AAADeCAAAAAB3DOFrAAACtUlEQVR42u3aQY4bMQwEQP//08k1wGacblHcdYDyyRjAkkqHEd3U6xV/fv3xef/k66+eRnsa/2mWp9EufPDw8PAGS38/TfI9WUq+Tflcj/Pi4eHhrfGSReSbEk0cUPP1PD7Hw8PD+2BeUoLPZ8TDw8P7v3hnr/hiKWVJjYeHh/ezvCSMSKKBJJadF+UrWQseHh5elwlEXaTP+b7S38PDw8Mbd9XPXrhJMJFfRxitFg8PD2+Bd3Z14KwllocRZ1vzODIeHh7eAi+vSNsWV/skWVy+KXh4eHh7vHbiPDjID5hkK9tf4eHh4W3z2r/9t0rtZMw8UI5uRuDh4eENeO2LeN7+PxuznRcPDw9vm9deAK1PnjicnV9i+Et/Dw8PD2+BlyMnkWsbN7QB7uN/BTw8PLwFXlLIJuXsZEHJ93zMx3MPDw8Pb8zL/7PfKrXbTTxrvEW7iIeHhzfg5UVzvsR2tPxIOLuggIeHh3eLN4kY2rg2+dUkChn19/Dw8PBi3qT8zReURBXt8VPMhYeHh3eVN4kDzl7c7bGRHypFSo2Hh4d3ide+oPMLAbfaYHVhjYeHh7fAOwsX2iAj/9U8sLiQneDh4eG9fZ7HBPnnLOBIyvo6VsbDw8Nb4LXIswZ/2xhrj5x/bBweHh7eAu/W63ve0JofG3h4eHjfw2uD1LPY91YZnW8HHh4e3javjQ8mMUQb6Ral89cNwsPDw1vjtYtuy/F8g9q23Ousa4eHh4c3gJ29gs+eJM/b6wWPm4iHh4e3wNt+x9bl71FQcuEgwcPDw1tofZ2Vy5Mty4+NIsbFw8PDu8rLQ4r2wuj88LiWteDh4eH9KC8/Ntq4YbKhjyU1Hh4e3gfwzuLX+cj1QYKHh4e3xpsUvvNDom10FWU9Hh4e3gKv/UffNrTa6whnBTceHh7et/B+A/u19FEAfLuCAAAAAElFTkSuQmCC" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: true };
+
+
+</script>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/main.min.js"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/search.min.js" async></script>
+
+
+
+
+
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+<script>
+(function() {
+    var OriginTitile = document.title, titleTime;
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+            document.title = '快回来！';
+            clearTimeout(titleTime);
+        } else {
+            document.title = '(つェ⊂)咦!又好了!';
+            titleTime = setTimeout(function() {
+                document.title = OriginTitile;
+            },2000);
+        }
+    });
+})();
+</script>
+
+
+
+</body>
+</html>

@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://www.duanmuxu.top/"/>
-  <updated>2019-09-23T17:04:02.915Z</updated>
+  <updated>2020-02-18T17:27:52.226Z</updated>
   <id>http://www.duanmuxu.top/</id>
   
   <author>
@@ -17,11 +17,37 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>����ѧϰ��������֤</title>
+    <link href="http://www.duanmuxu.top/20200219/%D1%A7%CF%B0-%D6%A4.html"/>
+    <id>http://www.duanmuxu.top/20200219/ѧϰ-֤.html</id>
+    <published>2020-02-18T17:25:45.469Z</published>
+    <updated>2020-02-18T17:27:52.226Z</updated>
+    
+    <content type="html"><![CDATA[<p><strong>������֤</strong>�ǻ���ѧϰ����Ҫ���</p><p>Ϊ���ܹ���ģ�͸����ȶ�����Ҫ�����ݼ��Ĳ�ͬ�Ӽ���<strong>�з�������֤</strong>�����ֻ�Ƕ��ض����Ӽ�����΢�������տ��ܻ�<strong>������ϣ�overfitting��ģ��</strong>��</p><blockquote><p><strong>�������</strong>��ָģ����<strong>��֪���ݼ�</strong>����ϵó����ã�����һ����<strong>δ֪����</strong>�͹��ˡ�</p></blockquote><p>����������Ҫ�ģ����û���ѧϰģ���ܹ�������δ֪���ݡ�</p><hr><p>����������ѧϰģ��ʱ��ͨ������3��ָ�꣺<strong>���ȣ�precision�����ٻ��ʣ�recall����F1�÷֣�F1 score��</strong>�������ò������ֱ�׼��parameter scoring����ø���ָ��ĵ÷֡�</p><ul><li><strong>����</strong>��ָ��������<strong>��ȷ�������������</strong>ռ<strong>�������ܷ�����������</strong>�İٷֱȣ��������������У���һЩ�����ִ��ˣ�</li><li><strong>�ٻ���</strong>��ָ��<strong>Ӧ��ȷ�������������</strong>ռ<strong>ĳ���������������İٷֱ�</strong>����һЩ��������ĳ���࣬��������ȴû�зֳ�����</li><li><strong>F1 score</strong>�Ǿ��Ⱥ��ٻ��ʵĺϳ�ָ�꣬ʵ������<strong>���Ⱥ��ٻ��ʵĵ��;�ֵ��harmonic mean��</strong>�����㷽ʽΪF1 score��2�����ȡ��ٻ��� / (���ȣ��ٻ���)</li></ul><p>ͨ��һ����������ϸ˵��������ָ�꣺</p><p>�������ݼ���100��������������82�����������Ǹ���Ȥ�ģ��������÷�����ѡ����82�����������գ�������ѡ����73������������Ϊ�������Ǹ���Ȥ�ġ�����73�������У���ʵֻ��65�����������Ǹ���Ȥ�ģ�ʣ�µ�8���������ǲ�����Ȥ���Ƿ������ִ��ˡ��������·�������������ľ��ȣ�</p><ul><li>������ȷ���������� = 65</li><li>�ܷ����������� = 73</li><li>���� = 65 / 73 = 89.04%</li></ul><p>�ٻ��ʵļ���������£�</p><ul><li>���ݼ������Ǹ���Ȥ���������� = 82</li><li>������ȷ���������� = 65</li><li>�ٻ��� = 65 / 82 = 79.26%</li></ul><p>һ�������Ļ���ѧϰģ����Ҫͬʱ�߱����õľ��Ⱥ��ٻ��ʡ�������ָ����<strong>���ɱ���</strong>�ģ�<b>һ��ָ��ﵽ100%����ô��һ��ָ��ͻ�ǳ��</b>������Ҫ��������ָ���ܹ�ͬʱ���ں����߶ȡ�Ϊ����������ָ��ľ����ԣ������� F1�÷�ָ�꣬�Ǿ��Ⱥ��ٻ��ʵĺϳ�ָ�꣬ʵ�����Ǿ��Ⱥ��ٻ��ʵĵ��;�ֵ��harmonic mean����</p><p>F1 score��2�����ȡ��ٻ��� / (���ȣ��ٻ���)</p><p>����ʾ���� F1�÷ֵļ���������£�</p><p>F1 score��2��0.89��0.79 / (0.89��0.79)��0.8370</p><hr><p>��������ʵ����</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">from sklearn.naive_bayes import GaussianNB</span><br><span class="line">from sklearn import model_selection</span><br><span class="line"></span><br><span class="line">classifier_gaussiannb = GaussianNB()</span><br><span class="line"></span><br><span class="line">num_validations = 5</span><br><span class="line"></span><br><span class="line"># ���㾫��</span><br><span class="line">precision = model_selection.cross_val_score(classifier_gaussiannb, X, y, scoring=&apos;precision_weighted&apos;, cv=num_validations)</span><br><span class="line">print(&quot;Precision: &quot; + str(round(100*precision.mean(), 2)) + &quot;%&quot;)</span><br><span class="line"></span><br><span class="line"># �����ٻ���</span><br><span class="line">recall = model_selection.cross_val_score(classifier_gaussiannb, X, y, scoring=&apos;recall_weighted&apos;, cv=num_validations)</span><br><span class="line">print(&quot;Recall: &quot; + str(round(100*recall.mean(), 2)) + &quot;%&quot;)</span><br><span class="line"></span><br><span class="line"># ����F1 �÷�</span><br><span class="line">f1 = model_selection.cross_val_score(classifier_gaussiannb, X, y, scoring=&apos;f1_weighted&apos;, cv=num_validations)</span><br><span class="line">print(&quot;F1 score: &quot; + str(round(100*f1.mean(), 2)) + &quot;%&quot;)</span><br></pre></td></tr></table></figure><p>���������������鱾��Python ����ѧϰ����ʵ������</p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;&lt;strong&gt;������֤&lt;/strong&gt;�ǻ���ѧϰ����Ҫ���&lt;/p&gt;
+&lt;p&gt;Ϊ���ܹ���ģ�͸����ȶ�����Ҫ�����ݼ��Ĳ�ͬ�Ӽ���&lt;strong&gt;�з�������֤&lt;/strong&gt;�����ֻ�Ƕ��ض����Ӽ�����΢��
+      
+    
+    </summary>
+    
+      <category term="Machine Learning" scheme="http://www.duanmuxu.top/categories/Machine-Learning/"/>
+    
+    
+      <category term="Machine Learning" scheme="http://www.duanmuxu.top/tags/Machine-Learning/"/>
+    
+  </entry>
+  
+  <entry>
     <title>Hadoop Streaming中reduce的多路输出</title>
     <link href="http://www.duanmuxu.top/20190924/multiple-output-of-reduce-in-hadoop-streaming.html"/>
     <id>http://www.duanmuxu.top/20190924/multiple-output-of-reduce-in-hadoop-streaming.html</id>
     <published>2019-09-23T17:03:15.834Z</published>
-    <updated>2019-09-23T17:04:02.915Z</updated>
+    <updated>2019-09-23T17:04:54.194Z</updated>
     
     <content type="html"><![CDATA[<p>上一章说到，Hadoop Streaming能使用任何编程语言编写MR程序，使MR计算框架不再拘泥于Java这一单独的语言，但是这也有一定的局限性，比如说Hadoop Streaming需要有该编程语言的标准输入输出，对多路输出不够友好。一般reduce输出的文件格式为：part-00000,part-00001…，文件个数为reduce的任务个数。</p><p>但是有时候我们需要用到多路输出的需求，比如输出的数据可能一部分要作为下一个MR任务的输入文件，另一部分直接供下游任务抓取。那么就一定不能实现reduce多路输出吗，答案是否定的，我们可以使用 <strong>-outputformat org.apache.hadoop.mapred.lib.SuffixMultipleTextOutputFormat</strong> 或者 <strong>-outputformat<br>org.apache.hadoop.mapred.lib.SuffixMultipleSequenceFileOutputFormat</strong>指定使用带多输出的OutputFormat，前者对应于文本输入，后者于二进制输入。</p><h3 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h3><p>reduce输出文件格式一般为part-xxxxx-X文件，其中X是A-Z的字母之一，使用方式是在输出key,value对的时候，在value的后面追加”#X”两个字节后缀，后缀不同的key,value输出到不同的part-xxxxx-X文件，value的后缀”#X”在kv输入文件时会自动删除。</p><p>此时，需要特别注意的是，由于value之后 #X 才会识别为输出文件标示，而reduce的输出默认以”\t”分割key和value，因此，如果reduce的输出是一行中间没有”\t”，我们就需要在#X后缀前面添加”\t”使它变成value的一部分而不是key的一部分，也可以通过 <strong>-D stream.reduce.output.field.separator</strong>指定reduce输出分割符的类型。 </p><blockquote><p>题外话：-D stream.reduce.output.field.separator 和 -jobconf suffix.multiple.outputformat.separator 的区别</p></blockquote><table><thead><tr><th>参数</th><th>含义</th></tr></thead><tbody><tr><td>-D stream.reduce.output.field.separator</td><td>reduce中key与value的分隔符</td></tr><tr><td>-jobconf suffix.multiple.outputformat.separator</td><td>value与文件名的分割符，默认为“#”，如果value本身含有“#”，则可以通过该参数设置其他的分隔符</td></tr></tbody></table><h3 id="实例应用"><a href="#实例应用" class="headerlink" title="实例应用"></a>实例应用</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"># run.sh</span><br><span class="line">$&#123;HADOOP_BIN&#125; streaming \</span><br><span class="line">    -input &quot;$&#123;INPUT&#125;&quot; \</span><br><span class="line">    -output &quot;$&#123;OUT_DIR&#125;&quot; \</span><br><span class="line">    -cacheArchive &quot;$&#123;TOOL_DIR&#125;/python2.7.2.tgz&quot;&quot;#.&quot; \</span><br><span class="line">    -file &quot;mapper_worker.sh&quot; \</span><br><span class="line">    -file &quot;reducer_worker.py&quot; \</span><br><span class="line">    -mapper &quot;python2.7.2/bin/python mapper_worker.sh&quot; \</span><br><span class="line">    -reducer &quot;python2.7.2/bin/python reducer_worker.py&quot; \</span><br><span class="line">    -inputformat &quot;org.apache.hadoop.mapred.TextInputFormat&quot; \</span><br><span class="line">    -outputformat &quot;org.apache.hadoop.mapred.lib.SuffixMultipleTextOutputFormat&quot; \</span><br><span class="line">    -jobconf mapred.job.priority=&quot;NORMAL&quot; \</span><br><span class="line">    -jobconf mapred.job.name=&quot;$&#123;TASK_NAME&#125;&quot; \</span><br><span class="line">    -jobconf mapred.map.tasks=&quot;$&#123;MAP_NUM&#125;&quot; \</span><br><span class="line">    -jobconf mapred.reduce.tasks=&quot;$&#123;REDUCE_NUM&#125;&quot; \</span><br><span class="line">    -jobconf mapred.max.split.size=134217728 \</span><br><span class="line">    -jobconf mapred.map.memory.limit=&quot;800&quot; \</span><br><span class="line">    -jobconf mapred.reduce.memory.limit=&quot;500&quot; \</span><br><span class="line">    -jobconf mapred.job.map.capacity=&quot;3500&quot; \</span><br><span class="line">    -jobconf mapred.job.reduce.capacity=&quot;2000&quot; \</span><br><span class="line">    -jobconf mapred.job.keep.files.hours=12 \</span><br><span class="line">    -jobconf mapred.max.map.failures.percent=1 \</span><br><span class="line">    -jobconf mapred.reduce.tasks.speculative.execution=&quot;false&quot;</span><br></pre></td></tr></table></figure><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"># mapper_worker.py</span><br><span class="line">import sys</span><br><span class="line"></span><br><span class="line">for line in sys.stdin:</span><br><span class="line">    print line</span><br></pre></td></tr></table></figure><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"># reducer_worker.py</span><br><span class="line">import sys</span><br><span class="line"></span><br><span class="line">for line in sys.stdin:</span><br><span class="line">    record = line.strip()</span><br><span class="line">    fields = record.split(&apos;\t&apos;)</span><br><span class="line">    if len(fields) != 7:</span><br><span class="line">        continue</span><br><span class="line">    vcpurl, playurl, title, poster, duration, pubtime, accept = fields</span><br><span class="line">    duration = int(duration)</span><br><span class="line">    pubtime = int(pubtime)</span><br><span class="line">    accept = int(accept)</span><br><span class="line">    if duration &lt; 60:</span><br><span class="line">        print &apos;\t&apos;.join(record) + &quot;#A&quot;</span><br><span class="line">        # sys.stdout.write(&apos;%s#A\n&apos; %(record))</span><br><span class="line">    elif duration &lt; 300：</span><br><span class="line">        print &apos;\t&apos;.join(record) + &quot;#B&quot;</span><br><span class="line">        # sys.stdout.write(&apos;%s#B\n&apos; %(record))</span><br><span class="line">    else:</span><br><span class="line">        print &apos;\t&apos;.join(record) + &quot;#C&quot;</span><br><span class="line">        # sys.stdout.write(&apos;%s#C\n&apos; %(record))</span><br></pre></td></tr></table></figure><p>参考文献：<a href="https://blog.csdn.net/xiaolang85/article/details/8641137" target="_blank" rel="noopener">Hadoop Streaming实战： 多路输出</a></p>]]></content>
     
@@ -270,8 +296,8 @@
   
   <entry>
     <title>Shell学习10：输入、输出重定向</title>
-    <link href="http://www.duanmuxu.top/20190630/shell-learning-10-input-output-redirection.html"/>
-    <id>http://www.duanmuxu.top/20190630/shell-learning-10-input-output-redirection.html</id>
+    <link href="http://www.duanmuxu.top/20190630/shell-learning-10-input-and-output-redirection.html"/>
+    <id>http://www.duanmuxu.top/20190630/shell-learning-10-input-and-output-redirection.html</id>
     <published>2019-06-30T08:26:34.401Z</published>
     <updated>2019-06-30T08:27:36.161Z</updated>
     
@@ -296,8 +322,8 @@
   
   <entry>
     <title>Shell学习09：函数</title>
-    <link href="http://www.duanmuxu.top/20190630/shell-learning-09-function.html"/>
-    <id>http://www.duanmuxu.top/20190630/shell-learning-09-function.html</id>
+    <link href="http://www.duanmuxu.top/20190630/shell-learning-09-functions.html"/>
+    <id>http://www.duanmuxu.top/20190630/shell-learning-09-functions.html</id>
     <published>2019-06-30T03:58:08.965Z</published>
     <updated>2019-06-30T03:59:34.194Z</updated>
     
@@ -425,8 +451,8 @@
   
   <entry>
     <title>Shell学习04：Shell数据类型</title>
-    <link href="http://www.duanmuxu.top/20190625/shell-learning-04-data-type.html"/>
-    <id>http://www.duanmuxu.top/20190625/shell-learning-04-data-type.html</id>
+    <link href="http://www.duanmuxu.top/20190625/shell-learning-04-data-types.html"/>
+    <id>http://www.duanmuxu.top/20190625/shell-learning-04-data-types.html</id>
     <published>2019-06-25T02:14:09.511Z</published>
     <updated>2019-06-25T02:16:22.741Z</updated>
     
@@ -557,8 +583,8 @@
   
   <entry>
     <title>Ambari集群搭建（HDP离线安装版）</title>
-    <link href="http://www.duanmuxu.top/20190604/ambari-cluster-setup-hdp-offline-installation.html"/>
-    <id>http://www.duanmuxu.top/20190604/ambari-cluster-setup-hdp-offline-installation.html</id>
+    <link href="http://www.duanmuxu.top/20190604/ambari-cluster-setup-hdp-offline-installation-version.html"/>
+    <id>http://www.duanmuxu.top/20190604/ambari-cluster-setup-hdp-offline-installation-version.html</id>
     <published>2019-06-04T10:57:20.241Z</published>
     <updated>2019-06-08T04:27:48.888Z</updated>
     
@@ -584,8 +610,8 @@
   
   <entry>
     <title>罗马数字转化为阿拉伯数字</title>
-    <link href="http://www.duanmuxu.top/20190602/roman-numerals-are-converted-to-arabic.html"/>
-    <id>http://www.duanmuxu.top/20190602/roman-numerals-are-converted-to-arabic.html</id>
+    <link href="http://www.duanmuxu.top/20190602/roman-numerals-to-arabic.html"/>
+    <id>http://www.duanmuxu.top/20190602/roman-numerals-to-arabic.html</id>
     <published>2019-06-02T04:28:32.282Z</published>
     <updated>2019-06-02T04:31:29.751Z</updated>
     
@@ -619,8 +645,8 @@
   
   <entry>
     <title>两个字符串中含有几个相同字符的几种解法</title>
-    <link href="http://www.duanmuxu.top/20190602/several-solutions-for-identical-characters-in-two-strings.html"/>
-    <id>http://www.duanmuxu.top/20190602/several-solutions-for-identical-characters-in-two-strings.html</id>
+    <link href="http://www.duanmuxu.top/20190602/several-solutions-to-the-same-character-in-two-strings.html"/>
+    <id>http://www.duanmuxu.top/20190602/several-solutions-to-the-same-character-in-two-strings.html</id>
     <published>2019-06-02T04:28:32.281Z</published>
     <updated>2019-06-02T04:31:29.751Z</updated>
     
@@ -652,8 +678,8 @@
   
   <entry>
     <title>链表中倒数第k个结点</title>
-    <link href="http://www.duanmuxu.top/20190602/the-kth-node-in-list.html"/>
-    <id>http://www.duanmuxu.top/20190602/the-kth-node-in-list.html</id>
+    <link href="http://www.duanmuxu.top/20190602/kth-node-in-the-list.html"/>
+    <id>http://www.duanmuxu.top/20190602/kth-node-in-the-list.html</id>
     <published>2019-06-02T04:28:32.279Z</published>
     <updated>2019-06-02T04:31:29.754Z</updated>
     
@@ -717,8 +743,8 @@
   
   <entry>
     <title>反转链表</title>
-    <link href="http://www.duanmuxu.top/20190602/reverse-list.html"/>
-    <id>http://www.duanmuxu.top/20190602/reverse-list.html</id>
+    <link href="http://www.duanmuxu.top/20190602/reverse-linked-list.html"/>
+    <id>http://www.duanmuxu.top/20190602/reverse-linked-list.html</id>
     <published>2019-06-02T04:28:32.276Z</published>
     <updated>2019-06-02T04:31:29.749Z</updated>
     
@@ -750,8 +776,8 @@
   
   <entry>
     <title>对所有员工的薪水按照salary进行按照1-N的排名</title>
-    <link href="http://www.duanmuxu.top/20190602/salary-for-all-employees-is-ranked-according-to-1n-in.html"/>
-    <id>http://www.duanmuxu.top/20190602/salary-for-all-employees-is-ranked-according-to-1n-in.html</id>
+    <link href="http://www.duanmuxu.top/20190602/salary-for-all-employees-is-ranked-according-to-1n.html"/>
+    <id>http://www.duanmuxu.top/20190602/salary-for-all-employees-is-ranked-according-to-1n.html</id>
     <published>2019-06-02T04:28:32.273Z</published>
     <updated>2019-06-02T04:31:29.752Z</updated>
     
@@ -780,8 +806,8 @@
   
   <entry>
     <title>单向链表小记</title>
-    <link href="http://www.duanmuxu.top/20190602/oneway-linked-list.html"/>
-    <id>http://www.duanmuxu.top/20190602/oneway-linked-list.html</id>
+    <link href="http://www.duanmuxu.top/20190602/notes-on-oneway-linked-list.html"/>
+    <id>http://www.duanmuxu.top/20190602/notes-on-oneway-linked-list.html</id>
     <published>2019-06-02T04:28:32.272Z</published>
     <updated>2019-06-02T04:31:29.753Z</updated>
     
@@ -807,8 +833,8 @@
   
   <entry>
     <title>StringBuffer 替换字符串中的空格</title>
-    <link href="http://www.duanmuxu.top/20190602/stringbuffer-replaces-spaces-in-strings.html"/>
-    <id>http://www.duanmuxu.top/20190602/stringbuffer-replaces-spaces-in-strings.html</id>
+    <link href="http://www.duanmuxu.top/20190602/stringbuffer-replaces-spaces-in-a-string.html"/>
+    <id>http://www.duanmuxu.top/20190602/stringbuffer-replaces-spaces-in-a-string.html</id>
     <published>2019-06-02T04:28:32.269Z</published>
     <updated>2019-06-08T04:28:45.372Z</updated>
     
@@ -837,8 +863,8 @@
   
   <entry>
     <title>Single Number 找出数组中的单一数字</title>
-    <link href="http://www.duanmuxu.top/20190602/single-number-find-a-in-the-array.html"/>
-    <id>http://www.duanmuxu.top/20190602/single-number-find-a-in-the-array.html</id>
+    <link href="http://www.duanmuxu.top/20190602/single-number-finds-a-in-an-array.html"/>
+    <id>http://www.duanmuxu.top/20190602/single-number-finds-a-in-an-array.html</id>
     <published>2019-06-02T04:28:32.252Z</published>
     <updated>2019-06-30T08:34:38.176Z</updated>
     
@@ -866,8 +892,8 @@
   
   <entry>
     <title>PAT乙级真题—福尔摩斯的约会</title>
-    <link href="http://www.duanmuxu.top/20190602/pat-b-level-question-sherlock-holmess-date.html"/>
-    <id>http://www.duanmuxu.top/20190602/pat-b-level-question-sherlock-holmess-date.html</id>
+    <link href="http://www.duanmuxu.top/20190602/pat-blevel-questionsholmes-dating.html"/>
+    <id>http://www.duanmuxu.top/20190602/pat-blevel-questionsholmes-dating.html</id>
     <published>2019-06-02T04:28:32.251Z</published>
     <updated>2019-06-02T04:31:29.750Z</updated>
     
@@ -895,8 +921,8 @@
   
   <entry>
     <title>往微信图文中插入外链视频的方法（包含几种失败方法）</title>
-    <link href="http://www.duanmuxu.top/20190602/how-to-insert-an-external-video-into-a-wechat-graphic-including-several-failure-methods.html"/>
-    <id>http://www.duanmuxu.top/20190602/how-to-insert-an-external-video-into-a-wechat-graphic-including-several-failure-methods.html</id>
+    <link href="http://www.duanmuxu.top/20190602/method-for-inserting-external-link-video-into-wechat-graphics.html"/>
+    <id>http://www.duanmuxu.top/20190602/method-for-inserting-external-link-video-into-wechat-graphics.html</id>
     <published>2019-06-02T04:28:32.249Z</published>
     <updated>2019-06-02T04:31:29.722Z</updated>
     
@@ -922,8 +948,8 @@
   
   <entry>
     <title>使用MultipleOutputs方法将mapreduce分组输出</title>
-    <link href="http://www.duanmuxu.top/20190602/mapreduce-group-output-using-the-multipleoutputs-method.html"/>
-    <id>http://www.duanmuxu.top/20190602/mapreduce-group-output-using-the-multipleoutputs-method.html</id>
+    <link href="http://www.duanmuxu.top/20190602/mapreduce-group-output-using-multipleoutputs-method.html"/>
+    <id>http://www.duanmuxu.top/20190602/mapreduce-group-output-using-multipleoutputs-method.html</id>
     <published>2019-06-02T04:28:32.247Z</published>
     <updated>2019-09-22T10:51:30.960Z</updated>
     
@@ -953,8 +979,8 @@
   
   <entry>
     <title>只爱一点点</title>
-    <link href="http://www.duanmuxu.top/20190602/just-love-a-little-bit.html"/>
-    <id>http://www.duanmuxu.top/20190602/just-love-a-little-bit.html</id>
+    <link href="http://www.duanmuxu.top/20190602/just-love-a-little.html"/>
+    <id>http://www.duanmuxu.top/20190602/just-love-a-little.html</id>
     <published>2019-06-02T04:28:32.246Z</published>
     <updated>2019-06-02T04:30:52.443Z</updated>
     
@@ -979,8 +1005,8 @@
   
   <entry>
     <title>Java实现从尾到头打印链表（ListNode）每个节点的值</title>
-    <link href="http://www.duanmuxu.top/20190602/java-implementation-prints-the-value-of-each-node-from-end-to-linked-list-listnode.html"/>
-    <id>http://www.duanmuxu.top/20190602/java-implementation-prints-the-value-of-each-node-from-end-to-linked-list-listnode.html</id>
+    <link href="http://www.duanmuxu.top/20190602/java-implementation-prints-the-value-of-each-node-listnode-from-end-to.html"/>
+    <id>http://www.duanmuxu.top/20190602/java-implementation-prints-the-value-of-each-node-listnode-from-end-to.html</id>
     <published>2019-06-02T04:28:32.243Z</published>
     <updated>2019-06-02T04:30:52.392Z</updated>
     
@@ -1012,8 +1038,8 @@
   
   <entry>
     <title>查找二叉树的下一个节点（中序遍历）</title>
-    <link href="http://www.duanmuxu.top/20190602/find-the-next-node-of-binary-tree-middle-order-traversal.html"/>
-    <id>http://www.duanmuxu.top/20190602/find-the-next-node-of-binary-tree-middle-order-traversal.html</id>
+    <link href="http://www.duanmuxu.top/20190602/find-the-next-node-of-binary-tree-midorder-traversal.html"/>
+    <id>http://www.duanmuxu.top/20190602/find-the-next-node-of-binary-tree-midorder-traversal.html</id>
     <published>2019-06-02T04:28:32.229Z</published>
     <updated>2019-06-02T04:30:52.508Z</updated>
     
@@ -1044,8 +1070,8 @@
   
   <entry>
     <title>剑指Offer中关于斐波那契数列的分析和运用</title>
-    <link href="http://www.duanmuxu.top/20190602/analysis-and-application-of-the-fibonacci-sequence-in-sword.html"/>
-    <id>http://www.duanmuxu.top/20190602/analysis-and-application-of-the-fibonacci-sequence-in-sword.html</id>
+    <link href="http://www.duanmuxu.top/20190602/analysis-and-application-of-fibonacci-sequence-in-sword-finger-offer.html"/>
+    <id>http://www.duanmuxu.top/20190602/analysis-and-application-of-fibonacci-sequence-in-sword-finger-offer.html</id>
     <published>2019-06-02T04:28:32.227Z</published>
     <updated>2019-06-02T04:30:52.476Z</updated>
     
