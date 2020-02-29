@@ -217,8 +217,8 @@
 <p>shuffle和sort阶段，和一般的MapReduce作业流程一样,经过此阶段的操作然后到达Reducer。</p>
 <h2 id="怎么使用Hadoop-Streaming"><a href="#怎么使用Hadoop-Streaming" class="headerlink" title="怎么使用Hadoop Streaming"></a>怎么使用Hadoop Streaming</h2><p>参数说明：</p>
 <ul>
-<li>-input <path>：指定作业输入，path可以是文件或者目录，可以使用*通配符，-input选项可以使用多次指定多个文件或目录作为输入</path></li>
-<li>-output <path>：指定作业输出目录，path必须不存在，而且执行作业的用户必须有创建该目录的权限，-output只能使用一次</path></li>
+<li>-input <path></path>：指定作业输入，path可以是文件或者目录，可以使用*通配符，-input选项可以使用多次指定多个文件或目录作为输入</li>
+<li>-output <path></path>：指定作业输出目录，path必须不存在，而且执行作业的用户必须有创建该目录的权限，-output只能使用一次</li>
 <li>-mapper：指定mapper可执行程序，必须指定且唯一</li>
 <li>-reducer：指定reducer可执行程序，必须指定且唯一</li>
 <li>-file, -cacheFile, -cacheArchive：分别用于向计算节点分发本地文件、HDFS文件和HDFS压缩文件</li>
