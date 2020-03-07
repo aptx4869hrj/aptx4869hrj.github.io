@@ -37,7 +37,7 @@
 <meta property="og:image" content="https://img-blog.csdnimg.cn/20200301142225345.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MjU4NjM3Mw==,size_16,color_FFFFFF,t_70">
 <meta property="og:image" content="https://img-blog.csdnimg.cn/20200301142327533.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MjU4NjM3Mw==,size_16,color_FFFFFF,t_70">
 <meta property="og:image" content="https://img-blog.csdnimg.cn/20200301142338239.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MjU4NjM3Mw==,size_16,color_FFFFFF,t_70">
-<meta property="og:updated_time" content="2020-03-07T16:28:38.828Z">
+<meta property="og:updated_time" content="2020-03-07T16:33:36.269Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="python爬虫简单实例-爬取17K小说网小说">
 <meta name="twitter:description" content="什么是网络爬虫?网络爬虫（Web Spider），又被称为网页蜘蛛，是一种按照一定的规则，自动地抓取网站信息的程序或者脚本。 爬虫流程 先由urllib的request打开Url得到网页html文档 浏览器打开网页源代码分析元素节点 通过Beautiful Soup或者正则表达式提取想要的数据 存储数据到本地磁盘或数据库（抓取，分析，存储）  简单实例爬取17K小说网（https://www.17">
@@ -208,7 +208,7 @@
 <li>通过<strong>Beautiful Soup</strong>或者<strong>正则表达式</strong>提取想要的数据</li>
 <li><strong>存储数据到本地磁盘或数据库（抓取，分析，存储）</strong></li>
 </ol>
-<h2 id="简单实例"><a href="#简单实例" class="headerlink" title="简单实例"></a>简单实例</h2><p>爬取17K小说网（<a href="https://www.17k.com/）中的一部小说《斩月》" target="_blank" rel="noopener">https://www.17k.com/）中的一部小说《斩月》</a></p>
+<h2 id="简单实例"><a href="#简单实例" class="headerlink" title="简单实例"></a>简单实例</h2><p>爬取17K小说网（<a href="https://www.17k.com/\）中的一部小说《斩月》" target="_blank" rel="noopener">https://www.17k.com/\）中的一部小说《斩月》</a></p>
 <h3 id="获取章节内容"><a href="#获取章节内容" class="headerlink" title="获取章节内容"></a>获取章节内容</h3><p>先看代码：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">import requests</span><br><span class="line">if __name__ == &apos;__main__&apos;:</span><br><span class="line">    target = &apos;https://www.17k.com/chapter/3062292/39084147.html&apos;</span><br><span class="line">    req = requests.get(target)</span><br><span class="line">    req.encoding = req.apparent_encoding</span><br><span class="line">    html = req.text</span><br><span class="line">    print(html)</span><br></pre></td></tr></table></figure>
 
@@ -298,7 +298,7 @@
     <div class="content">
         
 <span class="post-time">
-    最后更新时间：<time datetime="2020-03-07T16:28:38.828Z" itemprop="dateUpdated">2020-03-08 00:28:38</time>
+    最后更新时间：<time datetime="2020-03-07T16:33:36.269Z" itemprop="dateUpdated">2020-03-08 00:33:36</time>
 </span><br>
 
 
