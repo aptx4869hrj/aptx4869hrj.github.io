@@ -1,0 +1,549 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+    
+
+    
+
+    
+
+
+
+    <meta charset="utf-8">
+    
+    
+    
+    
+    <title>机器学习—交叉验证 | 端木胥的个人博客</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="Machine Learning">
+    <meta name="description" content="交叉验证是机器学习的重要概念。 为了能够让模型更加稳定，需要用数据集的不同子集进行反复的验证。如果只是对特定的子集进行微调，最终可能会过度拟合（overfitting）模型。  过度拟合是指模型在已知数据集上拟合得超级好，但是一遇到未知数据就挂了。  我们真正想要的，是让机器学习模型能够适用于未知数据。  当处理机器学习模型时，通常关心3个指标：精度（precision）、召回率（recall）和">
+<meta name="keywords" content="Machine Learning">
+<meta property="og:type" content="article">
+<meta property="og:title" content="机器学习—交叉验证">
+<meta property="og:url" content="http://www.duanmuxu.top/20200219/machine-learningcrossvalidation.html">
+<meta property="og:site_name" content="端木胥的个人博客">
+<meta property="og:description" content="交叉验证是机器学习的重要概念。 为了能够让模型更加稳定，需要用数据集的不同子集进行反复的验证。如果只是对特定的子集进行微调，最终可能会过度拟合（overfitting）模型。  过度拟合是指模型在已知数据集上拟合得超级好，但是一遇到未知数据就挂了。  我们真正想要的，是让机器学习模型能够适用于未知数据。  当处理机器学习模型时，通常关心3个指标：精度（precision）、召回率（recall）和">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2020-02-18T17:34:13.940Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="机器学习—交叉验证">
+<meta name="twitter:description" content="交叉验证是机器学习的重要概念。 为了能够让模型更加稳定，需要用数据集的不同子集进行反复的验证。如果只是对特定的子集进行微调，最终可能会过度拟合（overfitting）模型。  过度拟合是指模型在已知数据集上拟合得超级好，但是一遇到未知数据就挂了。  我们真正想要的，是让机器学习模型能够适用于未知数据。  当处理机器学习模型时，通常关心3个指标：精度（precision）、召回率（recall）和">
+    
+        <link rel="alternate" type="application/atom+xml" title="端木胥的个人博客" href="/atom.xml">
+    
+    <link rel="shortcut icon" href="/img/logo.png">
+    <link rel="stylesheet" href="//unpkg.com/hexo-theme-material-indigo@latest/css/style.css">
+    <script>window.lazyScripts=[]</script>
+
+    <!-- custom head -->
+    
+
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu" class="hide">
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap" style="background-image:url(/img/brand.jpg)">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/avatar.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">端木胥</h5>
+          <a href="mailto:157170555@qq.com" title="157170555@qq.com" class="mail">157170555@qq.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/">
+                <i class="icon icon-lg icon-home"></i>
+                Home
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives">
+                <i class="icon icon-lg icon-archives"></i>
+                Archives
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags">
+                <i class="icon icon-lg icon-tags"></i>
+                Tags
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/categories">
+                <i class="icon icon-lg icon-th-list"></i>
+                Categories
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/aptx4869hrj" target="_blank">
+                <i class="icon icon-lg icon-github"></i>
+                Github
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://weibo.com/u/3454630080" target="_blank">
+                <i class="icon icon-lg icon-weibo"></i>
+                Weibo
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">机器学习—交叉验证</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">机器学习—交叉验证</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2020-02-18T17:25:45.469Z" itemprop="datePublished" class="page-time">
+  2020-02-19
+</time>
+
+
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/Machine-Learning/">Machine Learning</a></li></ul>
+
+            
+        </h5>
+    </div>
+
+    
+
+
+</header>
+
+
+<div class="container body-wrap">
+    
+
+<article id="post-机器学习—交叉验证" class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">机器学习—交叉验证</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2020-02-19 01:25:45" datetime="2020-02-18T17:25:45.469Z" itemprop="datePublished">2020-02-19</time>
+
+            
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/Machine-Learning/">Machine Learning</a></li></ul>
+
+
+
+            
+<span id="busuanzi_container_page_pv" title="文章总阅读量" style="display:none">
+    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>
+</span>
+
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <p><strong>交叉验证</strong>是机器学习的重要概念。</p>
+<p>为了能够让模型更加稳定，需要用数据集的不同子集进<strong>行反复的验证</strong>。如果只是对特定的子集进行微调，最终可能会<strong>过度拟合（overfitting）模型</strong>。</p>
+<blockquote>
+<p><strong>过度拟合</strong>是指模型在<strong>已知数据集</strong>上拟合得超级好，但是一遇到<strong>未知数据</strong>就挂了。</p>
+</blockquote>
+<p>我们真正想要的，是让机器学习模型能够适用于未知数据。</p>
+<hr>
+<p>当处理机器学习模型时，通常关心3个指标：<strong>精度（precision）、召回率（recall）和F1得分（F1 score）</strong>。可以用参数评分标准（parameter scoring）获得各项指标的得分。</p>
+<ul>
+<li><strong>精度</strong>是指被分类器<strong>正确分类的样本数量</strong>占<strong>分类器总分类样本数量</strong>的百分比（分类器分类结果中，有一些样本分错了）</li>
+<li><strong>召回率</strong>是指被<strong>应正确分类的样本数量</strong>占<strong>某分类总样本数量的百分比</strong>（有一些样本属于某分类，但分类器却没有分出来）</li>
+<li><strong>F1 score</strong>是精度和召回率的合成指标，实际上是<strong>精度和召回率的调和均值（harmonic mean）</strong>，计算方式为F1 score＝2×精度×召回率 / (精度＋召回率)</li>
+</ul>
+<p>通过一个例子来详细说明这三个指标：</p>
+<p>假设数据集有100个样本，其中有82个样本是我们感兴趣的，现在想用分类器选出这82个样本。最终，分类器选出了73个样本，它认为都是我们感兴趣的。在这73个样本中，其实只有65个样本是我们感兴趣的，剩下的8个样本我们不感兴趣，是分类器分错了。可以如下方法计算分类器的精度：</p>
+<ul>
+<li>分类正确的样本数量 = 65</li>
+<li>总分类样本数量 = 73</li>
+<li>精度 = 65 / 73 = 89.04%</li>
+</ul>
+<p>召回率的计算过程如下：</p>
+<ul>
+<li>数据集中我们感兴趣的样本数量 = 82</li>
+<li>分类正确的样本数量 = 65</li>
+<li>召回率 = 65 / 82 = 79.26%</li>
+</ul>
+<p>一个给力的机器学习模型需要同时具备良好的精度和召回率。这两个指标是<strong>二律背反</strong>的，<b>一个指标达到100%，那么另一个指标就会非常差！</b>我们需要保持两个指标能够同时处于合理高度。为了量化两个指标的均衡性，引入了 F1得分指标，是精度和召回率的合成指标，实际上是精度和召回率的调和均值（harmonic mean）：</p>
+<p>F1 score＝2×精度×召回率 / (精度＋召回率)</p>
+<p>上面示例中 F1得分的计算过程如下：</p>
+<p>F1 score＝2×0.89×0.79 / (0.89＋0.79)＝0.8370</p>
+<hr>
+<p>来个代码实例：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">from sklearn.naive_bayes import GaussianNB</span><br><span class="line">from sklearn import model_selection</span><br><span class="line"></span><br><span class="line">classifier_gaussiannb = GaussianNB()</span><br><span class="line"></span><br><span class="line">num_validations = 5</span><br><span class="line"></span><br><span class="line"># 计算精度</span><br><span class="line">precision = model_selection.cross_val_score(classifier_gaussiannb, X, y, scoring=&apos;precision_weighted&apos;, cv=num_validations)</span><br><span class="line">print(&quot;Precision: &quot; + str(round(100*precision.mean(), 2)) + &quot;%&quot;)</span><br><span class="line"></span><br><span class="line"># 计算召回率</span><br><span class="line">recall = model_selection.cross_val_score(classifier_gaussiannb, X, y, scoring=&apos;recall_weighted&apos;, cv=num_validations)</span><br><span class="line">print(&quot;Recall: &quot; + str(round(100*recall.mean(), 2)) + &quot;%&quot;)</span><br><span class="line"></span><br><span class="line"># 计算F1 得分</span><br><span class="line">f1 = model_selection.cross_val_score(classifier_gaussiannb, X, y, scoring=&apos;f1_weighted&apos;, cv=num_validations)</span><br><span class="line">print(&quot;F1 score: &quot; + str(round(100*f1.mean(), 2)) + &quot;%&quot;)</span><br></pre></td></tr></table></figure>
+
+<p>（上述代码来自书本《Python 机器学习经典实例》）</p>
+
+        </div>
+
+        <blockquote class="post-copyright">
+    
+    <div class="content">
+        
+<span class="post-time">
+    最后更新时间：<time datetime="2020-02-18T17:34:13.940Z" itemprop="dateUpdated">2020-02-19 01:34:13</time>
+</span><br>
+
+
+        
+        转载联系1571170555@qq.com
+        
+    </div>
+    
+    <footer>
+        <a href="http://www.duanmuxu.top">
+            <img src="/img/avatar.jpg" alt="端木胥">
+            端木胥
+        </a>
+    </footer>
+</blockquote>
+
+        
+<div class="page-reward">
+    <a id="rewardBtn" href="javascript:;" class="page-reward-btn waves-effect waves-circle waves-light">赏</a>
+</div>
+
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Machine-Learning/">Machine Learning</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://www.duanmuxu.top/20200219/machine-learningcrossvalidation.html&title=《机器学习—交叉验证》 — 端木胥的个人博客&pic=http://www.duanmuxu.top/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://www.duanmuxu.top/20200219/machine-learningcrossvalidation.html&title=《机器学习—交叉验证》 — 端木胥的个人博客&source=" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://www.duanmuxu.top/20200219/machine-learningcrossvalidation.html" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《机器学习—交叉验证》 — 端木胥的个人博客&url=http://www.duanmuxu.top/20200219/machine-learningcrossvalidation.html&via=http://www.duanmuxu.top" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://www.duanmuxu.top/20200219/machine-learningcrossvalidation.html" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/20200308/a-simple-example-of-python-crawler.html" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">python爬虫简单实例-爬取17K小说网小说</h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/20190924/multiple-output-of-reduce-in-hadoop-streaming.html" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">Hadoop Streaming中reduce的多路输出</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+    <!-- Valine Comments -->
+    <div class="comments vcomment" id="comments"></div>
+    <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+    <script src="//unpkg.com/valine@latest/dist/Valine.min.js"></script>
+    <!-- Valine Comments script -->
+    <script>
+        var GUEST_INFO = ['nick','mail','link'];
+        var guest_info = 'nick,mail,link'.split(',').filter(function(item){
+          return GUEST_INFO.indexOf(item) > -1
+        });
+        new Valine({
+            el: '#comments',
+            notify: 'false' == 'true',
+            verify: 'false' == 'true',
+            appId: "TkNx8qQrs1R3XrIeuTt3bIvD-gzGzoHsz",
+            appKey: "1rYKcKGqfnSVtHTn1uyOKqhw",
+            avatar: "mm",
+            placeholder: "Just commit",
+            guest_info: guest_info.length == 0 ? GUEST_INFO : guest_info,
+            pageSize: "10"
+        })
+    </script>
+    <!-- Valine Comments end -->
+
+
+
+
+
+
+
+
+
+
+</article>
+
+<div id="reward" class="page-modal reward-lay">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <h3 class="reward-title">
+        <i class="icon icon-quote-left"></i>
+        谢谢大爷~
+        <i class="icon icon-quote-right"></i>
+    </h3>
+    <div class="reward-content">
+        
+        <div class="reward-code">
+            <img id="rewardCode" src="/img/wechat.jpg" alt="打赏二维码">
+        </div>
+        
+        <label class="reward-toggle">
+            <input id="rewardToggle" type="checkbox" class="reward-toggle-check" data-wechat="/img/wechat.jpg" data-alipay="/img/alipay.jpg">
+            <div class="reward-toggle-ctrol">
+                <span class="reward-toggle-item wechat">微信</span>
+                <span class="reward-toggle-label"></span>
+                <span class="reward-toggle-item alipay">支付宝</span>
+            </div>
+        </label>
+        
+    </div>
+</div>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="top">
+        
+<p>
+    <span id="busuanzi_container_site_uv" style="display:none">
+        站点总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style="display:none">
+        站点总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+        <p>
+            
+                <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
+            
+            <span>博客内容遵循 <a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">知识共享 署名 - 非商业性 - 相同方式共享 4.0 国际协议</a></span>
+        </p>
+    </div>
+    <div class="bottom">
+        <p><span>端木胥 &copy; 2018 - 2020</span>
+            <span>
+                
+                Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a>
+            </span>
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://www.duanmuxu.top/20200219/machine-learningcrossvalidation.html&title=《机器学习—交叉验证》 — 端木胥的个人博客&pic=http://www.duanmuxu.top/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://www.duanmuxu.top/20200219/machine-learningcrossvalidation.html&title=《机器学习—交叉验证》 — 端木胥的个人博客&source=" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://www.duanmuxu.top/20200219/machine-learningcrossvalidation.html" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《机器学习—交叉验证》 — 端木胥的个人博客&url=http://www.duanmuxu.top/20200219/machine-learningcrossvalidation.html&via=http://www.duanmuxu.top" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://www.duanmuxu.top/20200219/machine-learningcrossvalidation.html" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAN4AAADeCAAAAAB3DOFrAAACpklEQVR42u3aS26EMBAFwLn/pSfbSAnk9ccjIhWrCBDj8sLuvPbrFV/vH9f3+z/fTJ7ev5/81tqFh4eHNx761afzoSSTkk/Z/S9efQcPDw/vNC/5XL7qXr2z9YVkzHh4eHjP4e1uJDkMDw8P7//y8uW+PJRgWvHw8PCew8sDgndw9Urhakm9nLXg4eHhxby8i/Scv4/09/Dw8PDGXfXqcl9tj1Uj3fJo8fDw8A7w8gW3ikzK3KvSOS+1k3Hi4eHhneZVj0P1hliNOfLt55cx4OHh4R3mFRbc4vaQN9J6kxjlKHh4eHhLvF4KWh3uvElWbb/h4eHhneMl7vul+R4zafaPDgTg4eHhHePdD3orkM0HnZfX+XaFh4eHt8XrHRfo1exVUj6Vl/fx8PDwDvDyiLba1pofQZiU73h4eHif4VUPOSX4vOVfjULyEhwPDw9vl5cs7pMe2mTRr4YRv7yDh4eHd4zX6x9Vn+ZTttb0wsPDwzvAS4LR6vGpvOzu9euah67w8PDwDvPm0WpeLicnGiYxMR4eHt4ub+tAQDW8yO/34mA8PDy8c7yoPxaXv3kzrNd4a0YheHh4eMd4+fLdixuS6Zgg8fDw8D7JyxfxrTvzHlbzm3h4eHhLvHzp3wpYJ22zajSMh4eH93leNaKdYHrbwB9TjIeHh3eMN1m48y+ceIqHh4f3NF7erMoj2rxYf80vPDw8vFVe79BV3hirPp1vAwtnyvDw8PD6uWv5eMF8O8mDjLVdEQ8PD29wXKAaKOTRbX4UIA8jCmEuHh4e3jFeUuD2Sup5gd7bxvDw8PCew6uWy72QoneYYGFjwMPDwzvG64Wzk0I5P/KFh4eH9xler/HfixgmxXc5BMHDw8M7wCv/e9/aKpLgtffOdnqBh4eHd3N9AfWVfYJeuMTNAAAAAElFTkSuQmCC" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: true };
+
+
+</script>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/main.min.js"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/search.min.js" async></script>
+
+
+
+
+
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+<script>
+(function() {
+    var OriginTitile = document.title, titleTime;
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+            document.title = '快回来！';
+            clearTimeout(titleTime);
+        } else {
+            document.title = '(つェ⊂)咦!又好了!';
+            titleTime = setTimeout(function() {
+                document.title = OriginTitile;
+            },2000);
+        }
+    });
+})();
+</script>
+
+
+
+</body>
+</html>

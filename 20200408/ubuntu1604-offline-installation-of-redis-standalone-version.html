@@ -1,0 +1,573 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+    
+
+    
+
+    
+
+
+
+    <meta charset="utf-8">
+    
+    
+    
+    
+    <title>Ubuntu16.04离线安装redis（单机版） | 端木胥的个人博客</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="Linux,Redis">
+    <meta name="description" content="本教程适用于linux系统无法联网的情况，并且是在root用户下进行安装配置的 软件配置 Ubuntu版本：16.04 Redis版本：4.0.2  安装教程判断linux系统中是否有gcc环境在命令行中输入 123gcc --versiong++ --version  若出现以下的提示，则表示linux系统暂未有gcc环境 1The program &amp;apos;gcc&amp;apos; is curr">
+<meta name="keywords" content="Linux,Redis">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Ubuntu16.04离线安装redis（单机版）">
+<meta property="og:url" content="http://www.duanmuxu.top/20200408/ubuntu1604-offline-installation-of-redis-standalone-version.html">
+<meta property="og:site_name" content="端木胥的个人博客">
+<meta property="og:description" content="本教程适用于linux系统无法联网的情况，并且是在root用户下进行安装配置的 软件配置 Ubuntu版本：16.04 Redis版本：4.0.2  安装教程判断linux系统中是否有gcc环境在命令行中输入 123gcc --versiong++ --version  若出现以下的提示，则表示linux系统暂未有gcc环境 1The program &amp;apos;gcc&amp;apos; is curr">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2020-04-08T13:44:05.087Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Ubuntu16.04离线安装redis（单机版）">
+<meta name="twitter:description" content="本教程适用于linux系统无法联网的情况，并且是在root用户下进行安装配置的 软件配置 Ubuntu版本：16.04 Redis版本：4.0.2  安装教程判断linux系统中是否有gcc环境在命令行中输入 123gcc --versiong++ --version  若出现以下的提示，则表示linux系统暂未有gcc环境 1The program &amp;apos;gcc&amp;apos; is curr">
+    
+        <link rel="alternate" type="application/atom+xml" title="端木胥的个人博客" href="/atom.xml">
+    
+    <link rel="shortcut icon" href="/img/logo.png">
+    <link rel="stylesheet" href="//unpkg.com/hexo-theme-material-indigo@latest/css/style.css">
+    <script>window.lazyScripts=[]</script>
+
+    <!-- custom head -->
+    
+
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu" class="hide">
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap" style="background-image:url(/img/brand.jpg)">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/avatar.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">端木胥</h5>
+          <a href="mailto:157170555@qq.com" title="157170555@qq.com" class="mail">157170555@qq.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/">
+                <i class="icon icon-lg icon-home"></i>
+                Home
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives">
+                <i class="icon icon-lg icon-archives"></i>
+                Archives
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags">
+                <i class="icon icon-lg icon-tags"></i>
+                Tags
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/categories">
+                <i class="icon icon-lg icon-th-list"></i>
+                Categories
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/aptx4869hrj" target="_blank">
+                <i class="icon icon-lg icon-github"></i>
+                Github
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://weibo.com/u/3454630080" target="_blank">
+                <i class="icon icon-lg icon-weibo"></i>
+                Weibo
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">Ubuntu16.04离线安装redis（单机版）</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">Ubuntu16.04离线安装redis（单机版）</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2020-04-08T13:28:37.711Z" itemprop="datePublished" class="page-time">
+  2020-04-08
+</time>
+
+
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/Redis/">Redis</a></li></ul>
+
+            
+        </h5>
+    </div>
+
+    
+
+
+</header>
+
+
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#软件配置"><span class="post-toc-number">1.</span> <span class="post-toc-text">软件配置</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#安装教程"><span class="post-toc-number">2.</span> <span class="post-toc-text">安装教程</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#判断linux系统中是否有gcc环境"><span class="post-toc-number">2.1.</span> <span class="post-toc-text">判断linux系统中是否有gcc环境</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#gcc安装"><span class="post-toc-number">2.2.</span> <span class="post-toc-text">gcc安装</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#gcc在线安装"><span class="post-toc-number">2.2.1.</span> <span class="post-toc-text">gcc在线安装</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#gcc离线安装"><span class="post-toc-number">2.2.2.</span> <span class="post-toc-text">gcc离线安装</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#下载gcc安装包"><span class="post-toc-number">2.2.2.1.</span> <span class="post-toc-text">下载gcc安装包</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#安装gcc"><span class="post-toc-number">2.2.2.2.</span> <span class="post-toc-text">安装gcc</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#测试"><span class="post-toc-number">2.2.2.3.</span> <span class="post-toc-text">测试</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#设为默认编译器"><span class="post-toc-number">2.2.2.4.</span> <span class="post-toc-text">设为默认编译器</span></a></li></ol></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#redis安装"><span class="post-toc-number">2.3.</span> <span class="post-toc-text">redis安装</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#解压"><span class="post-toc-number">2.3.1.</span> <span class="post-toc-text">解压</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#编译源代码"><span class="post-toc-number">2.3.2.</span> <span class="post-toc-text">编译源代码</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#修改配置文件"><span class="post-toc-number">2.3.3.</span> <span class="post-toc-text">修改配置文件</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#redis启动与关闭"><span class="post-toc-number">2.4.</span> <span class="post-toc-text">redis启动与关闭</span></a></li></ol></li></ol>
+        </nav>
+    </aside>
+
+
+<article id="post-Ubuntu16.04离线安装redis（单机版）" class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">Ubuntu16.04离线安装redis（单机版）</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2020-04-08 21:28:37" datetime="2020-04-08T13:28:37.711Z" itemprop="datePublished">2020-04-08</time>
+
+            
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/Redis/">Redis</a></li></ul>
+
+
+
+            
+<span id="busuanzi_container_page_pv" title="文章总阅读量" style="display:none">
+    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>
+</span>
+
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <p>本教程适用于linux系统无法联网的情况，并且是在<strong>root用户</strong>下进行安装配置的</p>
+<h1 id="软件配置"><a href="#软件配置" class="headerlink" title="软件配置"></a>软件配置</h1><ul>
+<li>Ubuntu版本：16.04</li>
+<li>Redis版本：4.0.2</li>
+</ul>
+<h1 id="安装教程"><a href="#安装教程" class="headerlink" title="安装教程"></a>安装教程</h1><h2 id="判断linux系统中是否有gcc环境"><a href="#判断linux系统中是否有gcc环境" class="headerlink" title="判断linux系统中是否有gcc环境"></a>判断linux系统中是否有gcc环境</h2><p>在命令行中输入</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">gcc --version</span><br><span class="line"></span><br><span class="line">g++ --version</span><br></pre></td></tr></table></figure>
+
+<p>若出现以下的提示，则表示linux系统暂未有gcc环境</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">The program &apos;gcc&apos; is currently not installed. You can install it by typing:apt install gcc</span><br></pre></td></tr></table></figure>
+
+<p>那么进行下一步：gcc安装</p>
+<p>如果直接显示gcc和g++的版本，表明linux系统中已有gcc环境，可直接进行下一步：redis安装</p>
+<h2 id="gcc安装"><a href="#gcc安装" class="headerlink" title="gcc安装"></a>gcc安装</h2><h3 id="gcc在线安装"><a href="#gcc在线安装" class="headerlink" title="gcc在线安装"></a>gcc在线安装</h3><p>执行下列命令</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">apt install gcc</span><br><span class="line">apt install g++</span><br></pre></td></tr></table></figure>
+
+<p>如果安装过程中出现错误，可以执行 apt-get update 更新一下，再进行安装</p>
+<p>安装完成之后，再查看gcc和g++版本</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">root@master:~/redis# g++ --version</span><br><span class="line">g++ (Ubuntu 5.4.0-6ubuntu1~16.04.12) 5.4.0 20160609</span><br><span class="line">Copyright (C) 2015 Free Software Foundation, Inc.</span><br><span class="line"></span><br><span class="line">root@master:~/redis# gcc --version</span><br><span class="line">gcc (Ubuntu 5.4.0-6ubuntu1~16.04.12) 5.4.0 20160609</span><br><span class="line">Copyright (C) 2015 Free Software Foundation, Inc.</span><br></pre></td></tr></table></figure>
+
+<p>出现以上版本显示则表示安装成功，版本会根据Ubuntu版本的不同而不同。</p>
+<h3 id="gcc离线安装"><a href="#gcc离线安装" class="headerlink" title="gcc离线安装"></a>gcc离线安装</h3><h4 id="下载gcc安装包"><a href="#下载gcc安装包" class="headerlink" title="下载gcc安装包"></a>下载gcc安装包</h4><p>在官网 <a href="http://archive.ubuntu.com/ubuntu/pool/main/g/gcc-4.6" target="_blank" rel="noopener">http://archive.ubuntu.com/ubuntu/pool/main/g/gcc-4.6</a> 中可以下载gcc安装包</p>
+<p>一般来说需要以下四个：</p>
+<ul>
+<li>gcc-4.6_4.6.3-1ubuntu5_amd64.deb</li>
+<li>g++-4.6_4.6.3-1ubuntu5_amd64.deb</li>
+<li>gcc-4.6-base_4.6.3-1ubuntu5_amd64.deb</li>
+<li>libstdc++6-4.6-dev_4.6.3-1ubuntu5_amd64.deb</li>
+</ul>
+<h4 id="安装gcc"><a href="#安装gcc" class="headerlink" title="安装gcc"></a>安装gcc</h4><p>首先将上述四个文件都放在同一目录下，比如我都放在 /root/gcc 目录下</p>
+<p>然后依次在命令行中输入 dpkg -i 安装这四个包</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">dpkg -i *.deb</span><br></pre></td></tr></table></figure>
+
+<p>如果执行此命令时，提示有些包还没安装</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">dpkg: dependency problems prevent configuration of gcc-4.6:</span><br><span class="line"> gcc-4.6 depends on cpp-4.6 (= 4.6.3-1ubuntu5); however:</span><br><span class="line">  Package cpp-4.6 is not installed.</span><br><span class="line"> gcc-4.6 depends on libgomp1 (&gt;= 4.6.3-1ubuntu5); however:</span><br><span class="line">  Package libgomp1 is not installed.</span><br></pre></td></tr></table></figure>
+
+<p>那么先将这些依赖包提前安装即可。</p>
+<h4 id="测试"><a href="#测试" class="headerlink" title="测试"></a>测试</h4><p>安装好之后，这时候输入 gcc –version 会返回gcc的版本，然而输入g++ –version 则会报错；此时进入 /usr/bin 目录下，发现 g++ 的文件夹名称为 g++-4.6 ，因此我们输入 g++-4.6  –version发现，就会返回g++版本号</p>
+<h4 id="设为默认编译器"><a href="#设为默认编译器" class="headerlink" title="设为默认编译器"></a>设为默认编译器</h4><p>至此，g++-4.6已经安装，但还未被设为默认g++编译器。再执行下面的命令切换链接：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sudo rm /usr/bin/g++   //删除原来默认的g++编译器连接文件</span><br><span class="line"></span><br><span class="line">sudo ln -s /usr/bin/g++-4.6 /usr/bin/g++ //创建新的连接文件指向新的g++-4.6编译器</span><br></pre></td></tr></table></figure>
+
+<p>此命令还可以对ubuntu系统中默认gcc和g++编译器的版本进行修改。</p>
+<p>如果要对原来系统默认的gcc编译器版本修改，就可以执行以下命令：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sudo rm /usr/bin/gcc  //删除原来默认的gcc编译器连接文件</span><br><span class="line"></span><br><span class="line">sudo ln -s /usr/bin/gcc-x.xxx  /usr/bin/gcc   //创建新的连接文件指向新的gcc编译器</span><br></pre></td></tr></table></figure>
+
+<p>参考博客：<a href="https://blog.csdn.net/qq_27630885/article/details/85051391?depth_1-utm_source=distribute.pc_relevant.none-task-blog-BlogCommendFromBaidu-4&utm_source=distribute.pc_relevant.none-task-blog-BlogCommendFromBaidu-4" target="_blank" rel="noopener">ubuntu 离线安装g++-4.6编译器</a></p>
+<h2 id="redis安装"><a href="#redis安装" class="headerlink" title="redis安装"></a>redis安装</h2><p>先将安装包上传到linux中，我放到了 /root 目录下</p>
+<h3 id="解压"><a href="#解压" class="headerlink" title="解压"></a>解压</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tar -zxvf redis-4.0.2.tar.gz</span><br></pre></td></tr></table></figure>
+
+<h3 id="编译源代码"><a href="#编译源代码" class="headerlink" title="编译源代码"></a>编译源代码</h3><p>进入解压后的redis目录，然后进行编译源代码</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">cd redis-4.0.2</span><br><span class="line"></span><br><span class="line">make MALLOC=libc</span><br><span class="line"></span><br><span class="line">make install</span><br></pre></td></tr></table></figure>
+
+<h3 id="修改配置文件"><a href="#修改配置文件" class="headerlink" title="修改配置文件"></a>修改配置文件</h3><p>源代码编译完成后，会在/root/redis-4.0.2/ 目录中生成一个 redis.conf 文件，进入 redis.conf 文件进行下述修改</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">// 先创建一个redis 目录用来存放redis日志</span><br><span class="line">mkdir /root/redis</span><br><span class="line"></span><br><span class="line">// 编辑redis.conf文件</span><br><span class="line">vim /root/redis-4.0.2/redis.conf</span><br><span class="line"></span><br><span class="line">// 修改以下内容</span><br><span class="line">daemonize yes   //是否以后台daemon方式运行，默认不是后台运行</span><br><span class="line">pidfile /var/run/redis/redis.pid   //redis的PID文件路径（可选）</span><br><span class="line">bind 0.0.0.0   //绑定主机IP，默认值为127.0.0.1，我这需要从主机连接虚拟机，所以需要更改</span><br><span class="line">logfile &quot;/root/redis/redis.log&quot;    //定义log文件位置，模式log信息定向到stdout，输出到/dev/null（可选）</span><br><span class="line">dir &quot;/root/redis&quot;  //本地数据库存放路径，默认为./，编译安装默认存在在/usr/local/bin下（可选）</span><br></pre></td></tr></table></figure>
+
+<p>之后将conf文件复制一份到刚才新建的redis 目录中</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cp /root/redis-4.0.2/redis.conf /root/redis</span><br></pre></td></tr></table></figure>
+
+<p>至此，redis就安装完毕了。</p>
+<h2 id="redis启动与关闭"><a href="#redis启动与关闭" class="headerlink" title="redis启动与关闭"></a>redis启动与关闭</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">// 启动 redis</span><br><span class="line">redis-server /root/redis/redis.conf</span><br><span class="line"></span><br><span class="line">// 连接 redis 服务器</span><br><span class="line">redis-cli</span><br><span class="line"></span><br><span class="line">// 连接之后会进入redis操作区</span><br><span class="line">127.0.0.1:6379&gt; set a b</span><br><span class="line">OK</span><br><span class="line">127.0.0.1:6379&gt; get a</span><br><span class="line">&quot;b&quot;</span><br><span class="line">127.0.0.1:6379&gt; exit</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">// 关闭 redis 服务器</span><br><span class="line">redis-cli shutdown</span><br></pre></td></tr></table></figure>
+        </div>
+
+        <blockquote class="post-copyright">
+    
+    <div class="content">
+        
+<span class="post-time">
+    最后更新时间：<time datetime="2020-04-08T13:44:05.087Z" itemprop="dateUpdated">2020-04-08 21:44:05</time>
+</span><br>
+
+
+        
+        转载联系1571170555@qq.com
+        
+    </div>
+    
+    <footer>
+        <a href="http://www.duanmuxu.top">
+            <img src="/img/avatar.jpg" alt="端木胥">
+            端木胥
+        </a>
+    </footer>
+</blockquote>
+
+        
+<div class="page-reward">
+    <a id="rewardBtn" href="javascript:;" class="page-reward-btn waves-effect waves-circle waves-light">赏</a>
+</div>
+
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linux/">Linux</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Redis/">Redis</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://www.duanmuxu.top/20200408/ubuntu1604-offline-installation-of-redis-standalone-version.html&title=《Ubuntu16.04离线安装redis（单机版）》 — 端木胥的个人博客&pic=http://www.duanmuxu.top/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://www.duanmuxu.top/20200408/ubuntu1604-offline-installation-of-redis-standalone-version.html&title=《Ubuntu16.04离线安装redis（单机版）》 — 端木胥的个人博客&source=" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://www.duanmuxu.top/20200408/ubuntu1604-offline-installation-of-redis-standalone-version.html" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Ubuntu16.04离线安装redis（单机版）》 — 端木胥的个人博客&url=http://www.duanmuxu.top/20200408/ubuntu1604-offline-installation-of-redis-standalone-version.html&via=http://www.duanmuxu.top" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://www.duanmuxu.top/20200408/ubuntu1604-offline-installation-of-redis-standalone-version.html" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between flex-row-reverse">
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/20200314/scala-basics.html" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">Scala基础</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+    <!-- Valine Comments -->
+    <div class="comments vcomment" id="comments"></div>
+    <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+    <script src="//unpkg.com/valine@latest/dist/Valine.min.js"></script>
+    <!-- Valine Comments script -->
+    <script>
+        var GUEST_INFO = ['nick','mail','link'];
+        var guest_info = 'nick,mail,link'.split(',').filter(function(item){
+          return GUEST_INFO.indexOf(item) > -1
+        });
+        new Valine({
+            el: '#comments',
+            notify: 'false' == 'true',
+            verify: 'false' == 'true',
+            appId: "TkNx8qQrs1R3XrIeuTt3bIvD-gzGzoHsz",
+            appKey: "1rYKcKGqfnSVtHTn1uyOKqhw",
+            avatar: "mm",
+            placeholder: "Just commit",
+            guest_info: guest_info.length == 0 ? GUEST_INFO : guest_info,
+            pageSize: "10"
+        })
+    </script>
+    <!-- Valine Comments end -->
+
+
+
+
+
+
+
+
+
+
+</article>
+
+<div id="reward" class="page-modal reward-lay">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <h3 class="reward-title">
+        <i class="icon icon-quote-left"></i>
+        谢谢大爷~
+        <i class="icon icon-quote-right"></i>
+    </h3>
+    <div class="reward-content">
+        
+        <div class="reward-code">
+            <img id="rewardCode" src="/img/wechat.jpg" alt="打赏二维码">
+        </div>
+        
+        <label class="reward-toggle">
+            <input id="rewardToggle" type="checkbox" class="reward-toggle-check" data-wechat="/img/wechat.jpg" data-alipay="/img/alipay.jpg">
+            <div class="reward-toggle-ctrol">
+                <span class="reward-toggle-item wechat">微信</span>
+                <span class="reward-toggle-label"></span>
+                <span class="reward-toggle-item alipay">支付宝</span>
+            </div>
+        </label>
+        
+    </div>
+</div>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="top">
+        
+<p>
+    <span id="busuanzi_container_site_uv" style="display:none">
+        站点总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style="display:none">
+        站点总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+        <p>
+            
+                <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
+            
+            <span>博客内容遵循 <a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">知识共享 署名 - 非商业性 - 相同方式共享 4.0 国际协议</a></span>
+        </p>
+    </div>
+    <div class="bottom">
+        <p><span>端木胥 &copy; 2018 - 2020</span>
+            <span>
+                
+                Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a>
+            </span>
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://www.duanmuxu.top/20200408/ubuntu1604-offline-installation-of-redis-standalone-version.html&title=《Ubuntu16.04离线安装redis（单机版）》 — 端木胥的个人博客&pic=http://www.duanmuxu.top/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://www.duanmuxu.top/20200408/ubuntu1604-offline-installation-of-redis-standalone-version.html&title=《Ubuntu16.04离线安装redis（单机版）》 — 端木胥的个人博客&source=" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://www.duanmuxu.top/20200408/ubuntu1604-offline-installation-of-redis-standalone-version.html" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Ubuntu16.04离线安装redis（单机版）》 — 端木胥的个人博客&url=http://www.duanmuxu.top/20200408/ubuntu1604-offline-installation-of-redis-standalone-version.html&via=http://www.duanmuxu.top" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://www.duanmuxu.top/20200408/ubuntu1604-offline-installation-of-redis-standalone-version.html" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAPYAAAD2CAAAAADAeSUUAAADPUlEQVR42u3azW6rQAwG0L7/S6fSXV2pgny2iRTMmVVVIMyZLBz//PzE6/VvnV/9fyVPnb/ldbCqexstbGxs7JuwX6fraEPn4Akmuf98n9GRYWNjY69j59tNjqyHTw736O25BRsbG/vJ7ORqHlTm6UqyT2xsbGzs8xCSBJLzg8jvr96JjY2N/TR2XqzpHU01gcnTm4/X0rCxsbG/nt1rwX7n3x/sb2NjY2N/JftVXNcmBnnzuDow9EaBjY2NvYidFNzPt1sNdZNPyO+PPgEbGxt7BfuqoZx5MyBvCeeJR/Q9Y2NjYy9izwNbEqiqoasXSt+8HRsbG3sduxqcqsMx50Gx2rKtpiiH5SRsbGzsRexry0NJaLnq7XkhCRsbG3s3O3mgOog5LxLlOym3MbCxsbEXsQs/34vP5glDr4x1fqzlPWBjY2PfnJ23ePMANglak+HOQmMYGxsbewU7CQA5o9pgSD65ehxRCMTGxsZ+ALs3HFM9sl6KMmkJl0d2sLGxsW/IzlOLHJCnKPkwUCFc/b2KjY2NvY59FbLXgq1uvRq03kwqYWNjY69gV4NBNWnJk4f5TqKgiI2Njb2InQ/NJC3bhNdr6/aCaLNqhY2NjX0rdh5IeoA8RM3HdwohDRsbG3sRe5JITEZ58jJQclij1jI2Njb2CvakiTtJDHqNgTxpKTcJsLGxsW/IroaQ5M4kAZiM7FQLW4X+NjY2NvYN2XmxphdgknBYbRv3wlshBmJjY2Pfiv2JYlDvKCeDO+UCEzY2NvZSdvUHfd4M7pWK8gZzHgixsbGxt7J74ScPM5OEZNIewMbGxn4Cu1dkr4aovMGQFIby1sKb9AYbGxt7BTsv98yL/lc1IZLkJBrZwcbGxl7Erhbf55vuNRImJarDDAwbGxt7BTtfhTmg1qoeQTWkRb1lbGxs7Fuxexs6f2Ueoq4qXVULTNjY2Nj72L2glQ9NXvtUsp8occLGxsZex64mBpP28KRVUE1RDv+DjY2N/Uh23gCutgF6zeNRUQkbGxv7wex5UT5PSHrjO1HNDBsbG3sdu5owvAar2mCYfz2HqQg2Njb2Cvak0Vso4rSmZZLjqBawsLGxsRexfwGMNqCUcWWCggAAAABJRU5ErkJggg==" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: true };
+
+
+</script>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/main.min.js"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/search.min.js" async></script>
+
+
+
+
+
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+<script>
+(function() {
+    var OriginTitile = document.title, titleTime;
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+            document.title = '快回来！';
+            clearTimeout(titleTime);
+        } else {
+            document.title = '(つェ⊂)咦!又好了!';
+            titleTime = setTimeout(function() {
+                document.title = OriginTitile;
+            },2000);
+        }
+    });
+})();
+</script>
+
+
+
+</body>
+</html>

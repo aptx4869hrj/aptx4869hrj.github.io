@@ -1,10 +1,10 @@
+http://www.duanmuxu.top/20200408/ubuntu1604-offline-installation-of-redis-standalone-version.html
 http://www.duanmuxu.top/20200314/scala-basics.html
-http://www.duanmuxu.top/20200308/simple-example-of-python-crawler.html
-http://www.duanmuxu.top/20200219/machine-learningcross-validation.html
+http://www.duanmuxu.top/20200308/a-simple-example-of-python-crawler.html
+http://www.duanmuxu.top/20200219/machine-learningcrossvalidation.html
 http://www.duanmuxu.top/20190924/multiple-output-of-reduce-in-hadoop-streaming.html
 http://www.duanmuxu.top/20190922/detailed-hadoop-streaming.html
 http://www.duanmuxu.top/20190812/python-study-notes-07.html
 http://www.duanmuxu.top/20190805/python-study-notes-06.html
 http://www.duanmuxu.top/20190804/python-study-notes-05.html
 http://www.duanmuxu.top/20190802/python-study-notes-04.html
-http://www.duanmuxu.top/20190801/python-study-notes-03.html

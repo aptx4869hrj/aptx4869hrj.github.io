@@ -1,0 +1,572 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+    
+
+    
+
+    
+
+
+
+    <meta charset="utf-8">
+    
+    
+    
+    
+    <title>对所有员工的薪水按照salary进行按照1-N的排名 | 端木胥的个人博客</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="数据库">
+    <meta name="description" content="题目描述  对所有员工的当前(to_date=’9999-01-01’)薪水按照salary进行按照1-N的排名，相同salary并列且按照emp_no升序排列  建表语句： 123456CREATE TABLE `salaries` (`emp_no` int(11) NOT NULL,`salary` int(11) NOT NULL,`from_date` date NOT NULL,`to">
+<meta name="keywords" content="数据库">
+<meta property="og:type" content="article">
+<meta property="og:title" content="对所有员工的薪水按照salary进行按照1-N的排名">
+<meta property="og:url" content="http://www.duanmuxu.top/20190602/the-salary-of-all-employees-is-ranked-according-to-1n.html">
+<meta property="og:site_name" content="端木胥的个人博客">
+<meta property="og:description" content="题目描述  对所有员工的当前(to_date=’9999-01-01’)薪水按照salary进行按照1-N的排名，相同salary并列且按照emp_no升序排列  建表语句： 123456CREATE TABLE `salaries` (`emp_no` int(11) NOT NULL,`salary` int(11) NOT NULL,`from_date` date NOT NULL,`to">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2020-02-18T17:31:14.227Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="对所有员工的薪水按照salary进行按照1-N的排名">
+<meta name="twitter:description" content="题目描述  对所有员工的当前(to_date=’9999-01-01’)薪水按照salary进行按照1-N的排名，相同salary并列且按照emp_no升序排列  建表语句： 123456CREATE TABLE `salaries` (`emp_no` int(11) NOT NULL,`salary` int(11) NOT NULL,`from_date` date NOT NULL,`to">
+    
+        <link rel="alternate" type="application/atom+xml" title="端木胥的个人博客" href="/atom.xml">
+    
+    <link rel="shortcut icon" href="/img/logo.png">
+    <link rel="stylesheet" href="//unpkg.com/hexo-theme-material-indigo@latest/css/style.css">
+    <script>window.lazyScripts=[]</script>
+
+    <!-- custom head -->
+    
+
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu" class="hide">
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap" style="background-image:url(/img/brand.jpg)">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/avatar.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">端木胥</h5>
+          <a href="mailto:157170555@qq.com" title="157170555@qq.com" class="mail">157170555@qq.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/">
+                <i class="icon icon-lg icon-home"></i>
+                Home
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives">
+                <i class="icon icon-lg icon-archives"></i>
+                Archives
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags">
+                <i class="icon icon-lg icon-tags"></i>
+                Tags
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/categories">
+                <i class="icon icon-lg icon-th-list"></i>
+                Categories
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/aptx4869hrj" target="_blank">
+                <i class="icon icon-lg icon-github"></i>
+                Github
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://weibo.com/u/3454630080" target="_blank">
+                <i class="icon icon-lg icon-weibo"></i>
+                Weibo
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">对所有员工的薪水按照salary进行按照1-N的排名</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">对所有员工的薪水按照salary进行按照1-N的排名</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2019-06-02T04:28:32.273Z" itemprop="datePublished" class="page-time">
+  2019-06-02
+</time>
+
+
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/数据库/">数据库</a></li></ul>
+
+            
+        </h5>
+    </div>
+
+    
+
+
+</header>
+
+
+<div class="container body-wrap">
+    
+
+<article id="post-对所有员工的薪水按照salary进行按照1-N的排名" class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">对所有员工的薪水按照salary进行按照1-N的排名</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2019-06-02 12:28:32" datetime="2019-06-02T04:28:32.273Z" itemprop="datePublished">2019-06-02</time>
+
+            
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/数据库/">数据库</a></li></ul>
+
+
+
+            
+<span id="busuanzi_container_page_pv" title="文章总阅读量" style="display:none">
+    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>
+</span>
+
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <p>题目描述</p>
+<blockquote>
+<p>对所有员工的当前(to_date=’9999-01-01’)薪水按照salary进行按照1-N的排名，相同salary并列且按照emp_no升序排列</p>
+</blockquote>
+<p>建表语句：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">CREATE TABLE `salaries` (</span><br><span class="line">`emp_no` int(11) NOT NULL,</span><br><span class="line">`salary` int(11) NOT NULL,</span><br><span class="line">`from_date` date NOT NULL,</span><br><span class="line">`to_date` date NOT NULL,</span><br><span class="line">PRIMARY KEY (`emp_no`,`from_date`));</span><br></pre></td></tr></table></figure>
+
+<p>输出描述：</p>
+<table>
+<thead>
+<tr>
+<th>emp_no</th>
+<th>salary</th>
+<th>rank</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>10005</td>
+<td>94692</td>
+<td>1</td>
+</tr>
+<tr>
+<td>10002</td>
+<td>94409</td>
+<td>2</td>
+</tr>
+<tr>
+<td>10010</td>
+<td>94409</td>
+<td>2</td>
+</tr>
+<tr>
+<td>10001</td>
+<td>88958</td>
+<td>3</td>
+</tr>
+<tr>
+<td>10007</td>
+<td>88958</td>
+<td>3</td>
+</tr>
+<tr>
+<td>10004</td>
+<td>74057</td>
+<td>4</td>
+</tr>
+</tbody></table>
+<p>不看最后一个rank排名，那么这道题特别简单：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">select s.emp_no, s.salary</span><br><span class="line">from salaries s</span><br><span class="line">where s.to_date = &apos;9999-01-01&apos;</span><br><span class="line">order by s.salary desc, s.emp_no asc</span><br></pre></td></tr></table></figure>
+
+<p>但是题目偏偏加了一个rank工资排名。那么怎样才能获得这个排名呢？</p>
+<p>在Java中我们可以直接使用循环来给目标值加排名，SQL查询语句中看来行不通。仅仅使用一张表似乎达不到目的，那就使用两张表吧。</p>
+<p>既然不能使用循环，那么可以通过什么方法来表示排名，或者说是<strong>表示在自己的前面还有多少人（包括自己）</strong>。</p>
+<p>很明显了，我们可以通过两张表中salary的大小不同来获取在自己前面的人的个数，即<strong>s1.salary &lt;= s2.salary</strong>。举个栗子：<br><br>有三个salary（6000，5000，4000， 4000），输出为s1.salary，那么当s1.salary = 6000时，s1.salary &lt;= s2.salary 的值为6000，也就是一个，当s1.salary = 5000时，s1.salary &lt;= s2.salary 的值为6000和5000两个。但是当s1.salary = 4000时，s1.salary &lt;= s2.salary 的值就为（6000，5000，4000， 4000）四个，且4000是重复的，因此我们使用<strong>count(distinct s2.salary) rank</strong> 来去重，并计算个数，即排名，以此类推，<strong>输出s1.salary的情况下，有多少个s2.salary大于等于s1.salary就是s1.salary的排名</strong></p>
+<p>当然不要忘了<strong>group by s1.emp_no</strong> ，用来将员工编号分组，计算count()</p>
+<p>最后结果为：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">select s1.emp_no, s1.salary, count(distinct s2.salary) rank</span><br><span class="line">from salaries s1, salaries s2</span><br><span class="line">where s1.salary &lt;= s2.salary and s1.to_date = &apos;9999-01-01&apos; and s2.to_date = &apos;9999-01-01&apos;</span><br><span class="line">group by s1.emp_no</span><br><span class="line">order by rank</span><br></pre></td></tr></table></figure>
+
+
+        </div>
+
+        <blockquote class="post-copyright">
+    
+    <div class="content">
+        
+<span class="post-time">
+    最后更新时间：<time datetime="2020-02-18T17:31:14.227Z" itemprop="dateUpdated">2020-02-19 01:31:14</time>
+</span><br>
+
+
+        
+        转载联系1571170555@qq.com
+        
+    </div>
+    
+    <footer>
+        <a href="http://www.duanmuxu.top">
+            <img src="/img/avatar.jpg" alt="端木胥">
+            端木胥
+        </a>
+    </footer>
+</blockquote>
+
+        
+<div class="page-reward">
+    <a id="rewardBtn" href="javascript:;" class="page-reward-btn waves-effect waves-circle waves-light">赏</a>
+</div>
+
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/数据库/">数据库</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://www.duanmuxu.top/20190602/the-salary-of-all-employees-is-ranked-according-to-1n.html&title=《对所有员工的薪水按照salary进行按照1-N的排名》 — 端木胥的个人博客&pic=http://www.duanmuxu.top/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://www.duanmuxu.top/20190602/the-salary-of-all-employees-is-ranked-according-to-1n.html&title=《对所有员工的薪水按照salary进行按照1-N的排名》 — 端木胥的个人博客&source=" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://www.duanmuxu.top/20190602/the-salary-of-all-employees-is-ranked-according-to-1n.html" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《对所有员工的薪水按照salary进行按照1-N的排名》 — 端木胥的个人博客&url=http://www.duanmuxu.top/20190602/the-salary-of-all-employees-is-ranked-according-to-1n.html&via=http://www.duanmuxu.top" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://www.duanmuxu.top/20190602/the-salary-of-all-employees-is-ranked-according-to-1n.html" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/20190602/reverse-linked-list.html" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">反转链表</h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/20190602/oneway-linked-list.html" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">单向链表小记</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+    <!-- Valine Comments -->
+    <div class="comments vcomment" id="comments"></div>
+    <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+    <script src="//unpkg.com/valine@latest/dist/Valine.min.js"></script>
+    <!-- Valine Comments script -->
+    <script>
+        var GUEST_INFO = ['nick','mail','link'];
+        var guest_info = 'nick,mail,link'.split(',').filter(function(item){
+          return GUEST_INFO.indexOf(item) > -1
+        });
+        new Valine({
+            el: '#comments',
+            notify: 'false' == 'true',
+            verify: 'false' == 'true',
+            appId: "TkNx8qQrs1R3XrIeuTt3bIvD-gzGzoHsz",
+            appKey: "1rYKcKGqfnSVtHTn1uyOKqhw",
+            avatar: "mm",
+            placeholder: "Just commit",
+            guest_info: guest_info.length == 0 ? GUEST_INFO : guest_info,
+            pageSize: "10"
+        })
+    </script>
+    <!-- Valine Comments end -->
+
+
+
+
+
+
+
+
+
+
+</article>
+
+<div id="reward" class="page-modal reward-lay">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <h3 class="reward-title">
+        <i class="icon icon-quote-left"></i>
+        谢谢大爷~
+        <i class="icon icon-quote-right"></i>
+    </h3>
+    <div class="reward-content">
+        
+        <div class="reward-code">
+            <img id="rewardCode" src="/img/wechat.jpg" alt="打赏二维码">
+        </div>
+        
+        <label class="reward-toggle">
+            <input id="rewardToggle" type="checkbox" class="reward-toggle-check" data-wechat="/img/wechat.jpg" data-alipay="/img/alipay.jpg">
+            <div class="reward-toggle-ctrol">
+                <span class="reward-toggle-item wechat">微信</span>
+                <span class="reward-toggle-label"></span>
+                <span class="reward-toggle-item alipay">支付宝</span>
+            </div>
+        </label>
+        
+    </div>
+</div>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="top">
+        
+<p>
+    <span id="busuanzi_container_site_uv" style="display:none">
+        站点总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style="display:none">
+        站点总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+        <p>
+            
+                <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
+            
+            <span>博客内容遵循 <a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">知识共享 署名 - 非商业性 - 相同方式共享 4.0 国际协议</a></span>
+        </p>
+    </div>
+    <div class="bottom">
+        <p><span>端木胥 &copy; 2018 - 2020</span>
+            <span>
+                
+                Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a>
+            </span>
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://www.duanmuxu.top/20190602/the-salary-of-all-employees-is-ranked-according-to-1n.html&title=《对所有员工的薪水按照salary进行按照1-N的排名》 — 端木胥的个人博客&pic=http://www.duanmuxu.top/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://www.duanmuxu.top/20190602/the-salary-of-all-employees-is-ranked-according-to-1n.html&title=《对所有员工的薪水按照salary进行按照1-N的排名》 — 端木胥的个人博客&source=" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://www.duanmuxu.top/20190602/the-salary-of-all-employees-is-ranked-according-to-1n.html" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《对所有员工的薪水按照salary进行按照1-N的排名》 — 端木胥的个人博客&url=http://www.duanmuxu.top/20190602/the-salary-of-all-employees-is-ranked-according-to-1n.html&via=http://www.duanmuxu.top" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://www.duanmuxu.top/20190602/the-salary-of-all-employees-is-ranked-according-to-1n.html" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAPYAAAD2CAAAAADAeSUUAAADJElEQVR42u3ay27jQAwEwPz/T3uvAZJ1ujkyYFOlU6DVq2YPNNnz9RUfj2/H9zPJXfk1P/9+fiZ/y/DAxsbG/hD24+mRsPPr8/PJFz7/kj+ejI2Njb2OnZeWdsnad7ULnX8nNjY2NnbSErTlZFYa2wYJGxsbGzvB5IOe85ZjVmixsbGxd7Nnr0yChGR4dD42euEsDRsbG/vt2Tnm/f9+Sb6NjY2N/cbsR3mcbO5JnjOLe2sFNjY29iJ2XgCS4VESIbQxbX5N/f3Y2NjYK9h57NqOeNoFagdGJ+0TNjY29ib2rAC0QUJ710nAkEcO2NjY2DvYs0F8HtnOylLSwJyMorCxsbE3sa/CJIXwvLV43mbUgydsbGzsFewZ5toilMTA+QJF/w3Y2NjYi9jJzXmpu2p4NCuH+WgJGxsbexM7v60908bAbTCQx8m/LDo2Njb2bdh54UmKUI5vC2rehGBjY2Pfk50Hq/kmnlkkfNUCYWNjY29l5yWqLTxJGNCGzUehBTY2NvYi9skA6KQUPYKj3VQ0TEWwsbGxP5w92zqTvyApKvkinoy9/qjb2NjY2KvZs9H/SfOQL3RewIafjo2Njf2x7HZ4dLL5Ji9ss+07RSuCjY2NvZSdn2kbhlkD08YAvywKNjY29iJ2+3P/pC0Ztg3BvcNgAxsbG3sFO/9Bf1UzMHtyO0iKhkrY2NjYi9jtg6IwNd8rVLYTbYDxy5XY2NjYi9h5AZgNdGbbdPJgOKcWZQwbGxv7A9nX7mNpB0/Jx7XBQ7Fk2NjY2CvYs8FQez7/oFlEUQcV2NjY2KvZbUw7Kzwnm3VOrsfGxsa+A7sdyif/2m7BSd6SxwPY2NjYd2BfW37y2OAorI2P4cYdbGxs7LdnzwDJWiZ3teAkWog2IWFjY2MvYrcFIH9BvhCzDT1tIRzisbGxsT+EPWskZmUpgZ2MtIpFwcbGxl7HPolyXxctvHy0hI2NjX1L9kkoe1LSZlHxf5+GjY2NfXt23gC0YcDJgKlYRGxsbOx17KR5uCr6bTdu5iFu0eRgY2NjL2LPfugnjUe7Degcln8zNjY29gr2P8pJupajDC2eAAAAAElFTkSuQmCC" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: true };
+
+
+</script>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/main.min.js"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/search.min.js" async></script>
+
+
+
+
+
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+<script>
+(function() {
+    var OriginTitile = document.title, titleTime;
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+            document.title = '快回来！';
+            clearTimeout(titleTime);
+        } else {
+            document.title = '(つェ⊂)咦!又好了!';
+            titleTime = setTimeout(function() {
+                document.title = OriginTitile;
+            },2000);
+        }
+    });
+})();
+</script>
+
+
+
+</body>
+</html>

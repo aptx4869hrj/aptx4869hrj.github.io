@@ -1,0 +1,549 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+    
+
+    
+
+    
+
+
+
+    <meta charset="utf-8">
+    
+    
+    
+    
+    <title>查找二叉树的下一个节点（中序遍历） | 端木胥的个人博客</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="剑指Offer,数据结构,算法">
+    <meta name="description" content="首先我们先了解一下二叉树的三种遍历方法：  前序遍历：从根节点开始，根在前，从左往右，一棵树的根永远在左子树前面，左子树又永远在右子树前面； 中序遍历：从最左节点开始，根在中，从左往右，一棵树的左子树永远在根前面，根永远在右子树前面； 后序遍历：也是从最左节点开始，根在后，从左往右，一棵树的左子树永远在右子树前面，右子树永远在根前面。  比如下面一张图">
+<meta name="keywords" content="剑指Offer,数据结构,算法">
+<meta property="og:type" content="article">
+<meta property="og:title" content="查找二叉树的下一个节点（中序遍历）">
+<meta property="og:url" content="http://www.duanmuxu.top/20190602/find-the-next-node-of-a-binary-tree-inorder-traversal.html">
+<meta property="og:site_name" content="端木胥的个人博客">
+<meta property="og:description" content="首先我们先了解一下二叉树的三种遍历方法：  前序遍历：从根节点开始，根在前，从左往右，一棵树的根永远在左子树前面，左子树又永远在右子树前面； 中序遍历：从最左节点开始，根在中，从左往右，一棵树的左子树永远在根前面，根永远在右子树前面； 后序遍历：也是从最左节点开始，根在后，从左往右，一棵树的左子树永远在右子树前面，右子树永远在根前面。  比如下面一张图">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http://www.duanmuxu.top/20190602/find-the-next-node-of-a-binary-tree-inorder-traversal.htm/1.jpg">
+<meta property="og:updated_time" content="2020-02-18T17:31:14.228Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="查找二叉树的下一个节点（中序遍历）">
+<meta name="twitter:description" content="首先我们先了解一下二叉树的三种遍历方法：  前序遍历：从根节点开始，根在前，从左往右，一棵树的根永远在左子树前面，左子树又永远在右子树前面； 中序遍历：从最左节点开始，根在中，从左往右，一棵树的左子树永远在根前面，根永远在右子树前面； 后序遍历：也是从最左节点开始，根在后，从左往右，一棵树的左子树永远在右子树前面，右子树永远在根前面。  比如下面一张图">
+<meta name="twitter:image" content="http://www.duanmuxu.top/20190602/find-the-next-node-of-a-binary-tree-inorder-traversal.htm/1.jpg">
+    
+        <link rel="alternate" type="application/atom+xml" title="端木胥的个人博客" href="/atom.xml">
+    
+    <link rel="shortcut icon" href="/img/logo.png">
+    <link rel="stylesheet" href="//unpkg.com/hexo-theme-material-indigo@latest/css/style.css">
+    <script>window.lazyScripts=[]</script>
+
+    <!-- custom head -->
+    
+
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu" class="hide">
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap" style="background-image:url(/img/brand.jpg)">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/avatar.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">端木胥</h5>
+          <a href="mailto:157170555@qq.com" title="157170555@qq.com" class="mail">157170555@qq.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/">
+                <i class="icon icon-lg icon-home"></i>
+                Home
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives">
+                <i class="icon icon-lg icon-archives"></i>
+                Archives
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags">
+                <i class="icon icon-lg icon-tags"></i>
+                Tags
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/categories">
+                <i class="icon icon-lg icon-th-list"></i>
+                Categories
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/aptx4869hrj" target="_blank">
+                <i class="icon icon-lg icon-github"></i>
+                Github
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://weibo.com/u/3454630080" target="_blank">
+                <i class="icon icon-lg icon-weibo"></i>
+                Weibo
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">查找二叉树的下一个节点（中序遍历）</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">查找二叉树的下一个节点（中序遍历）</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2019-06-02T04:28:32.229Z" itemprop="datePublished" class="page-time">
+  2019-06-02
+</time>
+
+
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/数据结构与算法/">数据结构与算法</a></li></ul>
+
+            
+        </h5>
+    </div>
+
+    
+
+
+</header>
+
+
+<div class="container body-wrap">
+    
+
+<article id="post-find-the-next-node-of-the-binary-tree-(intermediate-traversal)" class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">查找二叉树的下一个节点（中序遍历）</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2019-06-02 12:28:32" datetime="2019-06-02T04:28:32.229Z" itemprop="datePublished">2019-06-02</time>
+
+            
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/数据结构与算法/">数据结构与算法</a></li></ul>
+
+
+
+            
+<span id="busuanzi_container_page_pv" title="文章总阅读量" style="display:none">
+    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>
+</span>
+
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <p>首先我们先了解一下二叉树的三种遍历方法：</p>
+<ul>
+<li>前序遍历：从根节点开始，根在前，从左往右，一棵树的根永远在左子树前面，左子树又永远在右子树前面；</li>
+<li>中序遍历：从最左节点开始，根在中，从左往右，一棵树的左子树永远在根前面，根永远在右子树前面；</li>
+<li>后序遍历：也是从最左节点开始，根在后，从左往右，一棵树的左子树永远在右子树前面，右子树永远在根前面。</li>
+</ul>
+<p>比如下面一张图</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="/20190602/find-the-next-node-of-a-binary-tree-inorder-traversal.htm/1.jpg" alt="image" title>
+                </div>
+                <div class="image-caption">image</div>
+            </figure>
+<ul>
+<li>前序遍历为：ABDGHECKFIJ</li>
+<li>中序遍历为：GDHBEAKCIJF</li>
+<li>后序遍历为：GHDEBKJIFCA</li>
+</ul>
+<p>了解了二叉树的大致遍历方式，我们来看下题目：</p>
+<blockquote>
+<p>给定一个二叉树和其中的一个结点，请找出中序遍历顺序的下一个结点并且返回。注意，树中的结点不仅包含左右子结点，同时包含指向父结点的指针。</p>
+</blockquote>
+<p>通过中序遍历我们可以知道一个节点的下一个节点有两种情况：</p>
+<ul>
+<li>如果一个节点的右子树不为空，那么该节点的下一个节点是<strong>右子树的最左节点</strong>，比如上图中C的后一个节点是I；</li>
+<li>如果一个节点的右子树为空，那么向上找<strong>第一个左链接</strong>指向的树包含该节点的<strong>父节点</strong>。比如上图H的下一个节点是B。</li>
+</ul>
+<p>接下来看代码实现：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">// 定义一棵树</span><br><span class="line"></span><br><span class="line">public class TreeLinkNode &#123;</span><br><span class="line"></span><br><span class="line">    int val;</span><br><span class="line">    TreeLinkNode left = null;</span><br><span class="line">    TreeLinkNode right = null;</span><br><span class="line">    TreeLinkNode next = null;</span><br><span class="line"></span><br><span class="line">    TreeLinkNode(int val) &#123;</span><br><span class="line">        this.val = val;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">public class Solution &#123;</span><br><span class="line">    public TreeLinkNode GetNext(TreeLinkNode pNode)</span><br><span class="line">    &#123;</span><br><span class="line">        //判断该节点是否存在右子节点</span><br><span class="line">        if(pNode.right != null)&#123;</span><br><span class="line">        //如果有右子树，则找右子树的最左节点</span><br><span class="line">            TreeLinkNode rightNode = pNode.right;</span><br><span class="line">            while(rightNode.left != null)</span><br><span class="line">                rightNode = rightNode.left;</span><br><span class="line">            return rightNode;</span><br><span class="line">        &#125;else&#123;</span><br><span class="line">        //没右子树，则找第一个当前节点是父节点左孩子的节点</span><br><span class="line">            while(pNode.next != null)&#123;</span><br><span class="line">                TreeLinkNode parentNode = pNode.next;</span><br><span class="line">                if(parentNode.left == pNode)</span><br><span class="line">                    return parentNode;</span><br><span class="line">                pNode = pNode.next;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        return null;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+        </div>
+
+        <blockquote class="post-copyright">
+    
+    <div class="content">
+        
+<span class="post-time">
+    最后更新时间：<time datetime="2020-02-18T17:31:14.228Z" itemprop="dateUpdated">2020-02-19 01:31:14</time>
+</span><br>
+
+
+        
+        转载联系1571170555@qq.com
+        
+    </div>
+    
+    <footer>
+        <a href="http://www.duanmuxu.top">
+            <img src="/img/avatar.jpg" alt="端木胥">
+            端木胥
+        </a>
+    </footer>
+</blockquote>
+
+        
+<div class="page-reward">
+    <a id="rewardBtn" href="javascript:;" class="page-reward-btn waves-effect waves-circle waves-light">赏</a>
+</div>
+
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/剑指Offer/">剑指Offer</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/数据结构/">数据结构</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/算法/">算法</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://www.duanmuxu.top/20190602/find-the-next-node-of-a-binary-tree-inorder-traversal.html&title=《查找二叉树的下一个节点（中序遍历）》 — 端木胥的个人博客&pic=http://www.duanmuxu.top/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://www.duanmuxu.top/20190602/find-the-next-node-of-a-binary-tree-inorder-traversal.html&title=《查找二叉树的下一个节点（中序遍历）》 — 端木胥的个人博客&source=" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://www.duanmuxu.top/20190602/find-the-next-node-of-a-binary-tree-inorder-traversal.html" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《查找二叉树的下一个节点（中序遍历）》 — 端木胥的个人博客&url=http://www.duanmuxu.top/20190602/find-the-next-node-of-a-binary-tree-inorder-traversal.html&via=http://www.duanmuxu.top" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://www.duanmuxu.top/20190602/find-the-next-node-of-a-binary-tree-inorder-traversal.html" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/20190602/the-java-implementation-prints-value-of-each-node-linked-list-listnode-from-end-to.html" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">Java实现从尾到头打印链表（ListNode）每个节点的值</h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/20190602/analysis-and-application-of-fibonacci-sequence-in-jianzhi-offer.html" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">剑指Offer中关于斐波那契数列的分析和运用</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+    <!-- Valine Comments -->
+    <div class="comments vcomment" id="comments"></div>
+    <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+    <script src="//unpkg.com/valine@latest/dist/Valine.min.js"></script>
+    <!-- Valine Comments script -->
+    <script>
+        var GUEST_INFO = ['nick','mail','link'];
+        var guest_info = 'nick,mail,link'.split(',').filter(function(item){
+          return GUEST_INFO.indexOf(item) > -1
+        });
+        new Valine({
+            el: '#comments',
+            notify: 'false' == 'true',
+            verify: 'false' == 'true',
+            appId: "TkNx8qQrs1R3XrIeuTt3bIvD-gzGzoHsz",
+            appKey: "1rYKcKGqfnSVtHTn1uyOKqhw",
+            avatar: "mm",
+            placeholder: "Just commit",
+            guest_info: guest_info.length == 0 ? GUEST_INFO : guest_info,
+            pageSize: "10"
+        })
+    </script>
+    <!-- Valine Comments end -->
+
+
+
+
+
+
+
+
+
+
+</article>
+
+<div id="reward" class="page-modal reward-lay">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <h3 class="reward-title">
+        <i class="icon icon-quote-left"></i>
+        谢谢大爷~
+        <i class="icon icon-quote-right"></i>
+    </h3>
+    <div class="reward-content">
+        
+        <div class="reward-code">
+            <img id="rewardCode" src="/img/wechat.jpg" alt="打赏二维码">
+        </div>
+        
+        <label class="reward-toggle">
+            <input id="rewardToggle" type="checkbox" class="reward-toggle-check" data-wechat="/img/wechat.jpg" data-alipay="/img/alipay.jpg">
+            <div class="reward-toggle-ctrol">
+                <span class="reward-toggle-item wechat">微信</span>
+                <span class="reward-toggle-label"></span>
+                <span class="reward-toggle-item alipay">支付宝</span>
+            </div>
+        </label>
+        
+    </div>
+</div>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="top">
+        
+<p>
+    <span id="busuanzi_container_site_uv" style="display:none">
+        站点总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style="display:none">
+        站点总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+        <p>
+            
+                <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
+            
+            <span>博客内容遵循 <a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">知识共享 署名 - 非商业性 - 相同方式共享 4.0 国际协议</a></span>
+        </p>
+    </div>
+    <div class="bottom">
+        <p><span>端木胥 &copy; 2018 - 2020</span>
+            <span>
+                
+                Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a>
+            </span>
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://www.duanmuxu.top/20190602/find-the-next-node-of-a-binary-tree-inorder-traversal.html&title=《查找二叉树的下一个节点（中序遍历）》 — 端木胥的个人博客&pic=http://www.duanmuxu.top/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://www.duanmuxu.top/20190602/find-the-next-node-of-a-binary-tree-inorder-traversal.html&title=《查找二叉树的下一个节点（中序遍历）》 — 端木胥的个人博客&source=" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://www.duanmuxu.top/20190602/find-the-next-node-of-a-binary-tree-inorder-traversal.html" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《查找二叉树的下一个节点（中序遍历）》 — 端木胥的个人博客&url=http://www.duanmuxu.top/20190602/find-the-next-node-of-a-binary-tree-inorder-traversal.html&via=http://www.duanmuxu.top" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://www.duanmuxu.top/20190602/find-the-next-node-of-a-binary-tree-inorder-traversal.html" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAPYAAAD2CAAAAADAeSUUAAADK0lEQVR42u3awW7bQAwE0Pz/T7tATwUKyzNcJc6un05Gasv7dCjNIb++4uvx90pe/3s9+/vsX5P333xhY2Njb8J+XF7/864/mz+4/Hr2CNo7Y2NjY5/NzovW9Tuvj9g+jryM5RZsbGzsT2Yn5SQvb9cP6/pTSWuEjY2NjZ3fOnlALTgvnNjY2NjYbaCTF5g2NmrHDD+UpWFjY2P/eva9g973vn7bfBsbGxv7TezHwhX93I8DqbYQriiwsbGxT2K3Q9kEOQuDZo9jFjBhY2Njn8Ruv2BW0maD3rwRagsbNjY29kns2SB2FvHkZXLGqBeMsLGxsY9m39WiJMUvucPK3KMoYNjY2NgbspNiMAt0VgKg2RJP0SxhY2Njfxh7thwzi5xmD64eJ2BjY2MfxL530Ds7evsQ86blhQsbGxv7CPasaLVh0ErLkd+zGBhgY2NjH8pOikoeNiXhTt7ktAXsxd+xsbGxD2K3w9oWObtn20u1y0DY2NjYn8POQ/mc930rQTUSGxsb+yB2O4htW4JZYcvbiWEcho2NjX0QO28GklKUtBAr60HDBZ386NjY2NgbsldGqvkYYIW00ho9vQM2Njb2cez8//Y29LmrqcgjraiwYWNjYx/Ebn+rz4a7ST7fLvrcO07AxsbG3pE9axJmRaVdzWlbkTzkwsbGxj6PnZeQNkLKm5CkYZjd7YbKiY2Njf3r2bNQaba+kw+J7wqMonkINjY29ubsNuKfNRUrA+NZKxLlTNjY2Nibs2erje0ANT9cMopIvuX6PtjY2Nhns9vFmiLKKQ9x75pOtLKDjY2NvTm7PW4yJM7f07ZAK9+CjY2NfSr7u0tIEifdtSS0dGFjY2Nvy25DnPV35jHQytlefAobGxt7c/b6kHVWWtq4Kn8QUUOCjY2NfRB79os9P0ryUFZez0YO2NjY2Oexk6KVlJYZMgmqVpZ1XvRe2NjY2Aex2/WaNvRvK2qxNFmWXmxsbGzsNsrJy1I7vl0qt9jY2NgfyW6PO4v7Z++vUzRsbGzs49hJI9Gu5rRxUj5sbk+IjY2NfTa7jWbaw62MimfLQ7MxAzY2NvaG7D92SZa6c3GZeQAAAABJRU5ErkJggg==" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: true };
+
+
+</script>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/main.min.js"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/search.min.js" async></script>
+
+
+
+
+
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+<script>
+(function() {
+    var OriginTitile = document.title, titleTime;
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+            document.title = '快回来！';
+            clearTimeout(titleTime);
+        } else {
+            document.title = '(つェ⊂)咦!又好了!';
+            titleTime = setTimeout(function() {
+                document.title = OriginTitile;
+            },2000);
+        }
+    });
+})();
+</script>
+
+
+
+</body>
+</html>
