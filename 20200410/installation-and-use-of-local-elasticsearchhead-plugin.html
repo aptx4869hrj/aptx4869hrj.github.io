@@ -1,0 +1,599 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+    
+
+    
+
+    
+
+
+
+    <meta charset="utf-8">
+    
+    
+    
+    
+    <title>本地elasticsearch-head插件的安装与使用 | 端木胥的个人博客</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="Linux,ElasticSearch">
+    <meta name="description" content="上一篇谈到在Ubuntu16.04中安装elasticsearch，这一篇我们来谈谈如何在本地机器中安装elasticsearch-head插件，进行ES可视化管理 环境配置 Node JS版本：10.16.0 虚拟机中已经安装好elasticsearch，版本：5.6.8  安装elasticsearch-head安装NodeJSelasticsearch-head 是在nodejs环境下运行的">
+<meta name="keywords" content="Linux,ElasticSearch">
+<meta property="og:type" content="article">
+<meta property="og:title" content="本地elasticsearch-head插件的安装与使用">
+<meta property="og:url" content="http://www.duanmuxu.top/20200410/installation-and-use-of-local-elasticsearchhead-plugin.html">
+<meta property="og:site_name" content="端木胥的个人博客">
+<meta property="og:description" content="上一篇谈到在Ubuntu16.04中安装elasticsearch，这一篇我们来谈谈如何在本地机器中安装elasticsearch-head插件，进行ES可视化管理 环境配置 Node JS版本：10.16.0 虚拟机中已经安装好elasticsearch，版本：5.6.8  安装elasticsearch-head安装NodeJSelasticsearch-head 是在nodejs环境下运行的">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200410013027371.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MjU4NjM3Mw==,size_16,color_FFFFFF,t_70#pic_center">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200410013057434.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MjU4NjM3Mw==,size_16,color_FFFFFF,t_70#pic_center">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/202004100131289.png#pic_center">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200410013319692.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MjU4NjM3Mw==,size_16,color_FFFFFF,t_70#pic_center">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200410013438935.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MjU4NjM3Mw==,size_16,color_FFFFFF,t_70#pic_center">
+<meta property="og:updated_time" content="2020-04-09T17:37:36.487Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="本地elasticsearch-head插件的安装与使用">
+<meta name="twitter:description" content="上一篇谈到在Ubuntu16.04中安装elasticsearch，这一篇我们来谈谈如何在本地机器中安装elasticsearch-head插件，进行ES可视化管理 环境配置 Node JS版本：10.16.0 虚拟机中已经安装好elasticsearch，版本：5.6.8  安装elasticsearch-head安装NodeJSelasticsearch-head 是在nodejs环境下运行的">
+<meta name="twitter:image" content="https://img-blog.csdnimg.cn/20200410013027371.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MjU4NjM3Mw==,size_16,color_FFFFFF,t_70#pic_center">
+    
+        <link rel="alternate" type="application/atom+xml" title="端木胥的个人博客" href="/atom.xml">
+    
+    <link rel="shortcut icon" href="/img/logo.png">
+    <link rel="stylesheet" href="//unpkg.com/hexo-theme-material-indigo@latest/css/style.css">
+    <script>window.lazyScripts=[]</script>
+
+    <!-- custom head -->
+    
+
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu" class="hide">
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap" style="background-image:url(/img/brand.jpg)">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/avatar.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">端木胥</h5>
+          <a href="mailto:157170555@qq.com" title="157170555@qq.com" class="mail">157170555@qq.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/">
+                <i class="icon icon-lg icon-home"></i>
+                Home
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives">
+                <i class="icon icon-lg icon-archives"></i>
+                Archives
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags">
+                <i class="icon icon-lg icon-tags"></i>
+                Tags
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/categories">
+                <i class="icon icon-lg icon-th-list"></i>
+                Categories
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/aptx4869hrj" target="_blank">
+                <i class="icon icon-lg icon-github"></i>
+                Github
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://weibo.com/u/3454630080" target="_blank">
+                <i class="icon icon-lg icon-weibo"></i>
+                Weibo
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">本地elasticsearch-head插件的安装与使用</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">本地elasticsearch-head插件的安装与使用</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2020-04-09T17:36:47.154Z" itemprop="datePublished" class="page-time">
+  2020-04-10
+</time>
+
+
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/ElasticSearch/">ElasticSearch</a></li></ul>
+
+            
+        </h5>
+    </div>
+
+    
+
+
+</header>
+
+
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#环境配置"><span class="post-toc-number">1.</span> <span class="post-toc-text">环境配置</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#安装elasticsearch-head"><span class="post-toc-number">2.</span> <span class="post-toc-text">安装elasticsearch-head</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#安装NodeJS"><span class="post-toc-number">2.1.</span> <span class="post-toc-text">安装NodeJS</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#安装grunt"><span class="post-toc-number">2.2.</span> <span class="post-toc-text">安装grunt</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#下载elasticsearch-head"><span class="post-toc-number">2.3.</span> <span class="post-toc-text">下载elasticsearch-head</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#npm安装elasticsearch-head"><span class="post-toc-number">2.4.</span> <span class="post-toc-text">npm安装elasticsearch-head</span></a></li></ol></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#修改虚拟机中的elasticsearch配置"><span class="post-toc-number">3.</span> <span class="post-toc-text">修改虚拟机中的elasticsearch配置</span></a></li><li class="post-toc-item post-toc-level-1"><a class="post-toc-link" href="#运行elasticsearch-head"><span class="post-toc-number">4.</span> <span class="post-toc-text">运行elasticsearch-head</span></a></li></ol>
+        </nav>
+    </aside>
+
+
+<article id="post-本地elasticsearch-head插件的安装与使用" class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">本地elasticsearch-head插件的安装与使用</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2020-04-10 01:36:47" datetime="2020-04-09T17:36:47.154Z" itemprop="datePublished">2020-04-10</time>
+
+            
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/ElasticSearch/">ElasticSearch</a></li></ul>
+
+
+
+            
+<span id="busuanzi_container_page_pv" title="文章总阅读量" style="display:none">
+    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>
+</span>
+
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <p>上一篇谈到在Ubuntu16.04中安装elasticsearch，这一篇我们来谈谈如何在本地机器中安装elasticsearch-head插件，进行ES可视化管理</p>
+<h1 id="环境配置"><a href="#环境配置" class="headerlink" title="环境配置"></a>环境配置</h1><ul>
+<li>Node JS版本：10.16.0</li>
+<li>虚拟机中已经安装好elasticsearch，版本：5.6.8</li>
+</ul>
+<h1 id="安装elasticsearch-head"><a href="#安装elasticsearch-head" class="headerlink" title="安装elasticsearch-head"></a>安装elasticsearch-head</h1><h2 id="安装NodeJS"><a href="#安装NodeJS" class="headerlink" title="安装NodeJS"></a>安装NodeJS</h2><p>elasticsearch-head 是在nodejs环境下运行的，因此必须提前安装好NodeJS，安装教程可参考此篇博客，够详细了：<a href="https://blog.csdn.net/zhangkaidsy/article/details/86645070?depth_1-utm_source=distribute.pc_relevant.none-task-blog-BlogCommendFromBaidu-1&utm_source=distribute.pc_relevant.none-task-blog-BlogCommendFromBaidu-1" target="_blank" rel="noopener">NodeJS 安装及环境配置</a></p>
+<p>安装好后，在cmd命令行中键入</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">node -v</span><br></pre></td></tr></table></figure>
+
+<p>得到如下版本信息，便安装成功</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">C:\Users\Administrator&gt;node -v</span><br><span class="line">v10.16.0</span><br></pre></td></tr></table></figure>
+
+<h2 id="安装grunt"><a href="#安装grunt" class="headerlink" title="安装grunt"></a>安装grunt</h2><p>运行elasticsearch-head需要借助grunt命令，因此需要安装grunt。打开命令行窗口进入nodejs 安装目录，运行以下命令</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install -g grunt  -cli</span><br></pre></td></tr></table></figure>
+
+<p>如果没有报错就安装成功</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">PS D:\nodejs&gt; npm install -g grunt-cli</span><br><span class="line">D:\nodejs\node_global\grunt -&gt; D:\nodejs\node_global\node_modules\grunt-cli\bin\grunt</span><br><span class="line">+ grunt-cli@1.3.2</span><br><span class="line">added 150 packages from 121 contributors in 23.241s</span><br></pre></td></tr></table></figure>
+
+<h2 id="下载elasticsearch-head"><a href="#下载elasticsearch-head" class="headerlink" title="下载elasticsearch-head"></a>下载elasticsearch-head</h2><p>进入网址： <a href="https://github.com/mobz/elasticsearch-head" target="_blank" rel="noopener">https://github.com/mobz/elasticsearch-head</a> 下载整个项目到本地目录下并进行解压，我将解压后的目录放在了D盘</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="https://img-blog.csdnimg.cn/20200410013027371.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MjU4NjM3Mw==,size_16,color_FFFFFF,t_70#pic_center" alt="下载ES-head" title>
+                </div>
+                <div class="image-caption">下载ES-head</div>
+            </figure>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="https://img-blog.csdnimg.cn/20200410013057434.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MjU4NjM3Mw==,size_16,color_FFFFFF,t_70#pic_center" alt="解压后的head文件" title>
+                </div>
+                <div class="image-caption">解压后的head文件</div>
+            </figure>
+<p>Gruntfile.js 是个配置文件，里面可以配elasticsearch-head在本地的端口</p>
+<h2 id="npm安装elasticsearch-head"><a href="#npm安装elasticsearch-head" class="headerlink" title="npm安装elasticsearch-head"></a>npm安装elasticsearch-head</h2><p>使用命令行进入elasticsearch-head 目录，执行下述命令</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install</span><br></pre></td></tr></table></figure>
+
+<p>进行npm安装，如果没有报错则安装成功</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="https://img-blog.csdnimg.cn/202004100131289.png#pic_center" alt="npm安装" title>
+                </div>
+                <div class="image-caption">npm安装</div>
+            </figure>
+<p>如果提示</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">npm ERR! code ELIFECYCLE</span><br><span class="line">npm ERR! errno 1</span><br><span class="line">npm ERR! phantomjs-prebuilt@2.1.16 install: `node install.js`</span><br><span class="line">npm ERR! Exit status 1</span><br><span class="line">npm ERR!</span><br><span class="line">npm ERR! Failed at the phantomjs-prebuilt@2.1.16 install script.</span><br><span class="line">npm ERR! This is probably not a problem with npm. There is likely additional logging output above.</span><br><span class="line"></span><br><span class="line">npm ERR! A complete log of this run can be found in:</span><br><span class="line">npm ERR!     D:\nodejs\node_cache\_logs\2020-04-09T15_58_31_720Z-debug.log</span><br></pre></td></tr></table></figure>
+
+<p>这种错误，则先执行以下命令</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install phantomjs-prebuilt@2.1.14 --ignore-scripts</span><br></pre></td></tr></table></figure>
+
+<p>安装成功后再执行 npm install，就会发现没有报错了</p>
+<h1 id="修改虚拟机中的elasticsearch配置"><a href="#修改虚拟机中的elasticsearch配置" class="headerlink" title="修改虚拟机中的elasticsearch配置"></a>修改虚拟机中的elasticsearch配置</h1><p>先将运行中的ES停掉，如果有的话，然后进入编辑虚拟机中的/usr/local/elasticsearch-5.6.8/conf/elasticsearch.yml 文件，添加下述两行代码</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">http.cors.enabled: true</span><br><span class="line">http.cors.allow-origin: &quot;*&quot;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>http.cors.enabled：表示是否支持跨域，默认为false</li>
+<li>http.cors.allow-origin：当设置允许跨域，默认为*,表示支持所有域名，如果我们只是允许某些网站能访问，那么可以使用正则表达式。比如只允许本地地址。 /https?:\/\/localhost(:[0-9]+)?/</li>
+</ul>
+<p>编辑完后保存并退出，重新运行虚拟机中的ES</p>
+<h1 id="运行elasticsearch-head"><a href="#运行elasticsearch-head" class="headerlink" title="运行elasticsearch-head"></a>运行elasticsearch-head</h1><p>上述安装和配置都完成后，在本地主机命令行中键入 grunt server 运行elasticsearch-head，得到如下提示则运行成功</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">PS D:\elasticsearch-head-master&gt; grunt server</span><br><span class="line">Running &quot;connect:server&quot; (connect) task</span><br><span class="line">Waiting forever...</span><br><span class="line">Started connect web server on http://localhost:9100</span><br></pre></td></tr></table></figure>
+
+<p>此时就可以在浏览器中输入 <a href="http://localhost:9100" target="_blank" rel="noopener">http://localhost:9100</a> 打开elasticsearch-head<br>然后在连接栏中输入 虚拟机IP:9200 进行连接，便能连接上虚拟机中的ES</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="https://img-blog.csdnimg.cn/20200410013319692.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MjU4NjM3Mw==,size_16,color_FFFFFF,t_70#pic_center" alt="打开ES-head" title>
+                </div>
+                <div class="image-caption">打开ES-head</div>
+            </figure>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="https://img-blog.csdnimg.cn/20200410013438935.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MjU4NjM3Mw==,size_16,color_FFFFFF,t_70#pic_center" alt="连接虚拟机中的ES" title>
+                </div>
+                <div class="image-caption">连接虚拟机中的ES</div>
+            </figure>
+<p>完结撒花。</p>
+
+        </div>
+
+        <blockquote class="post-copyright">
+    
+    <div class="content">
+        
+<span class="post-time">
+    最后更新时间：<time datetime="2020-04-09T17:37:36.487Z" itemprop="dateUpdated">2020-04-10 01:37:36</time>
+</span><br>
+
+
+        
+        转载联系1571170555@qq.com
+        
+    </div>
+    
+    <footer>
+        <a href="http://www.duanmuxu.top">
+            <img src="/img/avatar.jpg" alt="端木胥">
+            端木胥
+        </a>
+    </footer>
+</blockquote>
+
+        
+<div class="page-reward">
+    <a id="rewardBtn" href="javascript:;" class="page-reward-btn waves-effect waves-circle waves-light">赏</a>
+</div>
+
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ElasticSearch/">ElasticSearch</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linux/">Linux</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://www.duanmuxu.top/20200410/installation-and-use-of-local-elasticsearchhead-plugin.html&title=《本地elasticsearch-head插件的安装与使用》 — 端木胥的个人博客&pic=http://www.duanmuxu.top/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://www.duanmuxu.top/20200410/installation-and-use-of-local-elasticsearchhead-plugin.html&title=《本地elasticsearch-head插件的安装与使用》 — 端木胥的个人博客&source=" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://www.duanmuxu.top/20200410/installation-and-use-of-local-elasticsearchhead-plugin.html" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《本地elasticsearch-head插件的安装与使用》 — 端木胥的个人博客&url=http://www.duanmuxu.top/20200410/installation-and-use-of-local-elasticsearchhead-plugin.html&via=http://www.duanmuxu.top" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://www.duanmuxu.top/20200410/installation-and-use-of-local-elasticsearchhead-plugin.html" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between flex-row-reverse">
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/20200409/install-elasticsearch-offline-on-ubuntu-1604-standalone-version.html" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">Ubuntu16.04离线安装Elasticsearch（单机版）</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+    <!-- Valine Comments -->
+    <div class="comments vcomment" id="comments"></div>
+    <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+    <script src="//unpkg.com/valine@latest/dist/Valine.min.js"></script>
+    <!-- Valine Comments script -->
+    <script>
+        var GUEST_INFO = ['nick','mail','link'];
+        var guest_info = 'nick,mail,link'.split(',').filter(function(item){
+          return GUEST_INFO.indexOf(item) > -1
+        });
+        new Valine({
+            el: '#comments',
+            notify: 'false' == 'true',
+            verify: 'false' == 'true',
+            appId: "TkNx8qQrs1R3XrIeuTt3bIvD-gzGzoHsz",
+            appKey: "1rYKcKGqfnSVtHTn1uyOKqhw",
+            avatar: "mm",
+            placeholder: "Just commit",
+            guest_info: guest_info.length == 0 ? GUEST_INFO : guest_info,
+            pageSize: "10"
+        })
+    </script>
+    <!-- Valine Comments end -->
+
+
+
+
+
+
+
+
+
+
+</article>
+
+<div id="reward" class="page-modal reward-lay">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <h3 class="reward-title">
+        <i class="icon icon-quote-left"></i>
+        谢谢大爷~
+        <i class="icon icon-quote-right"></i>
+    </h3>
+    <div class="reward-content">
+        
+        <div class="reward-code">
+            <img id="rewardCode" src="/img/wechat.jpg" alt="打赏二维码">
+        </div>
+        
+        <label class="reward-toggle">
+            <input id="rewardToggle" type="checkbox" class="reward-toggle-check" data-wechat="/img/wechat.jpg" data-alipay="/img/alipay.jpg">
+            <div class="reward-toggle-ctrol">
+                <span class="reward-toggle-item wechat">微信</span>
+                <span class="reward-toggle-label"></span>
+                <span class="reward-toggle-item alipay">支付宝</span>
+            </div>
+        </label>
+        
+    </div>
+</div>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="top">
+        
+<p>
+    <span id="busuanzi_container_site_uv" style="display:none">
+        站点总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style="display:none">
+        站点总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+        <p>
+            
+                <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
+            
+            <span>博客内容遵循 <a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">知识共享 署名 - 非商业性 - 相同方式共享 4.0 国际协议</a></span>
+        </p>
+    </div>
+    <div class="bottom">
+        <p><span>端木胥 &copy; 2018 - 2020</span>
+            <span>
+                
+                Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a>
+            </span>
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://www.duanmuxu.top/20200410/installation-and-use-of-local-elasticsearchhead-plugin.html&title=《本地elasticsearch-head插件的安装与使用》 — 端木胥的个人博客&pic=http://www.duanmuxu.top/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://www.duanmuxu.top/20200410/installation-and-use-of-local-elasticsearchhead-plugin.html&title=《本地elasticsearch-head插件的安装与使用》 — 端木胥的个人博客&source=" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://www.duanmuxu.top/20200410/installation-and-use-of-local-elasticsearchhead-plugin.html" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《本地elasticsearch-head插件的安装与使用》 — 端木胥的个人博客&url=http://www.duanmuxu.top/20200410/installation-and-use-of-local-elasticsearchhead-plugin.html&via=http://www.duanmuxu.top" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://www.duanmuxu.top/20200410/installation-and-use-of-local-elasticsearchhead-plugin.html" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAPYAAAD2CAAAAADAeSUUAAADLElEQVR42u3ay47iUAwFQP7/p5ntjHpIju3QIqayQkBfUkZq48fjEV/PH9ffz796/PP9r848fia5q8c7LmxsbOybsJ+H1/F7jvF5OI7Pn5/zn9BgY2Njr2O/+g9//JFJ4nm2rkniPLZgY2NjYx//tr/qbycJEhsbGxu7elzS3MlvKE+c2NjY2NjVplLS3M/T0iSB/WovDRsbG/vj2flU9PMfv2W+jY2Njf3B7F7LPjlhUq7kKz5NBTY2NvYidrV9P1nrSQIxL3gKAcXGxsZexK7+6E8+OF/x6TWMJuUTNjY29iZ2b9mxN6xNypWcNwoiNjY29iJ2UgBMEljeoqquB02Cjo2Njb2P3VuvKRzdSmPVdNhsPGFjY2OvYFfTz7U7MPOyp1nSYGNjYy9i91r8yU0nCaY3PK4uAEWlCDY2NvYK9juGr+9o9/fOwcbGxt7Hro51k4KkVyTkZx4nwqiphI2Njb2UnfyUz19NAnFVaKoDBmxsbOzd7HkIJmtA1SZRs+DBxsbGXsSutuCvHQnPk1k+wChMD7CxsbFvxS40Yoo33Rv0VkfO1RnIP3kbGxsbewU7b8f0hqzV8M2bSuUvCRsbG/vm7OpqY3Uc22stXTskjlZ2sLGxsW/L7i3iVMfD8zKj18A6SaXY2NjYK9i9H/p5Uz5BJiGutq5Owo2NjY29jp2niqRx00szveRX/ZKwsbGx97HnJUQPVj1nHsTom8fGxsa+Ibuafqqppdr6mQwnkjEzNjY29lb2VUs8+cdXW1rHZ1bTLTY2NvYmdl4eVCub5EbzW89TWr4GhI2Njb2PXfiDuGiphqA3cqiGGBsbG3srO08/1aHC5Eara0CFRhU2Njb2F7DzBDYJQV4UzRd3sLGxsfexe2PdvPHUG9Am4+GkLXXyPWNjY2OvYI/yXvx8tcGUjxB6hRM2Njb2Pna19TNpPFUZ8xBHUxFsbGzsFex85bGXfvIWf57MkqR7ksCwsbGxv5I9bzP1gpsjCx01bGxs7K9n9xo91ZBd9U5sbGzs3ezJwk31cXUpp/eJJ69iY2NjL2JXf+hXm/7V8fC8KMpHC9jY2Ng3Z/8B59FAO6EMQ1YAAAAASUVORK5CYII=" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: true };
+
+
+</script>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/main.min.js"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/search.min.js" async></script>
+
+
+
+
+
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+<script>
+(function() {
+    var OriginTitile = document.title, titleTime;
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+            document.title = '快回来！';
+            clearTimeout(titleTime);
+        } else {
+            document.title = '(つェ⊂)咦!又好了!';
+            titleTime = setTimeout(function() {
+                document.title = OriginTitile;
+            },2000);
+        }
+    });
+})();
+</script>
+
+
+
+</body>
+</html>

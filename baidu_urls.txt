@@ -1,3 +1,4 @@
+http://www.duanmuxu.top/20200410/installation-and-use-of-local-elasticsearchhead-plugin.html
 http://www.duanmuxu.top/20200409/install-elasticsearch-offline-on-ubuntu-1604-standalone-version.html
 http://www.duanmuxu.top/20200408/ubuntu1604-offline-installation-of-redis-standalone-version.html
 http://www.duanmuxu.top/20200314/scala-basics.html
@@ -7,4 +8,3 @@ http://www.duanmuxu.top/20190924/multiple-output-of-reduce-in-hadoop-streaming.h
 http://www.duanmuxu.top/20190922/detailed-hadoop-streaming.html
 http://www.duanmuxu.top/20190812/python-study-notes-07.html
 http://www.duanmuxu.top/20190805/python-study-notes-06.html
-http://www.duanmuxu.top/20190804/python-study-notes-05.html

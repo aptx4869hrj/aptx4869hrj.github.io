@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://www.duanmuxu.top/"/>
-  <updated>2020-04-09T03:18:33.893Z</updated>
+  <updated>2020-04-09T17:37:36.487Z</updated>
   <id>http://www.duanmuxu.top/</id>
   
   <author>
@@ -17,11 +17,39 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>本地elasticsearch-head插件的安装与使用</title>
+    <link href="http://www.duanmuxu.top/20200410/installation-and-use-of-local-elasticsearchhead-plugin.html"/>
+    <id>http://www.duanmuxu.top/20200410/installation-and-use-of-local-elasticsearchhead-plugin.html</id>
+    <published>2020-04-09T17:36:47.154Z</published>
+    <updated>2020-04-09T17:37:36.487Z</updated>
+    
+    <content type="html"><![CDATA[<p>上一篇谈到在Ubuntu16.04中安装elasticsearch，这一篇我们来谈谈如何在本地机器中安装elasticsearch-head插件，进行ES可视化管理</p><h1 id="环境配置"><a href="#环境配置" class="headerlink" title="环境配置"></a>环境配置</h1><ul><li>Node JS版本：10.16.0</li><li>虚拟机中已经安装好elasticsearch，版本：5.6.8</li></ul><h1 id="安装elasticsearch-head"><a href="#安装elasticsearch-head" class="headerlink" title="安装elasticsearch-head"></a>安装elasticsearch-head</h1><h2 id="安装NodeJS"><a href="#安装NodeJS" class="headerlink" title="安装NodeJS"></a>安装NodeJS</h2><p>elasticsearch-head 是在nodejs环境下运行的，因此必须提前安装好NodeJS，安装教程可参考此篇博客，够详细了：<a href="https://blog.csdn.net/zhangkaidsy/article/details/86645070?depth_1-utm_source=distribute.pc_relevant.none-task-blog-BlogCommendFromBaidu-1&utm_source=distribute.pc_relevant.none-task-blog-BlogCommendFromBaidu-1" target="_blank" rel="noopener">NodeJS 安装及环境配置</a></p><p>安装好后，在cmd命令行中键入</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">node -v</span><br></pre></td></tr></table></figure><p>得到如下版本信息，便安装成功</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">C:\Users\Administrator&gt;node -v</span><br><span class="line">v10.16.0</span><br></pre></td></tr></table></figure><h2 id="安装grunt"><a href="#安装grunt" class="headerlink" title="安装grunt"></a>安装grunt</h2><p>运行elasticsearch-head需要借助grunt命令，因此需要安装grunt。打开命令行窗口进入nodejs 安装目录，运行以下命令</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install -g grunt  -cli</span><br></pre></td></tr></table></figure><p>如果没有报错就安装成功</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">PS D:\nodejs&gt; npm install -g grunt-cli</span><br><span class="line">D:\nodejs\node_global\grunt -&gt; D:\nodejs\node_global\node_modules\grunt-cli\bin\grunt</span><br><span class="line">+ grunt-cli@1.3.2</span><br><span class="line">added 150 packages from 121 contributors in 23.241s</span><br></pre></td></tr></table></figure><h2 id="下载elasticsearch-head"><a href="#下载elasticsearch-head" class="headerlink" title="下载elasticsearch-head"></a>下载elasticsearch-head</h2><p>进入网址： <a href="https://github.com/mobz/elasticsearch-head" target="_blank" rel="noopener">https://github.com/mobz/elasticsearch-head</a> 下载整个项目到本地目录下并进行解压，我将解压后的目录放在了D盘</p><figure class="image-bubble">                <div class="img-lightbox">                    <div class="overlay"></div>                    <img src="https://img-blog.csdnimg.cn/20200410013027371.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MjU4NjM3Mw==,size_16,color_FFFFFF,t_70#pic_center" alt="下载ES-head" title>                </div>                <div class="image-caption">下载ES-head</div>            </figure><figure class="image-bubble">                <div class="img-lightbox">                    <div class="overlay"></div>                    <img src="https://img-blog.csdnimg.cn/20200410013057434.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MjU4NjM3Mw==,size_16,color_FFFFFF,t_70#pic_center" alt="解压后的head文件" title>                </div>                <div class="image-caption">解压后的head文件</div>            </figure><p>Gruntfile.js 是个配置文件，里面可以配elasticsearch-head在本地的端口</p><h2 id="npm安装elasticsearch-head"><a href="#npm安装elasticsearch-head" class="headerlink" title="npm安装elasticsearch-head"></a>npm安装elasticsearch-head</h2><p>使用命令行进入elasticsearch-head 目录，执行下述命令</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install</span><br></pre></td></tr></table></figure><p>进行npm安装，如果没有报错则安装成功</p><figure class="image-bubble">                <div class="img-lightbox">                    <div class="overlay"></div>                    <img src="https://img-blog.csdnimg.cn/202004100131289.png#pic_center" alt="npm安装" title>                </div>                <div class="image-caption">npm安装</div>            </figure><p>如果提示</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">npm ERR! code ELIFECYCLE</span><br><span class="line">npm ERR! errno 1</span><br><span class="line">npm ERR! phantomjs-prebuilt@2.1.16 install: `node install.js`</span><br><span class="line">npm ERR! Exit status 1</span><br><span class="line">npm ERR!</span><br><span class="line">npm ERR! Failed at the phantomjs-prebuilt@2.1.16 install script.</span><br><span class="line">npm ERR! This is probably not a problem with npm. There is likely additional logging output above.</span><br><span class="line"></span><br><span class="line">npm ERR! A complete log of this run can be found in:</span><br><span class="line">npm ERR!     D:\nodejs\node_cache\_logs\2020-04-09T15_58_31_720Z-debug.log</span><br></pre></td></tr></table></figure><p>这种错误，则先执行以下命令</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install phantomjs-prebuilt@2.1.14 --ignore-scripts</span><br></pre></td></tr></table></figure><p>安装成功后再执行 npm install，就会发现没有报错了</p><h1 id="修改虚拟机中的elasticsearch配置"><a href="#修改虚拟机中的elasticsearch配置" class="headerlink" title="修改虚拟机中的elasticsearch配置"></a>修改虚拟机中的elasticsearch配置</h1><p>先将运行中的ES停掉，如果有的话，然后进入编辑虚拟机中的/usr/local/elasticsearch-5.6.8/conf/elasticsearch.yml 文件，添加下述两行代码</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">http.cors.enabled: true</span><br><span class="line">http.cors.allow-origin: &quot;*&quot;</span><br></pre></td></tr></table></figure><ul><li>http.cors.enabled：表示是否支持跨域，默认为false</li><li>http.cors.allow-origin：当设置允许跨域，默认为*,表示支持所有域名，如果我们只是允许某些网站能访问，那么可以使用正则表达式。比如只允许本地地址。 /https?:\/\/localhost(:[0-9]+)?/</li></ul><p>编辑完后保存并退出，重新运行虚拟机中的ES</p><h1 id="运行elasticsearch-head"><a href="#运行elasticsearch-head" class="headerlink" title="运行elasticsearch-head"></a>运行elasticsearch-head</h1><p>上述安装和配置都完成后，在本地主机命令行中键入 grunt server 运行elasticsearch-head，得到如下提示则运行成功</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">PS D:\elasticsearch-head-master&gt; grunt server</span><br><span class="line">Running &quot;connect:server&quot; (connect) task</span><br><span class="line">Waiting forever...</span><br><span class="line">Started connect web server on http://localhost:9100</span><br></pre></td></tr></table></figure><p>此时就可以在浏览器中输入 <a href="http://localhost:9100" target="_blank" rel="noopener">http://localhost:9100</a> 打开elasticsearch-head<br>然后在连接栏中输入 虚拟机IP:9200 进行连接，便能连接上虚拟机中的ES</p><figure class="image-bubble">                <div class="img-lightbox">                    <div class="overlay"></div>                    <img src="https://img-blog.csdnimg.cn/20200410013319692.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MjU4NjM3Mw==,size_16,color_FFFFFF,t_70#pic_center" alt="打开ES-head" title>                </div>                <div class="image-caption">打开ES-head</div>            </figure><figure class="image-bubble">                <div class="img-lightbox">                    <div class="overlay"></div>                    <img src="https://img-blog.csdnimg.cn/20200410013438935.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MjU4NjM3Mw==,size_16,color_FFFFFF,t_70#pic_center" alt="连接虚拟机中的ES" title>                </div>                <div class="image-caption">连接虚拟机中的ES</div>            </figure><p>完结撒花。</p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;上一篇谈到在Ubuntu16.04中安装elasticsearch，这一篇我们来谈谈如何在本地机器中安装elasticsearch-head插件，进行ES可视化管理&lt;/p&gt;
+&lt;h1 id=&quot;环境配置&quot;&gt;&lt;a href=&quot;#环境配置&quot; class=&quot;headerlink&quot; t
+      
+    
+    </summary>
+    
+      <category term="ElasticSearch" scheme="http://www.duanmuxu.top/categories/ElasticSearch/"/>
+    
+    
+      <category term="Linux" scheme="http://www.duanmuxu.top/tags/Linux/"/>
+    
+      <category term="ElasticSearch" scheme="http://www.duanmuxu.top/tags/ElasticSearch/"/>
+    
+  </entry>
+  
+  <entry>
     <title>Ubuntu16.04离线安装Elasticsearch（单机版）</title>
     <link href="http://www.duanmuxu.top/20200409/install-elasticsearch-offline-on-ubuntu-1604-standalone-version.html"/>
     <id>http://www.duanmuxu.top/20200409/install-elasticsearch-offline-on-ubuntu-1604-standalone-version.html</id>
     <published>2020-04-09T03:17:18.254Z</published>
-    <updated>2020-04-09T03:18:33.893Z</updated>
+    <updated>2020-04-09T03:19:59.223Z</updated>
     
     <content type="html"><![CDATA[<h1 id="软件配置"><a href="#软件配置" class="headerlink" title="软件配置"></a>软件配置</h1><ul><li>Ubuntu版本：16.04</li><li>jdk版本：1.8.0_211</li><li>Elasticsearch版本：5.6.8</li></ul><h1 id="新建elasticsearch用户"><a href="#新建elasticsearch用户" class="headerlink" title="新建elasticsearch用户"></a>新建elasticsearch用户</h1><h2 id="创建用户"><a href="#创建用户" class="headerlink" title="创建用户"></a>创建用户</h2><p>在root用户下执行下述命令</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">useradd elasticsearch</span><br></pre></td></tr></table></figure><h2 id="设置密码"><a href="#设置密码" class="headerlink" title="设置密码"></a>设置密码</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">passwd elasticsearch</span><br></pre></td></tr></table></figure><p>根据提示输入两次密码，新用户便创建完成</p><h1 id="jdk安装"><a href="#jdk安装" class="headerlink" title="jdk安装"></a>jdk安装</h1><p>elasticsearch环境依赖jdk，因此启动elasticsearch必须要有jdk环境</p><h2 id="上传jdk安装包到指定文件夹"><a href="#上传jdk安装包到指定文件夹" class="headerlink" title="上传jdk安装包到指定文件夹"></a>上传jdk安装包到指定文件夹</h2><p>这里通过xftp 将jdk安装包上传至 /usr/local/ 目录下</p><h2 id="解压jdk安装包"><a href="#解压jdk安装包" class="headerlink" title="解压jdk安装包"></a>解压jdk安装包</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tar -zxvf jdk-8u211-linux-x64.tar.gz</span><br></pre></td></tr></table></figure><p>解压之后会在 /usr/local/ 目录下生成 jdk1.8.0_211 文件</p><h2 id="配置环境"><a href="#配置环境" class="headerlink" title="配置环境"></a>配置环境</h2><p>在 /etc/profile 文件下添加以下配置</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">export JAVA_HOME=/usr/local/jdk1.8.0_211/</span><br><span class="line">export JRE_HOME=$&#123;JAVA_HOME&#125;/jre</span><br><span class="line">export CLASSPATH=.:$&#123;JAVA_HOME&#125;/lib:$&#123;JRE_HOME&#125;/lib:$CLASSPATH</span><br><span class="line">export PATH=$PATH:$&#123;JAVA_HOME&#125;/bin:$JRE_HOME/bin:$PATH</span><br></pre></td></tr></table></figure><p>编辑完退出之后执行以下命令，使环境生效</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">source /etc/profile</span><br></pre></td></tr></table></figure><h2 id="测试"><a href="#测试" class="headerlink" title="测试"></a>测试</h2><p>执行 java -version 命令，出现以下提示则表示jdk安装完成</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">java version &quot;1.8.0_211&quot;</span><br><span class="line">Java(TM) SE Runtime Environment (build 1.8.0_211-b12)</span><br><span class="line">Java HotSpot(TM) 64-Bit Server VM (build 25.211-b12, mixed mode)</span><br></pre></td></tr></table></figure><h1 id="ElasticSearch安装"><a href="#ElasticSearch安装" class="headerlink" title="ElasticSearch安装"></a>ElasticSearch安装</h1><h2 id="系统配置"><a href="#系统配置" class="headerlink" title="系统配置"></a>系统配置</h2><h3 id="修改文件数配置"><a href="#修改文件数配置" class="headerlink" title="修改文件数配置"></a>修改文件数配置</h3><p>在 /etc/security/limits.conf 文件下添加以下内容</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">* soft nofile 65536  # 单个用户可用的最大进程数量(超过会警告)</span><br><span class="line">* hard nofile 131072  # 单个用户可用的最大进程数量(超过会报错)</span><br><span class="line">* soft nproc 2048  # 可打开的文件描述符的最大数(超过会警告)</span><br><span class="line">* hard nproc 4096  # 可打开的文件描述符的最大数(超过会报错)</span><br></pre></td></tr></table></figure><p>在 /etc/profile 文件下添加以下内容</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ulimit -SHn 65536</span><br></pre></td></tr></table></figure><p>linux下用ulimit设置连接数最大值，默认是1024。在高负载下要设置为更高，但最高只能为65535</p><p>在 /etc/sysctl.conf 文件下添加以下内容</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vm.max_map_count=655360 # 文件包含限制一个进程可以拥有的VMA(虚拟内存区域)的数量</span><br></pre></td></tr></table></figure><p>添加完后执行以下命令使上面添加的内容生效</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">source /etc/profile</span><br><span class="line"></span><br><span class="line">sudo sysctl -p</span><br></pre></td></tr></table></figure><h2 id="配置ElasticSearch"><a href="#配置ElasticSearch" class="headerlink" title="配置ElasticSearch"></a>配置ElasticSearch</h2><h3 id="上传并解压ElasticSearch文件"><a href="#上传并解压ElasticSearch文件" class="headerlink" title="上传并解压ElasticSearch文件"></a>上传并解压ElasticSearch文件</h3><p>通过xftp 将elasticsearch-5.6.8.tar.gz 文件上传至 /usr/local/ 目录下，在root用户下通过以下命令进行文件解压，配置环节都在root用户下进行</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">// 先进入root用户下，否则没有权限</span><br><span class="line">su root</span><br><span class="line"></span><br><span class="line">// 再进行解压</span><br><span class="line">tar -zxvf elasticsearch-5.6.8.tar.gz</span><br></pre></td></tr></table></figure><p>此时/usr/local/ 目录下便有了解压后的 elasticsearch-5.6.8 文件夹</p><h3 id="创建数据和日志存放文件目录"><a href="#创建数据和日志存放文件目录" class="headerlink" title="创建数据和日志存放文件目录"></a>创建数据和日志存放文件目录</h3><p>进入elasticsearch-5.6.8文件</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cd elasticsearch-5.6.8</span><br></pre></td></tr></table></figure><p>创建数据和日志存放文件目录</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mkdir data</span><br><span class="line">mkdir logs</span><br></pre></td></tr></table></figure><h3 id="修改ElasticSearch配置文件"><a href="#修改ElasticSearch配置文件" class="headerlink" title="修改ElasticSearch配置文件"></a>修改ElasticSearch配置文件</h3><p>进入编辑elasticsearch-5.6.8/config目录下的elasticsearch.yml</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vim /usr/local/elasticsearch-5.6.8/config/elasticsearch.yml</span><br></pre></td></tr></table></figure><p>找到以下的条目并进行相应修改，或者直接复制了放在配置文件下方也行</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">cluster.name: es-cluster  #设置集群的名称</span><br><span class="line">node.name: es-node   #修改当前节点的名称</span><br><span class="line">path.data: /usr/local/elasticsearch-5.6.8/data  #修改数据路径</span><br><span class="line">path.logs: /usr/local/elasticsearch-5.6.8/logs  #修改日志路径</span><br><span class="line">bootstrap.memory_lock: false   #设置ES节点允许内存交换</span><br><span class="line">bootstrap.system_call_filter: false   #禁用系统调用过滤器</span><br><span class="line">network.host: master    #设置当前主机名称</span><br><span class="line">discovery.zen.ping.unicast.hosts: [&quot;master&quot;]   #设置集群的主机列表</span><br></pre></td></tr></table></figure><h3 id="修改elasticsearch用户组"><a href="#修改elasticsearch用户组" class="headerlink" title="修改elasticsearch用户组"></a>修改elasticsearch用户组</h3><p>通过下述命令将elasticsearch文件权限赋给elasticsearch用户</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">chown -R elasticsearch:elasticsearch /usr/local/elasticsearch-5.6.8</span><br></pre></td></tr></table></figure><p>至此，elasticsearch便配置完成</p><h1 id="ElasticSearch启动与关闭"><a href="#ElasticSearch启动与关闭" class="headerlink" title="ElasticSearch启动与关闭"></a>ElasticSearch启动与关闭</h1><h2 id="进入elasticsearch用户！"><a href="#进入elasticsearch用户！" class="headerlink" title="进入elasticsearch用户！"></a>进入elasticsearch用户！</h2><p>启动elasticsearch不能在root用户下进行</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">su elasticsearch</span><br></pre></td></tr></table></figure><h2 id="启动elasticsearch"><a href="#启动elasticsearch" class="headerlink" title="启动elasticsearch"></a>启动elasticsearch</h2><p>使用以下命令启动elasticsearch</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/usr/local/elasticsearch-5.6.8/bin/elasticsearch -d</span><br></pre></td></tr></table></figure><p>此时在 /usr/local/elasticsearch-5.6.8/logs/es-cluster.log日志文件下便能看到启动成功的消息</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">[2020-04-09T02:03:48,934][INFO ][o.e.n.Node               ] [es-node] initializing ...</span><br><span class="line">[2020-04-09T02:03:49,035][INFO ][o.e.e.NodeEnvironment    ] [es-node] using [1] data paths, mounts [[/ (/dev/sda1)]], net usable_space [16.6gb], net total_space [23.5gb], spins? [possibly], types </span><br><span class="line">[ext4][2020-04-09T02:03:49,035][INFO ][o.e.e.NodeEnvironment    ] [es-node] heap size [1.9gb], compressed ordinary object pointers [true]</span><br><span class="line">[2020-04-09T02:03:49,036][INFO ][o.e.n.Node               ] [es-node] node name [es-node], node ID [u9kDBekMRxi8KWOBIGcwAg]</span><br><span class="line">[2020-04-09T02:03:49,037][INFO ][o.e.n.Node               ] [es-node] version[5.6.8], pid[27500], build[688ecce/2018-02-16T16:46:30.010Z], OS[Linux/4.4.0-142-generic/amd64], JVM[Oracle Corporation</span><br><span class="line">/Java HotSpot(TM) 64-Bit Server VM/1.8.0_211/25.211-b12][2020-04-09T02:03:49,037][INFO ][o.e.n.Node               ] [es-node] JVM arguments [-Xms2g, -Xmx2g, -XX:+UseConcMarkSweepGC, -XX:CMSInitiatingOccupancyFraction=75, -XX:+UseCMSInitiatingOccupancyO</span><br><span class="line">nly, -XX:+AlwaysPreTouch, -Xss1m, -Djava.awt.headless=true, -Dfile.encoding=UTF-8, -Djna.nosys=true, -Djdk.io.permissionsUseCanonicalPath=true, -Dio.netty.noUnsafe=true, -Dio.netty.noKeySetOptimization=true, -Dio.netty.recycler.maxCapacityPerThread=0, -Dlog4j.shutdownHookEnabled=false, -Dlog4j2.disable.jmx=true, -Dlog4j.skipJansi=true, -XX:+HeapDumpOnOutOfMemoryError, -Des.path.home=/usr/local/elasticsearch][2020-04-09T02:03:49,955][INFO ][o.e.p.PluginsService     ] [es-node] loaded module [aggs-matrix-stats]</span><br><span class="line">[2020-04-09T02:03:49,955][INFO ][o.e.p.PluginsService     ] [es-node] loaded module [ingest-common]</span><br><span class="line">[2020-04-09T02:03:49,955][INFO ][o.e.p.PluginsService     ] [es-node] loaded module [lang-expression]</span><br><span class="line">[2020-04-09T02:03:49,955][INFO ][o.e.p.PluginsService     ] [es-node] loaded module [lang-groovy]</span><br><span class="line">[2020-04-09T02:03:49,956][INFO ][o.e.p.PluginsService     ] [es-node] loaded module [lang-mustache]</span><br><span class="line">[2020-04-09T02:03:49,957][INFO ][o.e.p.PluginsService     ] [es-node] loaded module [lang-painless]</span><br><span class="line">[2020-04-09T02:03:49,957][INFO ][o.e.p.PluginsService     ] [es-node] loaded module [parent-join]</span><br><span class="line">[2020-04-09T02:03:49,957][INFO ][o.e.p.PluginsService     ] [es-node] loaded module [percolator]</span><br><span class="line">[2020-04-09T02:03:49,957][INFO ][o.e.p.PluginsService     ] [es-node] loaded module [reindex]</span><br><span class="line">[2020-04-09T02:03:49,957][INFO ][o.e.p.PluginsService     ] [es-node] loaded module [transport-netty3]</span><br><span class="line">[2020-04-09T02:03:49,957][INFO ][o.e.p.PluginsService     ] [es-node] loaded module [transport-netty4]</span><br><span class="line">[2020-04-09T02:03:49,958][INFO ][o.e.p.PluginsService     ] [es-node] no plugins loaded</span><br><span class="line">[2020-04-09T02:03:51,680][INFO ][o.e.d.DiscoveryModule    ] [es-node] using discovery type [zen]</span><br><span class="line">[2020-04-09T02:03:52,176][INFO ][o.e.n.Node               ] [es-node] initialized</span><br><span class="line">[2020-04-09T02:03:52,176][INFO ][o.e.n.Node               ] [es-node] starting ...</span><br><span class="line">[2020-04-09T02:03:52,317][INFO ][o.e.t.TransportService   ] [es-node] publish_address &#123;192.168.0.106:9300&#125;, bound_addresses &#123;192.168.0.106:9300&#125;</span><br><span class="line">[2020-04-09T02:03:52,326][INFO ][o.e.b.BootstrapChecks    ] [es-node] bound or publishing to a non-loopback address, enforcing bootstrap checks</span><br><span class="line">[2020-04-09T02:03:55,420][INFO ][o.e.c.s.ClusterService   ] [es-node] new_master &#123;es-node&#125;&#123;u9kDBekMRxi8KWOBIGcwAg&#125;&#123;Zlaf7S5BRbqosFtqkgvR-A&#125;&#123;master&#125;&#123;192.168.0.106:9300&#125;, reason: zen-disco-elected-as</span><br><span class="line">-master ([0] nodes joined)[2020-04-09T02:03:55,453][INFO ][o.e.h.n.Netty4HttpServerTransport] [es-node] publish_address &#123;192.168.0.106:9200&#125;, bound_addresses &#123;192.168.0.106:9200&#125;</span><br><span class="line">[2020-04-09T02:03:55,453][INFO ][o.e.n.Node               ] [es-node] started</span><br><span class="line">[2020-04-09T02:03:55,455][INFO ][o.e.g.GatewayService     ] [es-node] recovered [0] indices into cluster_state</span><br></pre></td></tr></table></figure><p>并且在本地浏览器中输入 192.168.0.106:9200 也能看到elasticsearch推送出来的消息</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  &quot;name&quot; : &quot;es-node&quot;,</span><br><span class="line">  &quot;cluster_name&quot; : &quot;es-cluster&quot;,</span><br><span class="line">  &quot;cluster_uuid&quot; : &quot;oCrLIXMJQ_WzSd1-7lLeYw&quot;,</span><br><span class="line">  &quot;version&quot; : &#123;</span><br><span class="line">    &quot;number&quot; : &quot;5.6.8&quot;,</span><br><span class="line">    &quot;build_hash&quot; : &quot;688ecce&quot;,</span><br><span class="line">    &quot;build_date&quot; : &quot;2018-02-16T16:46:30.010Z&quot;,</span><br><span class="line">    &quot;build_snapshot&quot; : false,</span><br><span class="line">    &quot;lucene_version&quot; : &quot;6.6.1&quot;</span><br><span class="line">  &#125;,</span><br><span class="line">  &quot;tagline&quot; : &quot;You Know, for Search&quot;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><h2 id="关闭elasticsearch"><a href="#关闭elasticsearch" class="headerlink" title="关闭elasticsearch"></a>关闭elasticsearch</h2><p>通过jps命令找到Elasticsearch进程号，直接kill就可以</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">elasticsearch@master:/usr/local$ jps</span><br><span class="line">27500 Elasticsearch</span><br><span class="line">27631 Jps</span><br><span class="line">elasticsearch@master:/usr/local$ kill -9 27500</span><br><span class="line">elasticsearch@master:/usr/local$ jps</span><br><span class="line">27643 Jps</span><br></pre></td></tr></table></figure>]]></content>
     
@@ -745,9 +773,9 @@
       <category term="数据结构与算法" scheme="http://www.duanmuxu.top/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/"/>
     
     
-      <category term="数据结构" scheme="http://www.duanmuxu.top/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/"/>
-    
       <category term="算法" scheme="http://www.duanmuxu.top/tags/%E7%AE%97%E6%B3%95/"/>
+    
+      <category term="数据结构" scheme="http://www.duanmuxu.top/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/"/>
     
       <category term="leetcode" scheme="http://www.duanmuxu.top/tags/leetcode/"/>
     
@@ -776,9 +804,9 @@
       <category term="数据结构与算法" scheme="http://www.duanmuxu.top/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/"/>
     
     
-      <category term="数据结构" scheme="http://www.duanmuxu.top/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/"/>
-    
       <category term="算法" scheme="http://www.duanmuxu.top/tags/%E7%AE%97%E6%B3%95/"/>
+    
+      <category term="数据结构" scheme="http://www.duanmuxu.top/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/"/>
     
       <category term="字符串" scheme="http://www.duanmuxu.top/tags/%E5%AD%97%E7%AC%A6%E4%B8%B2/"/>
     
@@ -812,9 +840,9 @@
       <category term="数据结构与算法" scheme="http://www.duanmuxu.top/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/"/>
     
     
-      <category term="数据结构" scheme="http://www.duanmuxu.top/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/"/>
-    
       <category term="算法" scheme="http://www.duanmuxu.top/tags/%E7%AE%97%E6%B3%95/"/>
+    
+      <category term="数据结构" scheme="http://www.duanmuxu.top/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/"/>
     
       <category term="leetcode" scheme="http://www.duanmuxu.top/tags/leetcode/"/>
     
@@ -843,9 +871,9 @@
       <category term="数据结构与算法" scheme="http://www.duanmuxu.top/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/"/>
     
     
-      <category term="数据结构" scheme="http://www.duanmuxu.top/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/"/>
-    
       <category term="算法" scheme="http://www.duanmuxu.top/tags/%E7%AE%97%E6%B3%95/"/>
+    
+      <category term="数据结构" scheme="http://www.duanmuxu.top/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/"/>
     
       <category term="leetcode" scheme="http://www.duanmuxu.top/tags/leetcode/"/>
     
@@ -876,11 +904,11 @@
       <category term="数据结构与算法" scheme="http://www.duanmuxu.top/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/"/>
     
     
+      <category term="算法" scheme="http://www.duanmuxu.top/tags/%E7%AE%97%E6%B3%95/"/>
+    
       <category term="剑指Offer" scheme="http://www.duanmuxu.top/tags/%E5%89%91%E6%8C%87Offer/"/>
     
       <category term="数据结构" scheme="http://www.duanmuxu.top/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/"/>
-    
-      <category term="算法" scheme="http://www.duanmuxu.top/tags/%E7%AE%97%E6%B3%95/"/>
     
   </entry>
   
@@ -935,9 +963,9 @@
       <category term="数据结构与算法" scheme="http://www.duanmuxu.top/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/"/>
     
     
-      <category term="数据结构" scheme="http://www.duanmuxu.top/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/"/>
-    
       <category term="算法" scheme="http://www.duanmuxu.top/tags/%E7%AE%97%E6%B3%95/"/>
+    
+      <category term="数据结构" scheme="http://www.duanmuxu.top/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/"/>
     
   </entry>
   
@@ -963,9 +991,9 @@
       <category term="数据结构与算法" scheme="http://www.duanmuxu.top/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/"/>
     
     
-      <category term="剑指Offer" scheme="http://www.duanmuxu.top/tags/%E5%89%91%E6%8C%87Offer/"/>
-    
       <category term="算法" scheme="http://www.duanmuxu.top/tags/%E7%AE%97%E6%B3%95/"/>
+    
+      <category term="剑指Offer" scheme="http://www.duanmuxu.top/tags/%E5%89%91%E6%8C%87Offer/"/>
     
       <category term="字符串" scheme="http://www.duanmuxu.top/tags/%E5%AD%97%E7%AC%A6%E4%B8%B2/"/>
     
@@ -994,9 +1022,9 @@
       <category term="数据结构与算法" scheme="http://www.duanmuxu.top/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/"/>
     
     
-      <category term="数据结构" scheme="http://www.duanmuxu.top/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/"/>
-    
       <category term="算法" scheme="http://www.duanmuxu.top/tags/%E7%AE%97%E6%B3%95/"/>
+    
+      <category term="数据结构" scheme="http://www.duanmuxu.top/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/"/>
     
   </entry>
   
@@ -1023,9 +1051,9 @@
       <category term="数据结构与算法" scheme="http://www.duanmuxu.top/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/"/>
     
     
-      <category term="算法" scheme="http://www.duanmuxu.top/tags/%E7%AE%97%E6%B3%95/"/>
-    
       <category term="PAT" scheme="http://www.duanmuxu.top/tags/PAT/"/>
+    
+      <category term="算法" scheme="http://www.duanmuxu.top/tags/%E7%AE%97%E6%B3%95/"/>
     
   </entry>
   
@@ -1138,11 +1166,11 @@
       <category term="数据结构与算法" scheme="http://www.duanmuxu.top/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/"/>
     
     
+      <category term="算法" scheme="http://www.duanmuxu.top/tags/%E7%AE%97%E6%B3%95/"/>
+    
       <category term="剑指Offer" scheme="http://www.duanmuxu.top/tags/%E5%89%91%E6%8C%87Offer/"/>
     
       <category term="数据结构" scheme="http://www.duanmuxu.top/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/"/>
-    
-      <category term="算法" scheme="http://www.duanmuxu.top/tags/%E7%AE%97%E6%B3%95/"/>
     
   </entry>
   
@@ -1170,11 +1198,11 @@
       <category term="数据结构与算法" scheme="http://www.duanmuxu.top/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/"/>
     
     
+      <category term="算法" scheme="http://www.duanmuxu.top/tags/%E7%AE%97%E6%B3%95/"/>
+    
       <category term="剑指Offer" scheme="http://www.duanmuxu.top/tags/%E5%89%91%E6%8C%87Offer/"/>
     
       <category term="数据结构" scheme="http://www.duanmuxu.top/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/"/>
-    
-      <category term="算法" scheme="http://www.duanmuxu.top/tags/%E7%AE%97%E6%B3%95/"/>
     
   </entry>
   
@@ -1201,11 +1229,11 @@
       <category term="数据结构与算法" scheme="http://www.duanmuxu.top/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/"/>
     
     
+      <category term="算法" scheme="http://www.duanmuxu.top/tags/%E7%AE%97%E6%B3%95/"/>
+    
       <category term="剑指Offer" scheme="http://www.duanmuxu.top/tags/%E5%89%91%E6%8C%87Offer/"/>
     
       <category term="数据结构" scheme="http://www.duanmuxu.top/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/"/>
-    
-      <category term="算法" scheme="http://www.duanmuxu.top/tags/%E7%AE%97%E6%B3%95/"/>
     
   </entry>
   
